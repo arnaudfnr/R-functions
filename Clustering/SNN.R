@@ -1,4 +1,6 @@
-source("C:/Users/Arnaud/Documents/Etudes/Semestre_Estonie_A16/Courses/Data_Mining_and_Network_Analysis/Practice/distances.R")
+### DOESN'T WORK PROPERLY FOR NOW ### 
+
+source("distances.R")
 
 # Shared Nearest Neighbor Classification algorithm
 
