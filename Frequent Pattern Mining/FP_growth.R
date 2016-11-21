@@ -1,3 +1,5 @@
+### WORK VERY SLOWLY ###
+
 createTree <- function(TrDB, indParent, nameNodes, nameFIHT, env = parent.frame())
 {
   get(nameNodes, env) ->> Nodes
