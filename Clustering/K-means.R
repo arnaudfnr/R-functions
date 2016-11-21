@@ -1,5 +1,4 @@
-
-source("C:/Users/Arnaud/Documents/Etudes/Semestre_Estonie_A16/Courses/Data_Mining_and_Network_Analysis/Practice/distances.R")
+source("distances.R")
 
 kMeans<-function(Set, k, dist=euclidean)
 {
