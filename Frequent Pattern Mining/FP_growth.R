@@ -1,4 +1,3 @@
-source("C:/Users/Arnaud/Documents/Etudes/Semestre_Estonie_A16/Courses/Data_Mining_and_Network_Analysis/Homeworks/Home Assignment 2/Workspace exo2/createTree.R")
 createTree <- function(TrDB, indParent, nameNodes, nameFIHT, env = parent.frame())
 {
   get(nameNodes, env) ->> Nodes
