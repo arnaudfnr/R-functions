@@ -77,6 +77,7 @@ for(i in 1: 23)
 }
 
 ## Personal Files
+# These documents are not on GitHub, so put your own :-)
 Perso <- list()
 for(i in 1:7)
   Perso[[i]] = read.table(paste(docDir, "Perso_", i,".txt", sep=""), sep = "", row.names = NULL, fill = TRUE, quote = "", stringsAsFactors = FALSE )
