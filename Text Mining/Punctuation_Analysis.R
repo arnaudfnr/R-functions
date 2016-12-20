@@ -31,7 +31,7 @@ library(tm)
 library(plotly)
                 
 ## Paths to main directories
-workingDir <- "C:/Users/Arnaud/Documents/Etudes/Semestre_Estonie_A16/Courses/Data_Mining_and_Network_Analysis/Homeworks/Home Assignment 3/"
+workingDir <- "mywWorkingDir"
 docDir <- paste(workingDir, "Documents/", sep="")
 scriptDir <- paste(workingDir, "Scripts/", sep="")
 resultDir <- paste(workingDir, "Results/Ex2/", sep="")
@@ -40,8 +40,8 @@ xpdfDir <- '"C:/Program Files (x86)/xpdf/bin64/pdftotext.exe"'
 ## Source functions
 source(paste(scriptDir, "Corpus_features.R", sep=""))
 source(paste(scriptDir, "Corpus_stats.R", sep=""))
-source(paste(scriptDir, "training.R", sep=""))
-source(paste(scriptDir, "KNN.R", sep=""))
+source(paste(scriptDir, "training.R", sep="")) # in classification directory 
+source(paste(scriptDir, "KNN.R", sep="")) # in classification directory
 
 ### IMPORTATION OF DOCUMENTS
 
@@ -157,7 +157,6 @@ for(i in 1:4)
 
 # Remove Perso documents from the modeling points.
 # Indeed, After the training I am hoing to classiy my Perso docs into 1 of the three over types of document.
-# Will I be a poet, a politician or a researcher ????
 modelingPoints <- which(labelSet != "Perso")
 modelSet <- FinalSet[modelingPoints,]
 kValues <- c(3,5,9,11)
