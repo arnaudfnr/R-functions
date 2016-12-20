@@ -1,10 +1,11 @@
 library(xlsx)
 library(plotly)
 
-source("C:/Users/Arnaud/Documents/Etudes/Semestre_Estonie_A16/Courses/Data_Mining_and_Network_Analysis/Homeworks/Home Assignment 3/Scripts/TS_ADD_Decomp.R", chdir = TRUE)
+# Importing function that compute the time-series decomposition with additive model
+source("TS_ADD_Decomp.R", chdir = TRUE)
 
-#ts_data <- read.xlsx2(file = "C:/Users/Arnaud/Documents/Etudes/Semestre_Estonie_A16/Courses/Data_Mining_and_Network_Analysis/Homeworks/Home Assignment 3/Datasets/TS_forecasting.xlsx", sheetIndex = 1, as.data.frame = TRUE, header = TRUE, colClasses = rep("numeric",3))
-ts_data <- read.xlsx2(file = "C:/Users/Arnaud/Documents/Etudes/Semestre_Estonie_A16/Courses/Data_Mining_and_Network_Analysis/Homeworks/Home Assignment 3/Datasets/internet-traffic-data-in-bits-fr.xlsx", startRow = 15, colIndex = c(1,2), sheetIndex = 1, as.data.frame = TRUE, header = TRUE, colClasses = rep("numeric",2))
+# Here the traffic data is 14 days of network traffic of a European Internet Service Provider
+ts_data <- read.xlsx2(file = "/Datasets/internet-traffic-data-in-bits-fr.xlsx", startRow = 15, colIndex = c(1,2), sheetIndex = 1, as.data.frame = TRUE, header = TRUE, colClasses = rep("numeric",2))
 
 #####     SUMMARY   #####
   ### PARAMETERS INITIALIZATION
@@ -16,19 +17,18 @@ ts_data <- read.xlsx2(file = "C:/Users/Arnaud/Documents/Etudes/Semestre_Estonie_
 
 ### PARAMETERS INITIALIZATION   ###
 len <- length(ts_data[,1])
-posVal <- 2 # 3 for practice data
-season_nb <- 7 # 4 for practice data
-forecast_nb <- 14 # 8 for practice data
+posVal <- 2 # the column index of time-series values
+season_nb <- 7 # as the number of days in a week
+forecast_nb <- 14 # number of days to forecast
 
 # Preparing the forecast data so it can be added a the end of the time-series dataset
 # Parameters change depending on the dataset !
 # Name of dimension change depending on dimension names of TS
-value <- data.frame(Traffic = rep("?", forecast_nb)) # TRAFFIC
-#value <- data.frame(Sales = rep("?", forecast_nb)) # PRACTICE
+traffic <- data.frame(Traffic = rep("?", forecast_nb)) # TRAFFIC
+# Add index of the day
 seasons <- data.frame(Date = 1:forecast_nb%%season_nb) # TRAFFIC
-#seasons <- data.frame(Q = 1:forecast_nb%%season_nb) # PRACTICE
+# Convert the 0 index to last Index, i.e. 7 for a weekly season
 seasons[which(seasons==0),1] = season_nb
-#Year = data.frame(Year = rep(0, 8)) # PRACTICE
 
 ###   FORECAST RESULTS   #
 # The function returns the decomposition and the forecast for the 8 seasons 
@@ -72,9 +72,3 @@ plot_ly(SI, type = 'scatter', mode='lines', x=1:season_nb, y=~SI)
 plot_ly(CF, type = 'scatter', mode='lines', x=1:(2*season_nb), y=~CF)
 plot_ly(IrregTS, type = 'scatter', mode='lines', x=1:len, y=~IrregTS)
 plot_ly(Forecast, type = 'scatter', mode='lines', x=1:(len+forecast_nb), y=~Forecast)
-
-write.xlsx2(ts_data, "C:/Users/Arnaud/Documents/Etudes/Semestre_Estonie_A16/Courses/Data_Mining_and_Network_Analysis/Homeworks/Home Assignment 3/Results/traffic_forecast_results.xlsx", sheetName = "Forecast Data", col.names = TRUE, row.names = TRUE)
-write.xlsx2(Errors, "C:/Users/Arnaud/Documents/Etudes/Semestre_Estonie_A16/Courses/Data_Mining_and_Network_Analysis/Homeworks/Home Assignment 3/Results/traffic_forecast_results.xlsx", sheetName = "Performance Results", col.names = TRUE, row.names = TRUE, append = TRUE)
-
-#write.xlsx2(ts_data, "C:/Users/Arnaud/Documents/Etudes/Semestre_Estonie_A16/Courses/Data_Mining_and_Network_Analysis/Homeworks/Home assignment 3/Results/practice_forecast_results.xlsx", sheetName = "Forecast Data", col.names = TRUE, row.names = TRUE)
-#write.xlsx2(Errors, "C:/Users/Arnaud/Documents/Etudes/Semestre_Estonie_A16/Courses/Data_Mining_and_Network_Analysis/Homeworks/Home assignment 3/Results/practice_forecast_results.xlsx", sheetName = "Performance Results", col.names = TRUE, row.names = TRUE, append = TRUE)
