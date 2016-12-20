@@ -1,0 +1,341 @@
+2009 International Conference on Web Information Systems and Mining
+
+Common Caching Replacement Algorithm for Video-On-Demand System
+
+Fengbin Li, Jun Li, Zhong Hu, Jun Zhou Key Laboratory of Network Communication System and Control,CAS
+University of Science and Technology of China (USTC) Hefei, Anhui, 230027, P.R.China
+lfb0132@mail.ustc.edu.cn, Ljun@ustc.edu.cn, huzhong@mail.ustc.edu.cn , zuju@mail.ustc.edu.cn
+
+Abstract--As the streaming media files growing larger and larger in size, it inevitably aggravates the network congestion and user perceive latency, to settle problem lots of caching algorithms have been applied in video-on-demand (VOD) system. However, different algorithm is correspondence to an unique caching replacement policy, which limits its applications and the effects are not very satisfied, so in VOD aspect it is necessary to find a common replacement algorithm. In this paper, we propose a Common Caching Replacement Algorithm (CCRA). As a unification replacement algorithm, it sufficiently considers the recent visit and segment size, effectively solves the disk I/O bandwidth bottleneck limitation and improves byte hit rate. We respectively replace the previous caching replacement policy in Uniform segmentation algorithm and Exponential segmentation algorithm with CCRA. From the experimental comparison, Uniform segmentation with CCRA improves almost 5% in Disk Reduce Ratio, and Exponential segmentation with CCRA increases near 8% in Byte Hit Ratio.
+Keywords-caching replacement; video-on-demand; segmentbased cache;
+I. INTRODUCTION
+In the recent years, the demand of video services over the network have been increasing fast due to high development of network and digital video processing technologies. The more and more large streaming media files have caused significant impacts on user perceive latency and network congestion, a popular approach to reduce the response time and backbone bandwidth consumption is to deploy proxy caches at the edge of the Internet. Although proxy caching has been successful in delivering static text-based content, it encounters difficulties in delivering streaming media content for two factors. One is that a media object is larger than a text-based object, thus, caching entire media objects cannot as feasible as static objects, which can quickly exhaust entire cache. The other is that the popularity of different parts of a video can be different, like the prefix is generally more popular.
+Due to the large size of streaming media, many caching algorithms for videos have been employed. Prefix caching[1] and segment-based caching[2][3][4] are two frequently used algorithms. Segment-based caching is the recent research hot, especially the exponential segmentation algorithm[2] and the adaptive and lazy segmentation algorithm[3][4], which are the two typical segment caching algorithm. Prefix
+
+caching is mostly targeted to reduce the start delay and jitter of the streaming media, especially benefit to a small cache. Exponential segmentation strategy can quickly replace a segment in order to adapt the change of the movie's popularity. Adaptive and lazy segmentation can determine the segment length based on the client access behaviors in real time, admission and eviction of segments are carried out adaptively based on an accurate utility function. All these research caching algorithms almost aim at reduce the backbone bandwidth, the most difference is the segmentation strategy and the performance influence factors.
+At the same time, the streaming media applications facing a change in the principal contradiction. The network transmission bandwidth has been greatly improved, while disk I / O bandwidth only has a few dozen megabytes compared to Gigabit Ethernet, So disk I / O bottleneck is the key issues to be urgently settled in VOD system . In addition, how to effectively support the VCR(Jump, pause, fastforward, rewind, etc.) operation has become an inevitably caching research questions in streaming media. Under this situation, lots of Caching algorithms are been applied in vod system, but different algorithms with different replacement implementation, it brings lots of troubles to programmers to determine which area should use that replacement. So it is urgent for us to propose a new method to resolve this.
+This paper proposes a Common Caching Replacement Algorithm called CCRA, first using CCRA to replace LRU in Uniform segmentation algorithm and the utility function of Exponential segmentation algorithm, respectively form the new algorithm Uniform segmentation(CCRA) and Exponential segmentation(CCRA), then compare with the previous formation. CCRA neither like LRU just considers the last time of using, nor like the replacement policy of exponential algorithm considers the different size of segment, it comprehensively takes into account of the recent visit and the segment size. From the experimental comparison, we can see that Uniform segmentation(CCRA) almost improves 5% in Disk Reduce Ratio and Exponential segmentation(CCRA) increases near 8%.
+The rest of the paper is organized as follows. Related Works is presented in Section II. Algorithm Design is presented in Section III and Section IV presents Simulation And Evaluations. We make the Conclusion in Section V.
+
+978-0-7695-3817-4/09 $26.00 © 2009 IEEE DOI 10.1109/WISM.2009.154
+
+748
+
+II. RELATED WORKS
+Some earlier studies on caching focused more on webcaching[6,7], Cao and Irani [6] presents a relative comparison of various cache replacement policies that have been proposed for web-caching. Their work discusses some of the merits and concerns of replacement policies such as Least Frequently Used (LFU), Least Recently Used (LRU), etc. However LFU exits the problem of caching pollution, means that it has no ways to distinguish recent versus past reference frequency of a page and LRU exits long-loop model problems, that is, it caches the segment which just had been replaced out of cache. Simultaneously both of these algorithms prone to continuing to replace the same media object, this acting definitely increase the probability of release, also decrease request hit rate and increase response latency.
+Recent research in the area of caching streaming media also exists a lot[8,9,10]. In [8], the authors put forward a method through caching the file's 'hotspots' clips to support the user's VCR operation. In [9], they through the boundary detection, key-frame selection and face detection and tracking technique to obtain the 'video summary(a number of key-frame images)' document to support the user's VCR operation. Both of these methods to provide users with a video preview function and support the user's fast-forward and back jump, but both of these are required extra files to record the 'hot' and 'video summary', increasing the complexity of caching management. When it comes to the access of 'video summary', it is also required analysis of coding techniques and graphic technology, which limits the application of these two algorithms. Dynamic Interleaved Segment Caching [10] also supports the VCR operation, in which the algorithm according to client access patterns, dynamically cache the segments of a media object, which greatly reduces the startup delay of the user-demand. However, the algorithm at the expense of caching performance to support the user's VCR operations, also in byte hit rate is inferior to the consecutive caching algorithm.
+
+III. ALGORITHM DESIGN
+
+The essence of the caching problem is at the constraint of
+
+limited resources to decide which data should be cached and
+
+how to manage the cache data. In resource utilization aspect,
+
+how to make unit caching space gain the largest caching
+
+value is one of main purpose of the study. In order to reach
+
+the maximum using value, the unit caching space should
+
+cache the most valuable data which is the most frequently
+
+used. The definition of data's utility function is expressed
+
+as:
+
+i(t)
+
+=
+
+Pi(t) × Ci(t) sizei
+
+(1)
+
+In this formula, for each data i, sizei is its size, Ci(t) is the cost of accessing data i, Pi(t) is the probability of future use. Assuming the maximum caching capacity is B,
+
+the collection of streaming media in cache is Data(t)={1,2, · · · ,n}, the way of caching recorded as   {1, 0} , 1 express cache, 0 indicate no cache. In order to maximize space utilization and byte hit rate, t time to implement the caching strategy should be made:
+
+M ax
+
+Pi(t) × Ci(t) × i(t)
+
+iData(t)
+
+sizei × i(t)  B
+iData(t)
+
+Up to now, the parameter sizei can be easily calculated, the key step is to estimate the Pi(t) parameter and the Ci(t). As Pi(t), because of the uses' random visit, it is effectively to assume that parameters are independent and obey the
+Poisson distribution with parameter i(t) . So the probability can be replaced by the approximation[5]:
+
+Pi(t) =
+
+i(t)
+n
+
+j (t)
+
+j=1
+
+(2)
+
+Since the replacement is determined by the ranking of the files' utility function value, we brought (2) into (1) and can be simplified as:
+
+i(t)
+
+=
+
+i(t)
+
+×
+
+Ci(t) sizei
+
+(3)
+
+To estimate the value's parameter i(t), according literature[5] method, we define ki(t) as: the number of the most recent references retained between[ tki, t], in which t is the current time, tki is the time of the ki(t) backward reference, in other words, tki is the first time appear of file i, so
+
+i(t)
+
+=
+
+ki(t) t - tki
+
+Bring (4) to (3), we can get the utility function:
+
+(4)
+
+i(t)
+
+=
+
+ki(t) t - tki
+
+×
+
+Ci(t) sizei
+
+(5)
+
+In order to obtain the Ci(t), we should select the smallest cost in cache, which equals to the smallest cost which
+
+obtained from the servers. Assume the servers which we get
+
+the data are { ser1,ser2,...serm }, the cost of accessing data i from serk (1  k  m) is N C(k), and all the link which the data pass as L, each link l the cost is lk(l), N C(k) can
+
+be calculated as:
+
+N C(k) = lk(l)
+lL
+so Ci(t) can be expressed as:
+
+Ci(t) = min N C(k)
+1km
+
+(6)
+
+Bring (6) to (5), the utility function can be written as:
+
+i(t)
+
+=
+
+ki(t) t - tki
+
+×
+
+min N C(k)
+1km
+sizei
+
+749
+
+In the implementation of the algorithm, first of all it should calculate each file media's utility function value, secondly replace the smallest value of the media file. In the utility function, it fully considers the media files' recent visit, the segment size and the network cost. It also benefits to decreasing the start-up latency and increasing the caching space utilization.
+
+IV. SIMULATION AND EVALUATIONS
+
+Generally speaking, the Byte Hit Rate (BHR) and Disk
+
+Reduce Ratio (DRR) are the two main important indicators
+
+to measure the performance of traditional caching system.
+
+In all video-on-demand operation, in order to know how
+
+much disk bandwidth we need, we can through test how
+
+many numbers of on-demand which are not delayed, in other
+
+words, what we demand have inside the cache and the user
+
+can see directly without waiting.
+
+The Byte Hit Rate can be defined as the size of data
+
+which we order has been in cache divided the whole data
+
+size. In order to give the definition of DRR, we assume that
+
+each jump as one demand and the total number times of
+
+on-demand operation is R. Define Ti as the mask in section on the i-th times demand, if i-th demand has been cached,
+
+then Ti=1, else Ti=0. So DRR is that all on-demand number
+
+R i=1
+
+Ti
+
+divide
+
+the
+
+total
+
+number
+
+R,
+
+it
+
+can
+
+be
+
+written
+
+as:
+
+R
+
+Ti
+
+DRR
+
+=
+
+i=1
+R
+
+We choose the uniform segmentation algorithm and the exponential segmentation algorithm as comparison. Uniform segmentation algorithm uses uniform length as its segmentation strategy, incremental caching as its access control strategy, that is, when the on-demand data is not in cache, it will only cache the next piece of data, and uses a simple LRU as replacement strategy. And we will use CCRA to replace LRU in uniform segmentation algorithm, so it will form a new caching algorithm, we will use Uniform segmentation(CCRA) in the following graph.
+Exponential segmentation algorithm uses multiplication segmentation strategy, with the same access control strategy as uniform segmentation algorithm and uses formula (7) as the replacement criteria, in which Tc is the current time, Ti is the last time to access the data, i is the number of the paragraph. Still we use CCRA to replace the formula (7), the new form we write it Exponential segmentation(CCRA).
+Because of adaptive and lazy algorithm would cache the full text on the first demand, making the algorithm in a poor performance in a small capacity cache, even making out the cost of the replacement greater than the benefit of caching, adaptive and lazy algorithm probably will increase the disk load and does not apply to the local cache, thus we do not have this algorithm as a comparison. Exponential
+
+Byte Hit Ratio
+
+0.35
+
+0.3
+
+0.25
+
+0.2
+
+0.15
+
+0.1
+
+0.05 0 0
+
+Uniform segmentation Uniform segmentation(CCRA)
+10 20 30 40 50 60 70 80
+Caching Space(GB)
+
+(a)
+
+0.5
+
+0.45
+
+0.4
+
+0.35
+
+0.3
+
+0.25
+
+0.2
+
+0.15
+
+0.1 0.05
+0
+
+Uniform segmentation Uniform segmentation(CCRA)
+10 20 30 40 50 60 70 80
+Caching Space(GB)
+
+(b)
+
+Figure 1. Uniform segmentation comparison
+
+Disk Reduce Ratio
+
+segmentation algorithm's utility function can be expressed
+
+as:
+
+1
+
+(Tc - Ti) × i
+
+(7)
+
+Our simulation will use 10 days' USTC VOD log, it detailed recorded all the users' various operating. In our segmentation, we set the segmentation size of uniform segmentation algorithm is 2M, the base segment of exponential segmentation algorithm is 2M, the first incremental caching size is 4M.
+Uniform segmentation compares with Uniform segmentation(CCRA) in byte hit ratio in Fig.1 graph (a), and in disk reduce ratio in Fig.1 (b). From Fig. 1 we know that the new form just improves a little compared with uniform segmentation algorithm in Byte Hit Ratio, but it really improves in DRR, almost improves by 5%, so the new one can effectively alleviate the disk bandwidth requirements. The reason is that it comprehensively considers the media files' recent visit, so it can guarantee that the caching contents are all the popular media.
+Exponential segmentation compares with Exponential
+
+750
+
+Disk Reduce Ratio
+
+Byte Hit Ratio
+
+0.35
+0.3
+0.25
+0.2
+0.15
+0.1
+0.05
+Exponential segmentation Exponential segmentation(CCRA)
+0 0 10 20 30 40 50 60 70 80
+Caching Space(GB)
+(a)
+0.35
+0.3
+0.25
+0.2
+0.15
+0.1
+0.05
+Exponential segmentation Exponential segmentation(CCRA)
+0 0 10 20 30 40 50 60 70 80
+Caching Space(GB)
+(b)
+Figure 2. Exponential segmentation comparison
+segmentation(CCRA) in byte hit ratio in Fig.2 graph (a), and in disk reduce ratio in Fig.2 (b). From Fig. 2 we see that the new form improves almost by 8% compared with exponential segmentation in Byte Hit Ratio, in DRR though it only increases a little. Because the exponential algorithm only considers the last time and the file size, so it always replaces the last segment of file. But in VCR operation, we have known that the probability which the media we want is not in cache are much bigger, that is mean, we have to replace frequently, so exponential segmentation will inevitably replace the popular media, and finally reduce the Byte Hit Ratio.
+In Fig.1 and Fig.2, we can conclude that CCRA can effectively improve the DRR when it is used in uniform segmentation algorithm, and used in exponential segmentation algorithm it can apparently increase the Byte Hit Ratio. So either uniform segmentation algorithm or exponential segmentation algorithm uses CCRA as its replacement algorithm can improve its performance. We know both of these algorithms are popular used in VOD, and through experiment comparison we see that CCRA has a better
+
+performance.
+V. CONCLUSION
+This paper analyzes recent exiting problems in popular segment-based caching replacement algorithm, and proposes a Common Caching Replacement Algorithm (CCRA). Through experimental comparison, CCRA has better performance than the traditional caching replacement algorithm. As alleviating the disk I / O bandwidth bottleneck limitation and improving the byte hit rate, CCRA plays a better role.
+ACKNOWLEDGMENT
+This paper is sponsored by the National High Technology Research and Development Program of China (No. 2008AA01A317) and the AnHui Colleges & Universities Provincial Science Research Project (No. KJ2008A106).
+REFERENCES
+[1] Subhabrata Sen , Jennifer Rexford, Don Towsley. Proxy Prefix Caching for Multimedia Streams[A]. In Proceedings of IEEE INFOCOM'99. New York: 1999, 1310-1319
+[2] Kun-lung Wu, Philip S. Yu, Joel L. Wolf. Segment Based Proxy Caching of Multimedia Streams[A]. ACM WWW10. Hong Kong: 2001, 36-44
+[3] Song-qing Chen, Bo Shen, Susie Wee et al. Adaptive and lazy segmentation based proxy caching for streaming media delivery[A].Proc. ACM NOSSDAV. Monterey, CA: 2003, 2231
+[4] Song-qing Chen, Bo Shen, Susie Wee et al. Segment-Based Streaming Media Proxy Modeling and Optimization[J]. IEEE TRANSACTIONS ON MULTIMEDIA: 2006,8(2), 243-256
+[5] OTOO E, OLKEN F, SHOSHANI A. Disk cache replacement algorithm for storage resource managers in data grids[A]. Proceedings of IEEE/ ACM Conference on Supercomputing [ C ] . Baltimore , Maryland, USA: 2002, 1-15.
+[6] Pei Cao and Sandy Irani. Cost-aware WWW proxy caching algorithms. In USENIX Symposium on Internet Technologies and Systems: 1997, 193-206.
+[7] C. C. Aggarwal and P. S. Yu. On disk caching of web objects in proxy servers. In Proc. Int'l. Conf.Info and Knowledge Management, CIKM'97, Las Vegas, Nevada: 1997, 238-245.
+[8] Fahmi H,Latif M,Sedigh-Ali S,Ghafoor A,Liu P,Hsu L.Proxy servers for scalable interactive video support[J].IEEE Computer:2001,43(9), 54-60
+[9] Sung-Ju Lee, Wei-Ying Ma, Bo Shen. An Interactive Video Delivery and Caching System Using Video Summarization[J]. Computer Communications: 2002,25(4), 424-435.
+[10] Lei Guo, Songqing Chen, Zhen Xiao, Xiaodong Zhang. DISC: Dynamic Interleaved Segment Caching for Interactive Streaming[C]. ICDCS: 2005, 763-772
+
+751
+
+

@@ -1,0 +1,333 @@
+Study on Land Use of Changping District with Spatial Data Mining Method
+Yong Wang1, Xi Chen2
+Geoscience and Surveying Engineering college China University of Mining and Technology (Beijing), Beijing 100083,China
+1wangkuong@126.com 2hongxi7899@126.com
+
+Abstract--In this paper, the author attempted to study on the land use of Changping District (2005 and 2008) with spatial data mining through geo-statistics method, and explored new method for land use spatial data mining. The land use data (2005 and 2008) were divided into 1km×1km,2km×2km,4km×4km grid cells respectively. And use spatial autocorrelation to analysis the land use structure and its changes in Changping District of Beijing. The study result proved that, as time goes on, most land type enhance the performance of the spatial autocorrelation, land use Structure more and more reasonable.
+Keyword--Spatial data mining; land use; Geostatistics; Spatial autocorrelation; Arcgis; Spatial analysis
+I. INTRODUCE
+Entering the new century, Changping Division of Beijing Municipal Bureau of State Land and Resources has accumulated a lot of land management data, such as land use map of each year, Changping New City Planning(2006-2020), data of agricultural land classification and gradation, The second round national land inventory, and the new round general land use planning, and so forth. But how to extract interesting and useful information from these massive data, it is a long-troubled issue to land managers and decision makers. The emergence of spatial data mining, provides a feasible method to solve this problem. Using the geo-statistics of spatial data mining, the paper attempt to mining data from land use spatial data of Changping District, expand the application field of geo-statistics to explore the land use new method for spatial data mining.
+II. RESEARCH METHOD
+Spatial autocorrelation refers to the correlation of the same variable at different spatial location, it is a measure of the degree of aggregation of spatial cell property, and it is a geo-statistical method, belongs to one kind of spatial analysis methods[1][2]. Land use data exist spatial dependency, that's called spatial autocorrelation. value of a certain variable becomes similar or more different with the shrinking of the measuring distance. Specifically, the spatial autocorrelation coefficient is used to measure land use variables in the spatial distribution and its impact on the neighborhood. If the value of a variable with the determination of the shrinking distances become similar, the variable was positive correlation. If the measured value with the shrinking of the distance to be
+
+different was a negative correlation. If the measured value
+
+does not show any spatial dependence, have a tendency to be
+
+spatial independent or spatial randomness[3]. Overmars et al.
+
+(2003)[4] first proposed that may exist spatial autocorrelation
+
+in land use, It is necessary first to analysis spatial
+
+autocorrelation, then introduce spatial autocorrelation model
+
+to be further study.
+
+Measure spatial autocorrelation, we must first define the
+
+spatial proximity goals, define and establish a
+
+two-dimensional spatial weight matrix. In other words, a
+
+space system, according to certain rules to find other units,
+
+which impact on the study units. And express the correlation
+
+among them. In China, these studies which research on spatial
+
+proximity and spatial weight gradually increased in recent
+
+years, such as using computer technology to create adjacency
+
+matrix based on the regional distribution[5], LIU Zhong-gang
+
+et al.(2006)[6] solve the generating problems of spatial weight
+
+matrix of the discrete points.
+
+Usually regions of space adjacent can be express with two
+
+dimensional symmetric spatial weight matrix wnn ,with the
+
+form as follow.
+
+ª w11 w12 " w1n º
+
+« «
+
+w21
+
+w22
+
+"
+
+w2
+
+n
+
+» »
+
+«" " " "»
+
+« ¬
+
+wn1
+
+wn 2
+
+"
+
+wnn
+
+» ¼
+
+1
+
+Where wij --proximity relationship between space region
+
+i and space region j, it can be measured base on adjacency
+
+standards or distance criteria.
+
+A lot rules to determine spatial weight,The most commonly
+
+used two rules as follows.
+
+Simple binary adjacency matrix
+
+1, region i and region j is adjacent
+
+wij ® ¯
+
+0, others
+
+2
+
+Distance-based binary spatial weight matrix
+
+1, the distance between i and j is less than d wij ¯®0, others
+
+3
+
+Under normal circumstances, spatial weight matrix can be
+
+defined as below:
+
+___________________________________ 978-1-4244-8351-8/11/$26.00 ©2011 IEEE
+
+
+
+wi*j
+
+wij x j
+n
+
+¦ wij x j
+
+j1
+
+4
+
+and
+
+wij*
+
+wij (d )x j
+n
+
+¦ wij x j
+
+j1
+
+5
+
+Where x j üattribute value.
+
+Morans I index of global spatial autocorrelation is that the
+
+most commonly used,which reflect the spatial proximity or
+
+adjacency of the regional units of the similarity of attribute
+
+values.
+
+n nn
+
+¦ ¦ ¦n wij (xi  x)(x j  x)
+
+wij (xi  x)(x j  x)
+
+I i1
+
+nn
+
+n
+
+¦ ¦ ¦wij (xi  x)2
+
+i1 j1 nn
+¦ ¦S 2 wij
+
+i1 j1 i1
+
+i1 j1
+
+6
+
+Where I is the Morans I index, S2
+
+¦ 1
+n
+
+n i1
+
+( xi
+
+
+
+x)2
+
+x
+
+¦1
+n
+
+n n1
+
+xi
+
+.
+
+Moran index I values generally between -1 to 1, less than 0
+
+indicates a negative correlation, equal to 0 for no correlation,
+
+positive correlation greater than 0. For the Moran index,
+
+standardized statistics Z can be used to test spatial
+
+autocorrelation among n regions, Z is calculated as:
+
+Z I  E(I) VAR(I )
+
+7
+
+Where the mean and variance is theoretical mean and standard deviation .On computing the test statistics, should test the Significance Testing of the spatial autocorrelation.
+
+III. STUDY AREA
+Changping District lies in the north-west of Beijing City, it
+is geography located at 115e5017E to 116e2949E
+and from 40 e 2  18  N to 40 e 23  13  N. North connected with Yanqing County, Huairou District,east with Shunyi District, south adjacent to Chaoyang District, Haidian District, and West adjacent to Mentougou District and Huailai County, Hebei Province. The total area is 1343 square kilometers, 40% of the plain area, 60% Mid-Levels area. Changping is located in the combined area of the Wenyu River plain and Yanshan, Taihang Mountain, the terrain northwest is high,Southeast is low, North adjacent to Jundushan Mountain ridge, south overlooking Beijing small plains. Climate is temperate continental monsoon climate, with four distinct seasons, adequate rainfall, beautiful environment, and appropriate temperature. Average sunshine
+hours 2684h, average temperature 11.8 , average rainfall 550.3mm[9]. The end of 2009, the whole resident population of 102.1 million, of which agricultural population is 21.1 million. From 2005 to 2008, arable land used by the 15226.06hm2 reduced to 11769.14hm2, a net decrease 3456.92hm2. Garden area from 10045.90hm2 reduced to 8271.08hm2, a net decrease 1774.82hm2. But construction land increased from 41345.4478hm2 to 34937.7867hm2, a net increase of 6407.6611hm2[10]. With the accelerated
+
+urbanization process, land use change in Changping District continues, the analysis of land use change is necessary.
+Fig 1 Administrative division map of Changping District(2008)
+IV. LAND USE STRUCTURE CHANGE OF CHANGPING DISTRICT
+To facilitate the study area into grid cells, this study conducted in ArcGGIS9.2. After final experiment,1km × 1km as a basic research scale. First, the study area is divided into 1755 1km × 1km of the basic research unit. Then,overlap analysis with land use status map 2005 and 2008, and calculated various types of land area occupied percentage for each grid. According to land resources classification system, which proposed by Liu Jiyuan[11], Using percentage share in the grid stands for land use data, The advantage is that it can maintain the consistency of the data very well. To further analyze different scales of spatial autocorrelation, In the basic scale of 1km × 1km, further research scale extended to 2km × 2km and 4km × 4km, and treat 2005 and 2008 land use data in the two scales. A. Spatial autocorrelation analysis of the basic scale
+In the basic research 1km × 1km scale, Calculate Morans I index of the 2005 and 2008 land use data,and calssified the land type in 9 major categories II,the spatial autocorrelation diagram as follows(Fig2,Fig3).
+Fig2 Spatial autocorrelation map of Changping District in 2005
+
+
+
+aArable land
+
+0RUDQV,
+
+ h  h
+h 
+
+ 
+            'LVWDQFH
+bGarden plot
+
+Fig3 Spatial autocorrelation map of Changping District in 2008
+
+From Fig2, forested land, arable land, and other agricultural land demonstrate strong positive spatial autocorrelation, and decrease with distance increase. Several other land type manifested in weak positive autocorrelation.
+From Fig3,forested land, Inhabitant, industry and mining land, arable land demonstrate strong positive autocorrelation, and decrease with distance increase. But several other land type manifested in weak positive autocorrelation.
+Fig2,fig3 shows that arable land and forested land has always been strong spatial positive autocorrelation. Residential, industry and mining land weak positive autocorrelation in 2005 change to strong positive autocorrelation in 2008. Other agricultural land from 2005 a strong spatial autocorrelation to the 2008 weak spatial autocorrelation. Other land use types of spatial autocorrelation, the performance has been weak in 2005,the spatial autocorrelation increased in 2008. This shows that with the social and economic development, land type is toward the reasonable direction. "Changping New City Planning " in the land use structure and the industrial layout adjustment, achieved the desired results. Arable land,garden plot,forested land,etc.The total amount unchanged,it is in line with the principle of strengthen agricultural foundamental role.
+
+cForested land (e) Inhabitant,industry and mining land (g) Water conservancy factilities land
+
+(d) Other agricultural land (f) Traffic land (h) Unused land
+
+B. Spatial autocorrelation analysis on different scales
+After the spatial autocorrelation in basic research scale, Further compare the 2005 and 2008, various land use types in the 1km × 1km, 2km × 2km and 4km × 4km scale of the Morans I index. Analysis of the evolution of land use structure of the scale effect of spatial autocorrelation.
+1 Various types of land in 2005 spatial autocorrelation analysis at different scales: It can be seen from Figure 4, different land use types at different scales, Morans I index curves showed significant differences. The same land type in the same distance,usually in the large scale spatial autocorrelation is stronger than the small scale,that's manifested as the increase of scale,land use types enhanced spatial autocorrelation trend.However,due to certain factors,individual land types also showed opposite trend.
+
+iOther land
+Fig4 Spatial autocorrelation map in different scales of
+Changping District in 2005
+Arable land. With the increase of scale, spatial autocorrelation of land gradually increased. In the three kinds of scale,Morans I index value of arable land is the larger of various types of land. This shows that the spatial autocorrelation of arable land is stronger in whole 9 types.
+Garden plot. Garden plot in 3 scales Morans I values were less than arable land,but spatial autocorrelation map in various scale were similar. The distribution of garden plot mainly in hilly area,affected by distribution and natural conditions,its spatial autocorrelation was weaker than arable land.
+forested land. Spatial autocorrelation map showed that forested land's trends different from other land use types. 1 km
+
+
+
+× 1 km and 2km × 2km scale of Moran's I values have little difference ,when extended to 4km × 4km, Morans I values decreased slightly. this was caused by terrain characteristics in Changping District.
+Other Agricultural land. The change of other agricultural land in the Moran's values is similar with arable land and garden plot. that's because other agricultural land mainly including water aquaculture,agricultural facilities,and so on. its spatial distribution has some relation with arable land,garden plot.
+Inhabitant, industry and mining land. The difference of spatial autocorrelation is small from less than 10km,spatial correlation is strong, but when more than 20km ,Morans I values had been close to 0,similar to random distribution. This is because the residential, industrial and mining sites scattered everywhere, some of the characteristics of aggregation, the more clustered in a small area, when beyond a certain distance, to show the relative independence.
+Traffic land. The decline degree is the larger of the 9 land types.Traffic land such as JingZhang Hignway,Jingying Road,Anshi Road and the city main roads.the roads intersect at a small scale.when in the small scale,spatial autocorrelation was weak,as the scale increase,the correlation becomes rapidly weak.
+Water conservancy facilities land. Morans I values in every scale are close to 0, that's random distribution. Changping irrigation facilities mainly in the Shisanling,Nanzhuang,and Shahe,the general location of the reservoir is selected with a certain randomness,and occupied land is small,Thus the spatial autocorrelation is not obvious.
+Unused land. Unused land in the 2km × 2km and 4km × 4km scale of the Morans I values similar, but higher than 1km × 1km scale. This indicates that with the gradual increase of scale, non spatial autocorrelation of land use changes is not obvious.
+Other land. Marans I values have little difference in different scale, indicating that spatial correlation is not obvious.
+2) Various types of land in 2008 spatial autocorrelation
+analysis at different scales: Can be seen from Figure 5,
+similar to 2005, all kinds of different scales of land Morans
+I value curve also showed a greater difference.
+
+(a) Arable land
+
+(b) Garden plot
+
+cForested land
+
+(d) Other agricultural land
+
+(e) Inhabitant, industry and mining land
+
+(f) Traffic land
+
+(g) Water conservancy facilities land
+
+hUnused land
+
+(i) Other land
+Fig5 Spatial autocorrelation map in different scales of Changping District
+in 2008
+Arable land: Similar to 2005, with the increase of scale, spatial autocorrelation of land gradually increased, and the spatial autocorrelation of land in 9 Land Types is also strong. But specific to each scale, compared to 2005, the Morans I values decreased slightly. This is because with the economic and social development, construction land gradually increased, part of arable land used for construction land, through dynamic balance of cultivated land of the spatial location shifted, and the spatial autocorrelation slightly weakened.
+Garden plot: Garden plot in the 1km × 1km and 2km × 2km scale of the Morans I values significantly less than the land, but in the 4km × 4km scale, Morans I closed arable land. In the small scale, distributed in the hilly areas affected by the impact of this feature, the garden plot show weak spatial autocorrelation, with scale expansion, the relative performance of a certain degree of spatial aggregation, spatial autocorrelation is relatively enhanced.
+Forested land: Spatial autocorrelation map of forested land show the trend of different with other land use type. In the 1km × 1km and 2km × 2km scale, the Morans I values have
+
+
+
+less difference, but the difference is that in 2005, scale extended to 4km × 4km, Morans I values are significantly reduced.
+Other agricultural land: with the research scale change, other agricultural land value change is large. The same as in 2005, the spatial distribution of other agricultural land and arable land, garden plot, the Morans I have similar to them.
+Inhabitant, industry and mining land: 2008 residential and industrial is very similar to arable land, under the three research scale, Morans I values are also the larger of the 9 land types. To compare to 2005, it is significantly different, it shows that with the social development and planning, industry and mining land connected to a film, present continuous, large-scale distribution characteristics, especially in the south near the location of 8 districts, Clusters of strong mining settlements, it is significantly enhanced spatial autocorrelation.
+Traffic land: Morans I value decline is large in the 9 land use types. Compared to 2005,the 6th Ring Road and Jingcheng Road were built, so 2km × 2km and 4km × 4km scale of the Morans I values increased slightly, the spatial correlation has been enhanced.
+Water conservancy facilities land: Compared with 2005, little change in water conservancy facilities, Morans I values of curves similar to 2005, in a variety of scales are close to 0, the performance of a random distribution. This shows that between 2005 and 2008, no new large-scale Changping water conservancy facilities, existing facilities are largely unchanged, the spatial correlation is still not obvious.
+Unused land: Similar to 2005, unused land in the 2km × 2km and 4km × 4km scale of the Morans I values no difference, higher than 1km × 1km scale of the Morans I values. With the gradual increase of scale, no spatial autocorrelation of land use changes were not significant.
+Other land: Similar to unused land, other land in 2km × 2km and 4km × 4km scale of the Morans I values less different, higher than 1km × 1km scale, showed a similar spatial autocorrelation to unused land.
+V. CONCLUSIONS
+This paper use Morans I index analysis scale effect of land use structure change and evolution in Changping District, the results showed that:
+In basic research 1km × 1km scale, 2005 and 2008 land use structure and evolution of the spatial autocorrelation analysis,
+
+the analysis results showed that, as time goes on, most land type enhance the performance of the spatial autocorrelation, land use Structure more and more reasonable.
+Different scales, that is 1km × 1km, 2km × 2km and 4km × 4km of several different scales, 2005 and 2008 9 major land use types of spatial autocorrelation analysis, found that as the research-scale Increased, most land type spatial autocorrelation can enhance the trend.
+Varieties of land types in different scales Morans I index changes, the surface is affected by different factors, but in fact illustrates the evolution of land use structure in Changping District, and closely depended with the status of social and economic development. With the economic and social development, various factors affect land use structure on a growing influence.
+REFERENCES
+[1] Zhang Songlin and Zhang Kun, "GRID-BASED SPATIAL WEIGHT MATRIX OF DISCRETE POINT,"Journal of Geodesy and Geodynamics, vol.28(6),pp.8790, 2008.
+[2] ZHANG Song-lin,ZHANG Kun, "Comparison betweeen General Moran's Index and Getis-Ord General G of Spatial Autocorrelation,"Acta scientiarum NAtural UM Univeristatis SUNYATSENI, vol.46(4), pp.9397, 2007.
+[3] XIE Hualin,LIU Liming,LI Bo,ZHANG Xinshi, "Spatial Autocorrelation Analysis of Multi-scale Land-use Changes:A Case Study in Ongniud Banner,Inner Mongolia,"ACTA GEOGRAPHICA SINICA, vol.61(4), pp.389400, 2006.
+[4] Overmars K.P.,De Koning G.H.J.,Veldkamp A, " Spatial autocorrelation in multi-scale land use models,"Ecological Modelling, vol.64, pp.257270, 2003.
+[5] LIU Xuhua,WANG Jingfeng, "Analysis and Application on the specification methods of the spatial weight matrix,"Geo-Infomation science, vol.2, pp.3844, 2002.
+[6] LIU Zhong-gang,LI Man-Chun,LIU Jian-feng,SUN Yan,Analysis and implement of spatial weight Matrix Based on Discrete Points,"Geography and Geo-Information Science, vol.22(3), pp.53-56, 2006.
+[7] XU Jianhua,Quantitative Geography,Beijing:Higher Education press,2009
+[8] ZHU Yunfeng, " GIS-BASED spatial autocorrelation analysis of urban landuse changed-A case study of Haizhu District of Guangzhou city "M.Eng.thesis, Guangzhou,SUN YAT-SEN UNIVERSITY,2005
+[9] Government Website of Changping District,Beijing City [ONLINE].http://www.bjchp.gov.cn/publish/portal0/tab63/module454/ more.htm
+[10] Changping branch of Beijing State land Resource Bureau.Present Land use map,.2005-2008
+[11] LIU Jiyuan,ZHANG Zhenxiang,ZHUANG Dafang,et al.Research on the Spatial-Temporal Information of China land use change,Beijing:Science Press,2005
+
+
+
+

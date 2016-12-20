@@ -1,0 +1,569 @@
+IEEE First International Conference on Data Stream Mining & Processing 23-27 August 2016, Lviv, Ukraine
+
+Invariant Operations on Discrete Neural Functions over Galois Field
+
+Fedir . Geche1, Anatolii Ye. Batyuk2, V.Yu. Buchok1
+1Uzhhorod National University, 88000, Ukraine, Uzhhorod, Narodna Square, 3, fgeche@hotmail.com 2Lviv Polytechnic National University, 79013, Ukraine, Lviv, S. Bandera, 12, abatyuk@gmail.com
+
+Abstract--The paper introduces concepts of a discrete neural function and a neural element over a Galois field. A criterion of the possibility of discrete function spectral analysis over a finite field is established. Discrete neural function invariant operations over a Galois field are described.
+Keywords--neural element; structure vector; discrete function; group character; finite field; spectrum of discrete function; invariant operation.
+I. INTRODUCTION
+Finite fields and groups are widely used in the theory of logic functions and automata [1-3]. Particularly important role belongs to finite fields in coding theory [1]. In [4], it is shown that any finite automaton has an isomorphic image in the form of a linear automaton over some finite field. Analysis and synthesis of linear automata over an arbitrary finite field is carried out by traditional methods of spectral analysis.
+Basic methods of spectral analysis [5,6] can be successfully used to check the possibility of discrete functions implementation by a neural element [13, 14] over a finite Galois field for finding invariant operations on them.
+II. SPECTRAL ANALYSIS OF DISCRETE FUNCTIONS OVER A GALOIS FIELD
+( )Let F = GF pm be a Galois field, which contains
+the cyclic groups
+Hk1 = a1 | a1k1 = 1, Hk2 = a2 | a2k2 = 1, ,
+Hkn = an | ankn = 1 , Gn = Hk1  Hk2   Hkn
+is a direct product of cyclic groups H ki . As a discrete function of n variables over the field F
+we define the unambiguous mapping of the form f : Gn  F .
+Note that the spectral analysis of discrete functions f : Gn  C over the field C is always possible because the field C contains a primitive k -th root of unity for
+
+any k =HCK (k1, k2 ,, kn ) , ­ the least common multiple
+of numbers k1, k2 ,, kn .
+( )If to choose F to be the Galois field F = GF pm ,
+the spectral analysis of a discrete functions f : Gn  F is not always possible [15, 16]. The spectral analysis of
+( )discrete functions over F = GF pm will be possible
+only when the dimension of the vector space
+{ ( )}VFn = f | f : Gn  GF pm and the order of the
+characters group X (Gn ) over the field F are the same. Consider the problem: whether it is possible to expand
+a function f : Gn  F in terms of characters of the group Gn over the field F If k1 = k2 =  = kn = 2 and to choose F to be the field of real numbers R , the group
+of characters X (Gn ) of the group Gn over the field R
+coincides with the system of Walsh-Hadamard basic functions and the spectral analysis of discrete functions is possible.
+If k1 = k2 =  = kn = k (k > 2) , and as a field F to
+be choosen the field of complex numbers C , the group
+of characters X (Gn ) over the field C coincides with the
+system of Vilenkyna-Krestenson basic functions and the spectral analysis of discrete functions is also possible.
+Let k = HCK (k1, k2 ,, kn ) . Let us show that in case
+the field F = GF ( p m ) contains a primitive k -th root of
+unity, k evenly divides u = pm -1 . Assume, that a field
+with the primitive element  contains the primitive k -th
+root of unity  . Then the cyclic group Hk =  |  k = 1
+is a subgroup of the cyclic group of the field F and according to the Lagrange theorem [7], we obtain that k is a divisor of u . Let k evenly divides u . Consider the
+element  =  u/k . Show that it is a primitive root of unity. Taking into account the properties of primitive element  of the field F [6,8.9], we can state that for any
+i, j, r {1, 2,, k-1}  i  j , if i  j and  r  1 .
+Thus, k is the least natural number so that  k = 1 . Hence, we conclude that the spectral analysis of the
+
+978-1-5090-3736-0/16/$31.00 ©2016 IEEE
+
+112
+
+discrete functions f : Gn  F is possible if and only if
+k evenly divides u .
+
+If k1 = k2 =  = kn = k (k > 2) , and as a field F to
+choose the field of complex numbers C , the group of
+characters X (Gn ) over the field C coincides with the
+system of Vilenkyna-Krestenson basic functions and the spectral analysis of discrete functions is also possible.
+Let k =HCK (k1, k2 ,, kn ) . Show that in case the field
+F = GF ( pm ) contains a primitive k -th root of unity, k
+
+evenly divides u = p m - 1 . Assume, that the field with
+the primitive element  contains the primitive k -th root
+
+of unity  . Then the cyclic group Hk =  |  k = 1 is a
+subgroup of the cyclic group of the field F and according to the Lagrange theorem [7, 11], we obtain that k is a divisor of u . Let k evenly divides u . Consider
+the element  =  u/k . Show that it is a primitive k -th root of unity. Taking into account the properties of the primitive element  of the field F [8,9], we can state
+that for any i, j, r  {1,2,, k-1}  i  j , if i  j and
+
+ r  1 . Thus, k is the least natural number so that  k = 1 . Hence, we conclude that the spectral analysis of discrete functions f : Gn  F is possible if and only if
+k evenly divides u . Let us find an analytical form of characters of the
+( )group Gn over the field F = GF pm . Let
+k = HCK (k1, k2 ,, kn ),  be a primitive element of the
+( )field F = GF pm , Hk = a | ak = 1 be a cyclic group
+
+of the k -th order and k be a divisor of u . Then for an
+
+arbitrary element hi  Hki there exists such
+
+jki {0,1,, ki -1}
+
+that
+
+hi
+
+=
+
+a jki i
+
+,
+
+where
+
+ai = ak /ki
+
+is a
+
+generator of the cyclic group Hki (i = 1, 2,, n) . The
+
+characters  ri of the group H ki over the field
+
+( )F = GF pm can be written as follows:
+
+( )ri
+
+hi
+
+=
+
+ ri i
+
+jki
+
+,
+
+(1)
+
+where  i =  u/ki , ri {0,1,, ki -1} .
+Since the group Gn is a direct product of the cyclic groups H k1 ,, H kn , for an arbitrary g Gn there
+exists such ji {0,1,, ki -1}, i = 1, 2,, n that
+( ) ( )g = a1j1 ,, anjn = akj1/k1 ,, akjn /kn .
+
+From the multiplicative properties of characters [5,6] and from (1) we have, that all characters of the group are functions
+
+( )( ) r1,,rn
+
+g=
+
+,t1r1 j1 ++tnrn jn
+
+(2)
+
+where:
+
+
+
+= u/k ,
+
+ti
+
+=
+
+k, ki
+
+ri {0,1,, ki -1},
+
+i = 1, 2,, n
+
+If on the set of all characters of the group Gn to define the product of two characters (r1,,rn ) , (q1,,qn ) as follows:
+
+( ) ( ) ( )g  Gn
+
+(r1,,rn )
+
+g
+
+ (q1,,qn )
+
+g
+
+= ( )r11 q1,,rn n qn
+
+g,
+
+where i is the addition modulo ki , they constitute a
+multiplicative group of characters X (Gn ). On the basis
+of (2) it can be stated that the number of different characters of the group Gn over the field F equals the order of the group Gn . Then the fact that the characters
+are orthogonal [5,6] and X (Gn ) = dimF VFn = k1k2 kn
+yields that X (Gn ) forms an orthogonal basis of the space
+VFn . Thus, an arbitrary element f VFn can be written unambiguously:
+
+k1 -1 kn -1
+
+( )   ( )f
+
+g
+
+=
+
+( ) s
+
+r1 =0
+
+rn =0 r1 ,rn
+
+( )r1,,rn
+
+g,
+
+(3)
+
+where the addition and the multiplication are performed
+
+in the field F .
+
+The expansion (3) is called the spectral expansion of
+
+the discrete function f : Gn  F in terms of characters
+
+of the group Gn over the field F .
+
+Multiplying both terms of (3) by  -1
+
+and adding
+
+( )q1,,qn
+
+up the left and right sides of the resulting equality for all
+
+elements of the group Gn , we obtain:
+
+ ( ) ( )f
+gGn
+
+g
+
+ -1 ( )q1,,qn
+
+g
+
+=
+
+   ( ) ( ) k1-1 kn -1
+
+=
+
+gGn
+
+
+
+ s
+
+( ) ( )r1=0
+
+rn =0 r1,,rn
+
+r1 ,, rn
+
+g
+
+ 
+
+
+
+-1
+( q1
+
+,,
+
+qn
+
+)
+
+g.
+
+113
+
+Considering the orthogonality of the characters, the right side of the last equality can be written as:
+
+ k1 -1 kn -1
+
+
+
+   ( ) ( )gGn
+
+
+
+
+r1 =0
+
+rn
+
+s(=0 r1,,rn
+
+)
+
+( )r1,,rn
+
+g
+
+ (-q11,,qn )
+
+g
+
+=
+
+k1 -1 kn -1
+
+
+
+   ( ) ( )
+r1 =0 rn
+
+s(=0 r1,,rn
+
+)
+
+
+
+gGn
+
+( )r1,,rn
+
+g
+
+ -1 ( )q1,,qn
+
+g
+
+  =
+
+= s(q1,,qn ) Gn .
+
+Thus, the spectral coefficients of the function can be calculated according to the following formula:
+
+ ( ) ( )s(q1,,qn )
+
+=
+
+Gn
+
+-1 f
+gGn
+
+g
+
+ -1 ( )q1,,qn
+
+g,
+
+(4)
+
+where qi {0,1,, ki -1} ( i {1, 2,, n}) .
+The aforesaid results of spectral analysis of discrete functions, functions of characters we shall illustrate by the following examples.
+Example. Let n = 2, k = k1 = k2 = 2 and
+( )F = GF 32 is a Galois field with the modular
+
+polynomial x2 + x + 2 . Spectral analysis of the functions
+f VF2 = { f | f : G2  F} (G2 = H2  H2 ) is possible,
+because k divides u = 32 -1 . Denote  to be a
+( )generator of the cyclic group of the field GF 32 , i.e.
+
+( ) { }GF 32 \ {0} =  j j = 0,1,,7 . Then  =  4 = 2 .
+
+The characters of the group G2 we calculate according to the formula (2)
+( )TABLE 1. GROUP OF CHARACTERS X G2 OVER THE FIELD
+GF (32 )
+
+G2 \
+ ( G2 )
+(1,1)
+
+(0,0) 1
+
+(0,1) 1
+
+(1,0) 1
+
+(1,1) 1
+
+(1, a)
+
+1
+
+1
+
+(a,1) 1 1  
+
+(a, a)
+
+1
+
+1
+
+Let f (1,1) = f (1, a) = f (a,1) =  and f (a, a) = 0 .
+
+By the formula (4) we find spectral coefficients
+
+s(0,0) , s(0,1) , s(1,0) , s(1,1) of the function
+
+f
+
+s(0,0) = G2 -1 ( 1+  1+  1+ 0 1) = 1 0 = 0,
+
+s(0,1) = G2 -1 ( 1+   +  1+ 0  ) = 1 (2 +1) = 2,
+
+s(1,0) = G2 -1 ( 1+  1+   + 0  ) = 1 (2 +1) = 2, s(1,1) = G2 -1 ( 1+   +   + 0  ) = 1 ( + 2) = 1.
+
+Thus,
+g G2 f (g) = 2(0,1) (g) + 2(1,0) (g) + (1,1) (g) .
+
+III. INVARIANT OPERATIONS ON DISCRETE NEURAL
+FUNCTIONS
+
+Let k1, k2 ,, kn ,q be natural numbers
+
+(ki  2, i = 1,, n, q  2)
+
+and
+
+k = HCK (k1, k2 ,, kn , q) . Further we consider only
+
+( )those fields F = GF pm , which satisfy the condition:
+
+pm -1 is evenly divisible by k . This means that the field
+
+( )F = GF pm contains cyclic groups Hki , Hq with
+corresponding generators
+
+ i =  u/ki (i = 1, 2,, n) ,  =  u/q ,
+
+where  is a primitive element of the field F , u = cardF -1 .
+
+Define on the set F \ {0} a function Fsign as
+
+follows:
+
+  F \ {0} Fsign =  j , if
+
+ju q
+
+
+
+deg 
+
+<
+
+(
+
+j
+
++ 1) u
+q
+
+,
+
+( )where deg is the degree of   =  deg , .
+
+j {0,1,, q -1}
+
+( )A neural elements over the field F = GF pm is
+
+called a logic unit with n +1 inputs x1,, xn ; x0 (n  1) ,
+which respectively take values of sets Hki (i = 1,, n)
+and H0 = { 1} , and the output, which takes the value of
+the set Hq . Each input is assigned to a corresponding
+element i of the field F and the values of the output signal are found as follows: the values of input signals are multiplied by the corresponding elements i , then the obtaines results are added up and at the output we have values Fsign by obtained sum.
+Let Gn = Hk1  Hk2   Hkn be a direct product of cyclic groups Hki . A discrete function f : Gn  Hq is realized by one neural element over the field
+( )F = GF pm , if there is such n +1 -dimensional vector
+
+w = (1,,n ;0 )
+
+(i  F ) that for all
+
+114
+
+g = (1,, n )  Gn f (g) =Fsign w (g) ,
+
+where
+
+w (g) = 11 + + n n + 0 , and the addition and the
+
+multiplication are performed in the field F [12]. A
+
+vector w = (1,,n ;0 ) is called a structure vector of
+
+neural element (NE) on the field F .
+
+A discrete function f : Gn  Hq , which is realised by
+
+one NE over the field F is called a neural function over
+
+F.
+
+In the view of compact representation of classes of
+
+neural functions over F , it is important to know those
+
+transformations on discrete neural functions, that
+
+maintain the feature of their implementation by one NE.
+
+In the following theorems, there is obtained the
+
+summarizing the results of [10], which mentions the
+
+operations, concerning which the classes of many-valued
+
+neural functions over F are closed.
+
+Theorem 1. If the function f : Gn  Hq is realized
+( )by one neural element over the field F = GF pm with
+the structure vector w = (1,,i ,,n ;0 ) , then the
+function f1 ( x1,,xi ,, xn ) = f ( x1,,i xi ,, xn ) ,
+where i  H ki , is also realised by one NE over the field F with the structure vector
+w1 = (1,,ii ,,n ;0 ) .
+
+Theorem 2. If the discrete function f : Gn  Hq is
+( )realised by one NE over the field F = GF pm with
+( )structure vector w = 1,,i ,, j ,n ;0 and ( )ki = k j , then the function f2 x1,, xi ,, x j , xn = ( )= f x1,, x j ,, xi , xn is also realised by one NE
+with the structure vector w2 = (1,, j ,,i ,n ;0 ) .
+
+Theorem 3. If the discrete function f : Gn  Hq is
+
+realized by one neural element over the field
+
+( )F = GF pm
+
+with the structure vector
+
+w = (1,,n ;0 ) , then the function
+
+f3 ( x1,, xn ) == ==  f (1x1,,n xn ) , where   H q ,
+
+i  Hki (i = 1, 2,, n) , is also realised by one NE over
+the field F with the structure vector
+w3 = (  11,,  nn ;  0 ) .
+The feasibility and the practical value of the development of methods of synthesis of neural elements and the study of invariant operations on boolean and multiple-valued logic functions over the Galois field are confirmed by the results of software experiments. The programs which simulate the action of multi-valued
+
+neural elements and implement the spectral method for the synthesis of these elements over the Galois field indicate that the power of discrete classes neuro functions increases with increasing power of the Galois field. To confirm this fact, we give the following simple examples,
+e.g. n = 2, k1 = k2 = q = 2  F = GF (3) . Number u is divided on k =  (k1, k2 , q) , therefore, the spectral analysis of Boolean functions over F is possible.  = 2
+is the simple element of the field F. We will show all the Boolean functions of two variables in the following table shows that are implemented by one neuron element (NE) over the field F :
+Table2. Boolean neuron functions over the field
+GF(3)
+11 1 1 1 2 2 2 12 1 1 2 2 2 1 21 1 2 1 2 1 2 22 1 2 2 2 1 1
+Vector patterns of NE that implement these functions are the following:
+w g0 = (0,0;1), w g1 = (1,0;0), w g2 = (0,1;0), , w g3 = (0,0;2) w g4 = (2,0;0) , w g5 = (0,2;0).
+So neuro classes of Boolean functions of two variables over GF (3) consists of 6 functions g0 , g1, g2 , g3 , g4 , g5 .
+Let's consider F = GF (5) field.  = 2 will be taken
+5-1
+as a primitive element of F field . Than  =  2 = 4 . Boolean neuron functions from 2 variables over GF (5)
+will be illustrated in the following table: Table 3. Boolean neuron functions over the field
+GF (5)
+x1 x2 f0 f1 f2 f3 f4 f5 f6
+11 1 1 1 1 1 1 1
+14 1 1 1 1 4 4 4 41 1 1 4 4 1 1 4 44 1 4 1 4 1 4 1
+f7 f8 f9 f10 f11 f12 f13 f14 f15
+144 4 4 4 4 4 4 411 1 1 4 4 4 4 411 4 4 1 1 4 4 414 1 4 1 4 1 4
+
+115
+
+Vector patterns of NE will be the following:
+w f0 = (0,0;1), w f1 = (2,2;2), w f2 = (2,3;2), w f3 = (1,0;0), w f4 = (3,2;2), w f5 = (0,1;0), w f6 = (1,1;4), w f7 = (2,2;3), w f8 = (3,3;2), w f9 = (4,4;1), w f10 = (0,4;0), w f11 = (2,3;3), w f12 = (4,0;0), w f13 = (3,2;3), w f14 = (3,3;3),
+w f15 = (0,0;4).
+IV. CONCLUSIONS
+Based on Table 3 we can claim that all Boolean functions of two variables are neuron functions over GF (5) field. The field GF (5) is a minimal Galois field
+(field with the minimum number of elements), where all the boolean functions of two variables are implemented by a NE. It should be noted that over the fields of real and complex numbers, not all functions of algebra of logic from two variables are implemented by one neural element.
+Let k =HCK (k1,, kn , q) (ki  2, q  2) and
+Gn = H k1  H kn . Program experiments shows that there is used the following hypothesis :
+Hypothesis. For the improvised k and improvised n the minimum Fmin Galois field can be specified
+where all discrete functions f : Gn  H q are
+implemented by one NE. This result is important for coding, compression and
+transmission of information.
+
+REFERENCES
+[1] Berlekamp. E. "Algebraic Coding Theory", M.: Mir, 1971. - 477 p. (in Russian)
+[2] I.V. Kuzmin and V.A. Kedrus "Fundamentals of information and coding theory" K .: Vishcha School, 1977, 278 p. (in Russian)
+[3] J. Clark, J. Kane "Coding with error correction in digital communication systems", M .: Radio i Svyaz, 1987. - 391 p.
+[4] Eichner L. "Homomorphe Darstellungen endlicher Automaten in linearen Automaten", EIK. vol. 9, no. 10, pp. 67-76, 1973
+[5] C. Curtis, I. Reiner "Representation theory of finite groups and associative algebras", M .: Nauka, 1969, 667 p. (in Ukrainian)
+[6] B.L. Van der Waerden "Algebra", M .: Nauka, 1979, 623 p. [7] A. G. Kurosh "Group Theory", M.: Nauka, 1967, 648 p. (in
+Russian) [8] A.I. Kostrikin "Introduction in Algebra", M .: Nauka, 1977, 495 p.
+(in Russian) [9] M.M. Postnikov "Galois theory", M .: Fizmatgiz, 1963, 218 p. (in
+Russian) [10] F.E. Geche "Neural Elements over Finite Fields", in Information
+Technology and Systems, no.1, pp. 100-104, 1998 (in Ukrainian) [11] D. Peleshko, M. Peleshko, N. Kustra and I. Izonin, "Analysis of
+invariant moments in tasks image processing," CAD Systems in Microelectronics (CADSM), 2011 11th International Conference The Experience of Designing and Application of, PolyanaSvalyava, 2011, pp. 263-264. [12] I. Izonin, R. Tkachenko, D. Peleshko, T. Rak and D. Batyuk, "Learning-based image super-resolution using weight coefficients of synaptic connections," in Scientific and Technical Conference "Computer Sciences and Information Technologies" (CSIT), 2015 Xth International, Lviv, 2015, pp. 25-29. [13] I. Tsmots and O. Skorokhoda, "Methods and VLSI-structures for neural element implementation," in Perspective Technologies and Methods in MEMS Design (MEMSTECH), 2010 Proceedings of VIth International Conference on, Lviv, 2010, pp. 135-135. [14] I. Tsmots and O. Skorokhoda, "Hardware implementation of the real time neural network components," in Perspective Technologies and Methods in MEMS Design (MEMSTECH), 2011 Proceedings of VIIth International Conference on, Polyana, 2011, pp. 124-126. [15] Ye. Bodyanskiy, D. Peleshko, O. Vynokurova and Yu. Tatarinova, "Architecture of hybrid generalized additive neuro-fuzzy system in modelling technological process," in Experience of Designing and Application of CAD Systems in Microelectronics (CADSM), 2015 13th International Conference The, Lviv, 2015, pp. 333-335. [16] Ye. Bodyanskiy, N. Lamonova, I. Pliss and O. Vynokurova "An adaptive learning algorithm for a wavelet neural network", in Expert Systems, vol 22, issue 5, 2005, pp. 235- 240.
+
+116
+
+

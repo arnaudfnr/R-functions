@@ -1,0 +1,687 @@
+Computational Quantification of Trust Updates
+Arthur Ramer School of Computer Science and Engineering
+UNSW, Sydney 2052, Australia ramer@cse.unsw.edu.au
+
+Abstract
+Lemmy People have become slaves to probability. Dickson They just obey logical orders.
+Alphaville. (Jean-Luc Godard 1965)
+A computational model for expressions of trust values is outlined. It is based on the proposal by Jonker and Treur to base trust updates on reported experiences. The model handles arbitrary sequences of experience inputs; its such updates are fully commutative and associative. It satisfies all the axiomatic properties suggested for the trust values.
+Trust is interpreted as family of probabilistic beliefs on the space of possible experience reports. Expansion of the space of reports gives rise to inverse conditioning of probability distributions and thus of trust values.
+Belief and trust changes follow the AGM structure. Inverse conditioning is put into effect through a suitable application of maximum entropy principles.
+Keywords: Trust updating, trust experience, AGM belief revision, probability revision, inverse conditioning.
+1 Preamble This paper is a companion to our earlier work [15] in which computational aspects of revising probabilistic beliefs and trust values were addressed. Here we concentrate on the motivation and rationale for our approach. We show how trust revisions link to belief revisions. The central theme is that including additional reported experiences should correspond to inverse conditioning of probability distributions.
+2 Trust scenario There is now a vast body of research addressing the question of expressing the notion of trust quantitatively [11]. Several approaches suggest assigning agent A a numerical value T (A)  [0, 1] to capture his level of `sincerity', `honesty', `probity' or such moral characteristics that one could
+
+· reason about the values T (A);
+· make decisions based on T (A);
+· revise T (A) in light of further experiences stemming from interactions with agent A.
+Trust is, in effect, a numerical summary of our belief that the agent will act in reliable way. This belief is to be based on the reported experiences of earlier interactions with this agent. These experiences could just be our own, but may as well be reported by other participants. We propose to treat all the reports equally, and will deem these reports sound - we do not apply `second degree' discounting related to reliability of the authors of these reports.
+This kind of trust should be distinguished from its philosophical and ethical counterparts, concepts debated since the dawn of humanity. It should also be distinguished from the notion of trust as used in game-theoretic analyses. The latter effectively monitors propensity to cooperation in adversarial situations; as a rule it is binary (`I trust him, I trust him not') and is related to the temporal pattern of the previous instances of cooperation or noncooperation.
+The notion we discuss can be termed credibility assignment in anonymous interactions. It was brought to fore by various E-commerce markets, where the participants want to form a credible impression about trustworthiness of other parties, known only through their dealings in the market. This concept can be applied to other activities, most notably intelligence gathering and insurance rating. The latter [3] uses term (and numerical function) credibility to assess the relevance of the loss experience of the specific insured parties (typically a small group) as compared with an overall experience of the insurer. The former is a very typical scenario where the reports come anonymously, can be reliably cross-validated and finally need to be pooled to derive a composite measure of trustworthiness.
+A common theme of the studies of trust is the recognition that it should form a distinct entity that can be quantitatively expressed. One possible approach is axiomatic where one looks for general properties that any reasonable trust
+
+Proceedings of the International Workshop on Integrating AI and Data Mining (AIDM'06) 0-7695-2730-2/06 $20.00 © 2006
+
+measure would satisfy and a sufficiently general framework where these properties could be studied. This was proposed by Jonker, Treur and Marx [10]. They effectively propose that trust is some numerical entity computed on the basis of
+· initial, perhaps default, trust value;
+· string of reported experiences, also numerical;
+· temporal frame of these experiences.
+They further present a list of properties and apply elements of temporal logic to reason about these properties. A few typical properties (numbering from the original paper) might be
+(2) monotonicity
+e  f  t(past, e)  t(past, f )
+(3) indistinguishable past
+past = (e1, . . . , ek) past = (e(1), . . . , e(k))
+ t(past) = t(past)
+(11) positive limit approximation
+lim t(past, 1, 1, . . .) = 1
+n n
+(12) negative limit approximation
+t(past, 0, 0, . . .)  0
+They do not treat these properties as a complete axiomatic system and do not attempt to devise any numerical formulae for trust computations. Though they allow, in principle, for partially ordered trust values, the axiomatic properties make using the numerical interval [0, 1] virtually necessary.
+We propose to construct a virtual universe of reports, each report playing role of a world and the experience given in that report becoming the probability of the corresponding (virtual) world.
+Arrival of each report would correspond to expanding the set of worlds on which the probability distribution is based. Similarly, deleting a report would correspond to contracting the set of worlds. Both types of change in the belief system - expansion or contraction, should be reflected in changing the probability distribution.
+
+3 AGM Probability revisions
+Formalisations of belief change have been discussed, in various contexts, since 1970's. Notable specific applications are `truth maintenance systems' [5] and `database priorities' [6]. General, abstract protocols were introduced by philosophers Levi [13, 14], Harper [8], and then a series of works by Alchourron, Gardenfors and Makinson [1, 2, 7]. The last one gave the name to the system of postulates for belief revision as the AGM framework. Its basic design is founded on a revision scheme addressing needs of the finite propositional knowledge bases. In parallel with the purely logical framework has been proposed a scheme for modifying beliefs about probability [7]. Here we consider a finite collection of possible worlds X and a probability distribution thereupon. Any proposition A may be held in some subcollection XA of these worlds, with its probability defined as the sum of probabilities of the worlds where it is held P (A) := P (XA). A proposition is accepted if its probability is 1; it is important to remember that it does not signify a universal acceptance, as there (usually) will be worlds, of probability 0, where the proposition may not hold.
+Expansion of the state of beliefs wrt A will mean adjusting the probability distribution to a such PA+ that A is accepted P +A (A) = 1. In keeping with the overall philosophy of such change, it is postulated that the passage from P to PA+ should be effected with a minimal change. On a combination of philosophical and logical grounds it is strongly argued that such an expansion should be the conditioning wrt A, understood as
+PA+(B) := P (A  B)/P (A), P (A) > 0
+and with a pseudo-distribution for the case of P (A) = 0. As a probabilistic operation it should be viewed as conditioning wrt the subset AX ; this subset may include some worlds of probability 0, but where A is held. A group of four postulates is given to axiomatise it [7]
+P +1 For disjoint A and B ( ¬(A  B)), the distribuPtPioB(+nB;P)t/aA+kPiBn(AgisaBs=u),itPoanb(Aeler)ce/oqPnuv(irAeexscPoAB+m)bB,in=atio=nPoA+1f +P-A+PaBn+=d.
+P +2 PA+(A) = 1
+P +3 If  A then PA+ = P
+P +4 If P (A) then PA+ = P - the `absurd' pseudodistribution1
+The generalisation proposed by Jeffrey [9] was to combine conditioning wrt A and its logical complement ¬A as
+1It is defined as assigning probability value 1 to all subsets.
+
+Proceedings of the International Workshop on Integrating AI and Data Mining (AIDM'06) 0-7695-2730-2/06 $20.00 © 2006
+
+method of revision of probability functions. A revised function P +J should compute probability of an arbitrary assertion B by conditioning wrt the property that P +J (A) = a for some 0 < a < 1. He was led to the formula
+P +J (A) = aP (B|A) + (1 - a)P (B|¬A).
+It is convenient to express it in the language of expansions-- Jeffrey conditionalisation becomes a linear combination of expansions wrt proposition A and its complement ¬A. For the specified 0 < a < 1
+PA+J = aPA+ + (1 - a)P¬+a.
+In our earlier paper [16] we have shown that a suitable use of the MaxEnt principle leads an attractive model for inverse conditioning. The resulting framework satisfies all the formal properties one may expect. In particular, it permits arbitrary intermingling of conditioning and inverse conditioning processes, always producing consistent results. It behaves correctly under either coarsening or refinement of the initial probability distributions, thus also when joint distributions are formed or when marginal (projected) distributions are considered.
+We propose to use this scheme to modeling trust changes. Our starting observation is that the removal of a report, that is ignoring an already considered experience, is a form of conditioning. The universe of reports under consideration shrinks and conditional probability assignments should be computed. Therefore, including a new report leads to expanding of the universe and an inversely conditioned probability distribution needs to be computed.
+4 Conditioning, inverse conditioning and entropy
+The simplest expansion problem can be posed as a question about finding Q^ on X where Q^(AX ) = 1 for AX  X - the subset where A holds. This Q^ should be as close as possible to the given P on X. A natural solution [17, 18] would be
+arg min D(Q P ).
+Q:Q(AX )=1
+The solution is the familiar conditional distribution P (|A) : xi  pi/P (AX ) if A(xi), and xi  0 if ¬A(xi). The same result obtains if D(P Q) is used in its place (hence also for the symmetric distance D(Q P )+D(P Q)). More significantly, use of Renyi entropy [12] (or many others) does not affect the result.
+Jeffrey formula [9] intends an expansion where PA+(A) = a for some 0 < a < 1, leaving PA+(¬A) = 1-a, and is defined through
+PA+J (xi) = pi/a if A(xi), PA+J (xi) = pi/(1 - a) otherwise.
+
+It is immediate that
+
+arg min D(Q P )
+Q:Q(AX )=a
+
+gives this conditionalisation. An easy extension is to spec-
+
+ify a partition X = A(1)  . . .  A(k), a probability assign-
+
+ment on its elements A(i)  ai,
+
+ai = 1 and require
+
+that P +(A(i)) = ai. Such a generalised Jeffrey rule results
+
+from a like minimisation of information divergence. Again,
+
+change of entropy function turns out to be immaterial.
+
+We should also note that we need to use D(Q P ) and
+
+cannot obtain a reasonable answer directly from H(Q).
+
+The proximate cause seems to be that we must `retain' the knowledge of P and then add the fact that P +(A) = 1.
+
+Using H(P ) would appear to recognise only the latter fact.
+
+An attempt to replicate the previous method of direct
+
+minimisation of a distance between the distributions is bound to fail. The nearest PA- which conditionalises back to P is the very same P . If we insist that P - must be differ-
+
+ent, an -change to P -(A) = 1 -  would ensue. However,
+
+we observe that in case of conditionalisation the entropy H(P +) < H(P ), therefore the minimum of D(Q P ) is
+
+somewhat related to minimising the distance from Q to the
+
+most uninformed ie. uniform distribution. While this cannot be used for deciding on P + (as we would loose the knowledge of P ), it suggests a useful approach to the P - prob-
+
+lem.
+
+To make the question specific, we assume that P is sup-
+
+ported on AX  X and that there are m elements outside AX . We shall seek distribution Q^, with maximum entropy, that conditionalises back to P . We need to compute
+
+arg max H(Q).
+Q:QA+ (A)=P
+
+The answer has a very attractive form
+
+PA-(x)
+
+=
+
+m
+
++
+
+1 2H
+
+(P
+
+)
+
+,
+
+PA-(A)
+
+=
+
+2H(P ) m + 2H(P )
+
+x / AX
+
+Noting that m = 2log m, which is the entropy of the uniform
+
+distribution on m elements, permits to anticipate the effect
+
+of inverting and H(P¬+A
+
+Jeffrey conditioning. ). Denoting P -J for
+
+We first compute H(PA+) the inverse Jeffrey rule
+
+P -J (A)
+
+=
+
+2H (PA+ ) 2H(PA+) + 2H(P¬+A)
+
+P -J (¬A)
+
+=
+
+2H (P¬+A ) 2H(PA+) + 2H(P¬+A)
+
+The extension to an arbitrary partition is straightforward. Moreover, while simple inverse conditioning assigns to all
+
+Proceedings of the International Workshop on Integrating AI and Data Mining (AIDM'06) 0-7695-2730-2/06 $20.00 © 2006
+
+the elements outside AX the same probability, one can adopt the inverse Jeffrey rule to recognise some specified proportions. The simplest, albeit somewhat informal method is to view P (¬A) as having an `infinitesimal' value, which becomes 0 in actual computations, but permits retaining some meaningful proportions.
+5 Quantitative trust values
+We assume here the basic structure where we are given some initial trust value T0 and a series of inputs - experiences e1, . . . , ek that make us revise our initial opinion. In the electronic age the reports are likely to come closely spaced in real time, with their order being just a random occurrence depending on vagaries of the communication network. We consider it very important to have a model which permits updates u(T0; e1, . . . , ek) = Tk which would be invariant wrt reordering of (ei)
+u(T0; e1, . . . , ek) = u(T0; e(1), . . . , e(k))
+for any permutation  of the indices. We model trust as belief emanating from a family of re-
+ported experiences ei. These experiences are trust values specific to such single acts as trades, intelligence submissions and like; if fully satisfied we put ei = 1, while if completely dissatisfied ei = 0. The beliefs will apply to the domain comprising all the act instances ai, and, if desired, also of some initial, ie. prior to a1 instances.
+In the simplest approach - too simple as it will be seen we would just form a domain of instances ai , and give each the weight ei. This will not form probability for the most obvious reason - they do not sum to 1. Rather more importantly, given that we already have a (normalised) probability distribution (e1, . . . , ek -1), new experience ek can only be a part of some other distribution, and it is not at all clear how should ek serve to update the already present (ei). Lastly, if we have several experiences, each should contribute only a little to our overall computation of trust. It would be reasonable to look at their sum as the total experience value, but that would be always one.
+These problems are remedied if one models more carefully even a single reported experience. We present it as a two-point distribution (ei, di), with di = 1 - e1 and termed distrust. Similarly, we form the space of the pairs { ai, bi }, where each ai will carry a trust contribution and each bi the corresponding distrust. We arrive at the space
+{a1, b1, a2, b2, . . . , ak, bk}
+representing the set of inputs available at epoch k, with probability distribution qk.
+As the probabilities q(ai) and q(bi) arose from the reported pair of values (ei, di), ei + di = 1, we postulate that
+q(ai) ÷ q(bi) = ei ÷ di.
+
+Now the trust, at epoch k, becomes
+
+k
+Tk = q(ai)
+i=1
+
+and distrust
+
+k
+Dk = q(bi).
+i=1
+
+We may write q(ai) for short, although we often need a full notation qk(ai), as these probabilities evolve with the number of epochs considered.
+To decide how to perform an update with a new report (ek+1, dk+1) arriving, let us first consider the case of report removal. Let us suppose that the report (ek, dk) is deemed no longer valid. We would be left with a subspace {a1, b1, . . . , ak-1, bk-1}. The obvious step would be to condition qk onto a smaller space and get
+
+Tk-1 =
+
+k-1
+qk (ai )
+
+i=1
+
+k-1 i=1
+
+qk
+
+(ai)
+
++
+
+k-1 i=1
+
+qk
+
+(bi)
+
+.
+
+It is most reasonable, though never so far considered in the literature, to require that
+
+Tk-1 = Tk-1.
+
+In other words, trust Tk-1 ensuing from experiences e1, . . . , ek-1 and trust Tk-1 obtaining from first considering e1, . . . , ek and then eliminating ek, should be identical.
+
+If experience removal effects probability conditioning on
+
+the act space, then experience inclusion should be an inverse
+
+conditioning on the same space. Now we can apply the ba-
+
+sic formulae from the previous sections. We shall treat in-
+
+cluding the pair (ek+1, dk+1) as inverse Jeffrey condition-
+
+ing.
+
+Using Shannon entropy, let H(Tk) H(q(a1), q(b1), . . . , q(bk)) and H(Ek+1) H(ek+1, dk+1). We require that
+
+= =
+
+qk+1({a1, . . . , bk})
+
+=
+
+2H (Tk ) 2H(Tk) + 2H(Ek+1)
+
+and
+
+qk+1({ak+1, bk+1})
+
+=
+
+2H(Ek+1) 2H(Tk) + 2H(Ek+1)
+
+with probabilities of individual elements assigned proportionally. This defines qk+1 uniquely, thus determines Tk+1 and Dk+1 unambiguously.
+It can be verified that any combination of inverse con-
+ditioning steps and conditioning steps is consistent. This
+
+Proceedings of the International Workshop on Integrating AI and Data Mining (AIDM'06) 0-7695-2730-2/06 $20.00 © 2006
+
+leads to consistent updates of trust values for any conceivable scenarios of experience reports. Numerical computations are quite easy. It is known that entropy and graph entropy computations are tractable. For the basic trust computations they are simply linear. Perhaps because the proofs of compositionality of trust updated might be difficult, this property was never required by other researchers. Other basic properties are all easily proven to hold for our model.
+
+6 Examples of trust updating
+
+We recall two very simple examples from [15]. First, let us consider first an almost trivial situation
+
+T0 = t0 = T  = t- 1 + t0, D0 = d0 = D0 = d- 1 + d0
+
+where
+
+t0
+
+=
+
+d0
+
+=
+
+1 2
+
+,
+
+t- 1
+
+=
+
+t0
+
+=
+
+d-1
+
+=
+
+d0
+
+=
+
+1 4
+
+Let the new experience be E1 = (1, 0), ie. a totally positive trust report arrives. Following the rules of inverse condi-
+tioning wrt Jeffrey rule [9], we get for (T1, D1) (evolved form (T0, D0))
+
+t0, t1
+
+:
+
+1 3
+
+,
+
+1 3
+
+,
+
+d0, d1
+
+:
+
+1 3
+
+,
+
+0
+
+and T1
+
+=
+
+2 3
+
+=
+
+67%,
+
+D1
+
+=
+
+1 3
+
+=
+
+33%.
+
+Starting from
+
+(T0, D0 ), we get at epoch 1
+
+t-1, t0, t1
+
+:
+
+1 5
+
+,
+
+1 5
+
+,
+
+1 5
+
+,
+
+d-1, d0, d1
+
+:
+
+1 5
+
+,
+
+1 5
+
+,
+
+0
+
+thus T1 = 60%, D1 = 40%. Let us redo the same pair of examples, using E1 =
+(g2i3v,e31s,).forAtp0p=lyidn0g=the12 entropy-based inverse conditioning
+
+t0(1) + d(01)
+
+=
+
+2H
+
+(
+
+1 2
+
+,
+
+1 2
+
+)
+
+2 + 2H
+
+(
+
+1 2
+
+,
+
+1 2
+
+)
+
+H
+
+(
+
+2 3
+
+,
+
+1 3
+
+)
+
+=
+
+2 2 + 3/22/3
+
+= 2 2 + 1.5 3 2
+
+t(11) + d(11)
+
+=
+
+2H
+
+(
+
+2 3
+
+,
+
+1 3
+
+)
+
+2 + 2H
+
+(
+
+1 2
+
+,
+
+1 2
+
+)
+
+H
+
+(
+
+2 3
+
+,
+
+1 3
+
+)
+
+=
+
+ 1.5 3 2 2 + 1.5 3 2
+
+Remembering that t(01) = d(01) and t1(1)/d1(1) = 2, we find
+
+
+
+T1
+
+=
+
+t0(1)
+
++
+
+t1(1)
+
+=
+
+1 + 3 2 2 + 1.5 3 2
+
+
+
+18 31
+
+
+
+D1
+
+=
+
+d(01)
+
++ d(11)
+
+=
+
+1 + 0.53 2 2 + 1.5 3 2
+
+
+
+13 31
+
+If we
+
+use
+
+H
+
+(
+
+1 4
+
+start from t-(01) =
+
+,
+
+1 4
+
+,
+
+1 4
+
+,
+
+1 4
+
+)
+
+=
+
+log
+
+4
+
+t0(0) = d-(01) = d(00) = 2 instead of H(
+
+=
+
+1 2
+
+,
+
+1241),
+
+we need = 1. We
+
+get
+
+t(-11) + d(-11)
+
++ t0(1) + d(01)
+
+=
+
+4 4 + 1.5 3 2
+
+
+
+t(11)
+
++ d(1)
+
+=
+
+1.5 3 2 4 + 1.5 3 2
+
+As t(-11) = t(00) = d(-11) = d(00), while t(11)/d(11) = 2
+
+
+
+T1
+
+=
+
+t-(11)
+
++ t(01)
+
++ t(11)
+
+=
+
+2 + 3 2 4 + 1.5 3 2
+
+
+
+26 47
+
+
+
+D1
+
+=
+
+d(-11)
+
++ d(01)
+
++ d(11)
+
+=
+
+2 + 0.53 2 4 + 1.5 3 2
+
+
+
+21 47
+
+Finally T0 = T0 < T1 < T1, in agreement with two facts
+
+· new experience E1 is more positive (towards the trust)
+
+than
+
+the
+
+available
+
+trust
+
+value
+
+T0
+
+=
+
+T0
+
+=
+
+1 2
+
+;
+
+· earlier history for T0 is more entrenched (two periods, at k = -1, 0) than that for T0 (one period, at k = 0).
+
+These examples emphasise a recurring theme - computations are not difficult conceptually, but even for the toy examples use of a computer becomes essential - we computed all the numbers above entirely `by hand', but would not attempt it for a longer sequence of updates.
+
+7 Closing remarks
+There are two more important considerations in support of our proposal. First is that the values our model produces are intuitively plausible. Moderate changes in quality of experiences lead to moderate changes in trust values. If there is a reasonable body of accumulated experiences, a single new experience would make, by itself, only a small change. However, an additional body of new experiences, comparable in size to to the original ones, would make a significant impact, always in the direction indicated by the new experiences.
+Second consideration links to entropy maximisation being a `natural' decision function. It is known [4] that consistent decisions about probability distributions, if to be obtained through optimisation with a single objective function, should be based on entropy. This theorem follows from just four extremely natural and simple properties that such decision procedure must satisfy.
+We believe that a few basic properties of quantitative trust updating could suffice to axiomatise our method. In other words, updating trust though entropy optimisation would be both `natural' and `unique'.
+
+8 Acknowledgements
+This research was supported by the Australia Research Council grant DP0210999 "Asynchronous Continuous Time Conditioning".
+Technical preparation of this article was assisted by Christopher Petrov, Computing Support Officer of the School of Computer Science and Engineering.
+
+Proceedings of the International Workshop on Integrating AI and Data Mining (AIDM'06) 0-7695-2730-2/06 $20.00 © 2006
+
+References [1] CE Alchourron, P Gardenfors, D Makinson. On the
+logic of theory change: partial meet contractions and revision functions. J. Symbolic Logic 50(1985), 510­ 530.
+[2] CE Alchourron, D Makinson. Hierarchies of regulations and their logic. In R Hilpinen (ed) New Studies in Deontic Logic., 125­148. D Reidel Publ. Co, Dordrecht 1981.
+[3] H Bu¨hlmann. Mathematical Methods in Risk Theory. Springer, Berlin 1970.
+[4] I Csiszar, J Korner. Information Theory: Coding Theorems for Discrete Memoryless Systems. Academic Press, New York 1981.
+[5] J Doyle. A truth maintenance system. Artificial Intelligence 12(1979), 231­272.
+[6] R Fagin, J Ullman, M Vardi. Updating logical databases. Adv. Computing Research 3(1986), 1­18.
+[7] P Garderfors. Knowledge in Flux. The MIT Press, Cambridge MA 1988.
+[8] W Harper. Rational conceptual change. PSA'76 - Philosophy of Science Asooc. Biennial Meeting, East Lansing, Mich. 1976, 462­494.
+[9] RC Jeffrey. The Logic of Decision. McGraw-Hill, New York 1965.
+[10] CM Jonker, J Treur. Formal analysis of models for the dynamics of trust based on experiences, in F. J. Garijo, M. Boman (eds.) Multi-Agent System Engineering. (Proc. 9th European Workshop on Modelling Autonomous Agents in a Multi-Agent World.) Lecture Notes in AI 1647, Springer Verlag, Berlin, 1999.
+[11] A Jøsang, R Ismail, C Boyd. A Survey of Trust and Reputation Systems for Online Service Provision. Decision Support Systems 2006 (to appear), available online from Elsevier B.V. 5 July 2005.
+[12] JN Kapur, HK Kesavan. Entropy Optimization Principles with Applications. Academic Press, New York 1992.
+[13] I Levi. Subjunctives, dispositions, and chances. Synthese 34(1977), 423­455.
+[14] I Levi. The Enterprise of Knowledge. The MIT Press, Cambridge, MA 1980.
+[15] A Ramer. Trust Updating as Belief Revision, IPMU2006 - 11th Int. Conf. Information Processing and Management of Uncertainty, Paris, France, July 2006.
+
+[16] A Ramer. Belief revision as combinatorial optimisation, IPMU-2002 - 9th Int. Conf. Information Processing and Management of Uncertainty, Paris, France, July 2002.
+[17] A Ramer. Note on defining conditional probability, Amer. Math. Monthly, 97(1990), 336­337.
+[18] PM Williams. Bayesian conditionalisation and the principle of minimum information. British J. Phil. Science 31(1980), 131­144.
+
+Proceedings of the International Workshop on Integrating AI and Data Mining (AIDM'06) 0-7695-2730-2/06 $20.00 © 2006
+
+

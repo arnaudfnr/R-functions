@@ -1,0 +1,180 @@
+2010 IEEE International Conference on Data Mining Workshops
+Sentence-level and Document-level Sentiment Mining for Arabic Texts
+
+Noura Farra, Elie Challita, Rawad Abou Assi, Hazem Hajj
+Department of Electrical and Computer Engineering American University of Beirut Beirut, Lebanon
+{naf08, enc00, ria21, hh63} @aub.edu.lb
+
+Abstract-- In this work, we investigate sentiment mining of Arabic text at both the sentence level and the document level. Existing research in Arabic sentiment mining remains very limited. For sentence-level classification, we investigate two approaches. The first is a novel grammatical approach that employs the use of a general structure for the Arabic sentence. The second approach is based on the semantic orientation of words and their corresponding frequencies; to do this we built an interactive learning semantic dictionary which stores the polarities of the roots of different words and identifies new polarities based on these roots. For document-level classification, we use sentences of known classes to classify whole documents, using a novel approach whereby documents are divided dynamically into chunks and classification is based on the semantic contributions of different chunks in the document. This dynamic chunking approach can also be investigated for sentiment mining in other languages. Finally, we propose a hierarchical classification scheme that uses the results of the sentence-level classifier as input to the documentlevel classifier, an approach which has not been investigated previously for Arabic documents. We also pinpoint the various challenges that are faced by sentiment mining for Arabic texts and propose suggestions for its development. We demonstrate promising results with our sentence-level approach, and our document-level experiments show, with high accuracy, that it is feasible to extract the sentiment of an Arabic document based on the classes of its sentences.
+Keywords- opinion mining; Arabic; text mining ; sentencelevel; document-level
+I. INTRODUCTION
+Sentiment mining and opinion mining from text have recently drawn a lot of attention because of their many potential applications for companies and organizations such as extracting customer sentiments, automated recommender systems, or deducing public opinion about a certain topic [1]. Two main goals of sentiment mining are: (1) to determine whether a given text contains an opinion as opposed to being factual or objective, and (2) to extract the sentiment of a given text by classifying it as positive, negative, or neutral with respect to the given target [2]. Furthermore, sentiment mining can be performed at the sentence level or document level. In general, sentence-level mining is made complex by the fact that the semantic orientation of words is highly context-dependent, and document-level mining is made complex by the fact that one document may contain several contradictory opinions about the same target. For this study, we are concerned with sentiment classification in the Arabic
+
+language at both the sentence level and the document level. The final goal is to extract the sentiment of an entire document in the Arabic language. Research done in this regard for the Arabic language remains very limited. Most prior efforts in Arabic have concentrated on morphological recognition of words rather than general sentiment extraction.
+The challenge of sentiment mining- and text mining in general- in Arabic arises from the complexity of the language in terms of both structure and morphology. First, Arabic grammar is highly complex. Different types of sentence structures can exist in Arabic: verbal, where the sentence starts with a verb phrase, and nominal, where the sentence starts with a noun phrase. Additionally the language allows for different variants within each type of sentence. Many different parts of speech, particular to Arabic, are possible. Furthermore, Arabic is a highly inflectional and derivational language with many word forms and diacritics [3, 4]. The same three-letter root can give rise to different words with different meanings. Moreover, the same word can have several different forms with different suffixes, affixes, and prefixes. Special labels called diacritics are used instead of vowels and they differ according to the word form and the part of speech. For an automated tool to identify parts of speech in detail, analysis of diacritics is thus necessary. Finally, few tools currently exist for the purpose of text and sentiment mining in Arabic. Semantic dictionaries or lexicons for Arabic sentiment mining are limited. Morphological analyzers are needed to enable consideration of all word forms in the text and perform suffix, affix, prefix, and root extraction. Grammatical analyzers or part-of-speech (POS) taggers are also needed. Some of the morphological analyzers that have been developed for the Arabic language, such as BAMA (Buckwalter Arabic Morphological analyzer) and MADA (Morphological Analysis and Disambiguation for Arabic) are listed in [5]. However, there are no sophisticated POS taggers in Arabic which identify all parts of speech and distinguish between different sentence types. These issues pose a challenge for sentiment mining, which generally requires both semantic analysis of words and grammatical analysis of text.
+In this work, we investigate two approaches for sentencelevel Arabic sentiment mining and a hierarchical approach for document-level sentiment mining. The first sentencelevel approach is grammatical and assumes the existence of
+
+978-0-7695-4257-7/10 $26.00 © 2010 IEEE DOI 10.1109/ICDMW.2010.95
+
+1114
+
+a highly efficient morphological analyzer and POS tagger. This approach overcomes the limitations of multiple Arabic sentence structures by considering a general structure for the Arabic sentence. The second sentence-level approach is based on semantic word frequencies and is implemented using automatic root extraction and an interactive learning semantic dictionary which we developed. The document classifier uses the (known) polarities of the sentences to classify the overall polarity of the document- an approach which has not been investigated in previous work for Arabic sentiment mining. The rest of the paper is organized as follows. In section 2 we describe related work in sentiment mining for both Arabic and English. In section 3 we identify the problem and objectives of our proposed approach. In section 4 we describe two approaches for sentence polarity identification. In section 5 we describe the document classifier based on known sentence classes. Section 6 presents our results, and we conclude in Section 7 with challenges faced and suggestions for future work.
+II. RELATED WORK
+Current sentiment extraction tasks differ according to the types of classes predicted (positive or negative, subjective or objective), the classification levels used (sentence, phrase, or document level), the types of features considered for the classification, and the classification techniques used. According to the discussion in [3], the types of features considered could be: (1) semantic, where the semantic orientation of words is considered, (2) syntactic, where the structure of words and phrases is considered, and (3) stylistic, where features such as total number of words and characters, length of words, and character and word distribution are considered. The classification techniques could be machine learning techniques or similarity score techniques such as frequency counts and pattern matching.
+In [6], Turney presents a scheme for sentence-level classification that assigns the class of a sentence based on the average semantic orientation of different phrases. The semantic orientation of each phrase is determined using a similarity score measure (Pointwise-Mutual Information and Information Retrieval or PMI) which compares the phrase similarity to a set of ideal 7 positive words with its similarity to a set of ideal 7 negative words. In [7], Qiang et al. present a scheme to adapt Turney's semantic polarization to Chinese by partitioning words and sentences.
+In [3], Abbasi et al. use a combination of syntactic and stylistic features to classify opinions in Web forums in multiple languages: English and Arabic. Syntactic features considered for Arabic were frequency of word roots, frequency of word N-grams (where N-grams are subsequence of characters or words, whose frequency is used to find similarities between different words or phrases), and occurrence of punctuation marks. POS N-grams were used for English but not for Arabic. Stylistic features considered included character N-grams, total words, total characters, special-character frequencies, world-length distributions, character length of forum messages, etc. No semantic
+
+features were considered and about 12,000 features were generated. To account for the high dimensionality, automatic feature selection and reduction was performed using EWGA (Entropy Weighted Genetic Algorithm), reducing the number of features to a few hundred, and then SVM was used as the classifier. They reported high accuracy (90%) especially when combining both syntactic and stylistic features. In fact, both [3] and [8] report that SVM has been found to give the best performance for natural language processing, compared with Naïve Bayesian, and K-Nearest Neighbor. However, the method in [3] for Arabic was applied only in relevance to web mining in web forums of multiple languages in the forum and with relatively short (about 1000 characters) documents. Semantic orientation of words was not considered. In [9], Zhang et al. suggest a document-level classification for English using one classifier that predicts the polarity of each sentence and a second classifier that uses the results of the first to predict polarity for the overall document. In [10], Pang and Lee suggest classifying overall sentiment by pinpointing a single sentence in the document that captures the overall sentiment.
+To extract general information from Arabic, Hajjar and Zreik, in [5], present different schemes for morphological analysis of Arabic words. They compare the Stemmer approach (which reduces words to their common roots) to the N-gram approach and propose a hybrid approach that makes use of the advantages of both schemes.
+III. PROBLEM FORMULATION AND OBJECTIVES
+The objective of this work is to classify the sentiment or opinion of an Arabic document while addressing the issues related to both sentiment mining in general and the analysis of complex Arabic text in particular. We used a machine learning approach and divided the problem into two parts:
+(1) Categorizing the sentiment of a complex Arabic sentence having different parts of speech as positive, negative, or neutral with respect to a given target. Sentences with varying grammar structure and type should be processed.
+(2) Categorizing the dominant sentiment of a long Arabic document which may contain multiple opinions, given the classes of its corresponding sentences. To do this we considered a novel document classification approach based on dynamic chunking of documents and identifying the sentiments of each chunk.
+Note that the document-level approach using chunking is not Arabic specific and can also be applied to documents of other languages. However, special consideration is required for automated text extraction of Arabic text whose paragraph structure is generally different from that of English.
+We considered different approaches including both semantic and syntactic and assessed the issues encountered using each.
+
+1115
+
+IV. SENTENCE-LEVEL CLASSIFICATION
+We investigated two approaches for sentence polarity identification classification: a grammatical syntactic approach and a semantic approach that does not consider any grammatical features. The goal of the classification is to classify the polarity of an Arabic sentence as positive, negative, or neutral with respect to the target.
+A. Grammatical Approach
+Arabic sentences can be roughly divided into two types: verbal ( ) and nominal ( ). Typically a nominal sentence starts with the subject and in its simplest form has the format [Subject| Subject descriptor] while a verbal sentence starts with a verb and has the format [Verb| Subject| (Object)]. The Arabic syntactical rules allow many variants for each type so for simplicity we limited the analysis to the following variants:
+
+Sentence type | Actor | Action | Object | Type of noun | Adjective | Type of pronoun & noun | Transition | Polarity (class)
+In case of a nominal sentence, the Object is null. In case certain parts of speech or a transition word are not present they are also labeled as null. The pseudo-code for the approach is shown in Figure 1.
+
+(Verbal Sentence):     + (Object)   + (Subject)  + (Verb) 
+ + (Adjective)  + (Particular type of noun) (Particular types of pronoun and noun) 
+(Nominal Sentence):     + (Nominal subject)  (Subject descriptor)  + (Particular type of noun) (Adjective)  + (Object) + (Types of pronoun and noun) +
+The approach works as follows. Each part of speech of the sentence is an attribute in the classification. Given a target topic and a sentence to be classified, we thus tag each part of speech (e.g  (verb),  (subject), etc.) in the sentence with one of the following labels:
+x Target: if the word represents the topic being commented on
+x Positive, negative, or neutral: if the word conveys a positive, negative, or neutral sentiment respectively
+Instead of considering nominal and verbal sentences separately, we consider a general form of the Arabic sentence that includes both nominal and verbal sentences and that is based on Actor/Action combinations. Hence, both the Verbal Subject () and Nominal Subject () would be considered as Actor, and both the Verb () and the Subject Descriptor () would be considered as Action. Tagging is done manually because no automatic POS tagger is available for every part of speech. For each sentence we also add a feature sentence type which identifies the sentence as nominal or verbal, and a feature transition word, identifying the type of word linking the sentence with a previous sentence. After manually arranging the feature vectors for each sentence we input them to the chosen classifier. A sentence vector would thus be represented as:
+
+Figure 1. Grammatical Sentence-level Approach
+B. Semantic Approach with Learning Dictionary
+The previous sentence-level approach relied on structured Arabic grammar but the feature extraction and tagging was done manually. To automate sentence-level classification for use in a large number of documents, we propose a simple combined syntactic and semantic approach where we consider features such as: frequency of positive, negative, and neutral words in each sentence, frequency of negations (such as  ,  , , , which are negation words in Arabic and hold several meanings such as not, won't, didn't, don't) , frequency of special characters (!) and (?), frequency of emphasis words ( `especially',  `to the extent that',  `very much',  `really',   `at all' , etc.), frequency of conclusive words ( `in conclusion' ,  `and that is why' ,  `finally', etc) , frequency of contradiction words, and other similar features.
+These features are extracted automatically from the documents. The structure of Arabic text differs from English in that an Arabic `sentence' can be as long as a paragraph with linked sub-phrases. Given that we are concerned with sentence-level classification, we defined a `sentence' as any set of words separated by two commas, or a comma and a stopping mark. To identify the semantic orientations of the individual words (positive, negative, or neutral), we built a semantic interactive learning dictionary which stores the semantic orientation of the word roots which are extracted using a stemmer program. The interactive dictionary asks a user to identify the polarity of a word it has not learned and adds its root to the list of learned roots. To tag the polarity of the newly encountered words,
+
+1116
+
+the list of learned roots is used. Given a set of Arabic documents as input, we summarize the steps implemented in our approach as follows:
+(1) For each sentence in a given document, iterate over all the words. Initialize counts for number of positive, negative, and neutral words, number of negations, and all other special words and characters. Certain words, such as stop words and non-Arabic words, are identified as `Not a word'.
+(2) Extract the root of each word using a stemmer and then check the root against the dictionary. If the root is present in the dictionary, extract its sentiment (positive, negative, or neutral) and update the sentiment count. Otherwise, prod the user for the word sentiment and update the dictionary.
+(3) Update the feature vector for each sentence based on the sentiment counts, special word counts and special character counts.
+The block diagram of this approach is shown in Figure 2.
+
+typically this requires a highly efficient morphological analyzer. As an example, take the word  (or `extracted it', pronounced ista-khraja-who) shown in Figure 3, where the suffix (who) at the end of the word refers to the pronoun it or him. Obviously the learning process when storing the word in this form is slow, because there are many different possible suffix, affix and prefix variations on the same word. Ideally it would be desired to store the word  (`to extract', pronounced ista-khraja) without the suffix .The root is  (or, `to go out', pronounced kha-raja) and other words with the same root may have a different meaning or semantic orientation. In our implementation, we stored the three-letter root (kha-ra-ja).
+
+Figure 2. Extraction of semantic orientation of words using learning dictionary
+Note that there is a tradeoff between storing the roots of the words and storing the actual encountered word with its derivative letters, affixes and suffixes. Storing the actual word improves the accuracy of the dictionary but leads to a slower learning curve. Storing the stem leads to a fast learning process and minimizes the size of the dictionary, but leads to lower accuracy because a single root could sometimes correspond to either a positive, negative, or neutral word. For example, if the root of  (or beautiful, pronounced ja-meel) is extracted to  (the corresponding three-letter root, pronounced ja-mal with a short a),  will be identified by the user as positive and  will be stored as a positive root. The word noun is  (or beauty, pronounced ja-maal). However, if the dictionary later encounters the word  (which can also mean `camel') it will thus be labeled as positive while it is actually neutral. There are several other examples where the same Arabic root could be the origin of different words having different sentiments. Ideally, it is desired to store the word with its derivative letters but without the affixes and suffixes;
+
+Figure 3. Example of word (top), word with suffix (middle), and word root (bottom)
+V. DOCUMENT-LEVEL CLASSIFICATION
+To classify the sentiment of the Arabic document, we investigated using the individual sentence polarities to extract the overall sentiment. We used the known (correct) sentence classes as input to a document classifier and considered the semantic contribution of different chunks in the document. Each document was divided at run-time into a number of chunks. The number of chunks can be specified dynamically by the user and the document is accordingly divided into chunks at run-time. The chunks correspond to the positions of groups of sentences in the document. We rationed that for movie reviews, opinionated sentences would dominate in the beginning and end chunks, while neutral sentences would dominate in the middle chunks. For each chunk, the percentage of positive, negative, and neutral sentences in that chunk was extracted from the document. Other features we considered were the overall positive, negative, and neutral percentages for the document and the semantic contribution of the last two sentences, where the assumption was that these sentences would likely contain a conclusion of the author's opinion about the target. As in the semantic sentence-level approach, feature extraction was done automatically. Document feature vectors based on the above were generated for each document and were input to the chosen classifier, which in our case was SVM.
+VI. EXPERIMENTS AND RESULTS
+To evaluate our methods, we used full documents from Arabic movies, obtained from [11], to test all methods except the grammatical sentence-level approach, where we used sentences from an English movie review, obtained from [12], that were translated and simplified to fit our
+
+1117
+
+chosen grammatical structure. For the full Arabic documents, we obtained a set of 44 movie reviews in Arabic from [11]. We imposed no change on the structure of the documents or sentences before reading them into the program. The average length of each movie review was about 50 sentences or 2000-3000 characters. In section A we present the results for our sentence-level methods and in section B we present the results for our document-level method.
+A. Sentence Classification
+1) Grammatical Approach: For the grammatical approach, we used 29 sentences obtained from an English movie review from [12] and translated them into Arabic. We then simplified them to fit the grammar described in (III) and tagged the different parts of speech with labels as described in (III). Using SVM as the classifier, we obtained an accuracy of 89.3 % with our general sentence structure approach, using 10-fold cross validation for the training set selection. Moreover, using information gain attribute ranking, we found that the highest ranked attributes were the Actor and Action attributes. Our grammatical approach thus demonstrates high accuracy in relevance to the fact that the given text is in the Arabic language, when compared to results for English in previous work which usually are in the 90-100% using SVM. We keep in mind that English sentiment mining has been much more widely investigated and researched while Arabic research in sentiment mining has been very limited, and that the English language has simpler grammar structure and word structure. Moreover, we were able to improve on previous experiments we had conducted where we considered features for both verbal and nominal sentences rather than a general form for the Arabic sentence as we did in this study. We have thus demonstrated that using an Actor/Action feature set is successfully able to generalize the structure of an Arabic sentence and greatly improves the sentence-level classification accuracy.
+2) Combined Semantic and Stylistic Approach with Learning Dictionary: Here we used sentences from a randomly chosen subset of the 44 documents obtained for document analysis. To account for errors resulting from incorrectly tagged semantic words by the dictionary due to multiple words having the same stem, we did a manual test whereby we manually identified the semantics and assigned the frequencies, in addition to a test using the stemmer and dictionary. The classifier we used is a J48 Decision Tree. The results are shown in Table 1.
+
+TABLE I.
+
+RESULTS OF COMBINED SEMANTIC AND STYLISTIC APPROACH
+
+Number of Sentences Accuracy
+
+Manual extraction 47
+
+80%
+
+Dictionary
+
+172
+
+62%
+
+As can be seen from the table, manually identifying the semantic orientation of the words gives better results than using the dictionary. There are several reasons for this. First, the labeling accuracy of the dictionary itself is reduced by the fact that the root of the word is stored rather than the entire word and the same root can belong to different words with different meanings, as described in section (IV). Second, the semantic orientation or words is highly context dependent. Thus, the same word may be positive in one context and negative in another. A human reader tagging words manually will be able to identify the context, but the dictionary, as of yet, cannot. We must also keep in mind that the size of the test set may have also influenced the results.
+In general, the grammatical sentence-level approach demonstrates better results than this one because it considers the grammatical structure of the sentence, the target, and the combinations and sequential order of different parts of speech. The non-grammatical approach is a demonstration used to automate sentence-level classification and to evaluate the functionality of the dictionary we developed. Because the approach is a simple one relying on frequency counts of words without considering the grammatical order and associations between words, it is expected to have lower accuracy than the grammatical approach. However, the method we developed is an important first step in Arabic sentiment analysis, especially noting that it takes as input the full Arabic documents as they are with punctuation, stop words, and without simplifying any grammar or word structures. Furthermore, the dictionary can be used as a tool for further sentiment mining analysis in Arabic.
+B. Document Classification
+We used 44 documents (of distribution 27 positive, 12 negative, and 5 neutral) with known and correct class label sentences. The sentence features from 2238 sentences were input for document analysis using SVM. Since the procedure required individually labeling the class of each sentence, this limited the total number of documents available in the dataset. Moreover, since the number of neutral movie reviews we found is small compared to the number of positive and negative movie reviews, we performed the test once while considering the neutral documents and once without the neutral documents to reduce skewness of the data distribution. The results are shown in Table 2.
+
+1118
+
+TABLE II.
+
+RESULTS OF DOCUMENT CLASSIFICATION WITH DYNAMIC CHUNKING
+
+# Chunks Neutral Class Accuracy
+
+3
+
+Included
+
+72%
+
+3
+
+Excluded
+
+84%
+
+4
+
+Included
+
+75%
+
+4
+
+Excluded
+
+87%
+
+5
+
+Included
+
+75%
+
+5
+
+Excluded
+
+84%
+
+8
+
+Excluded
+
+72%
+
+We experimented with using 3, 4, 5, and 8 chunks, once including neutral documents and once excluding neutral documents for each number of chunks. We found that dividing the documents into 4 chunks gives the best result87% accuracy when the neutral class is excluded- and 8 chunks gives the lowest accuracy. Hence for our document set, the optimal number of chunks for document sentiment classification is 4; increasing the number of chunks further decreases the classification accuracy. Moreover, using information gain attribute ranking, we determined that the attribute polarities of the last 2 sentences are the highest ranked, showing that the dominant opinion of the author is likely to appear at the end of the document, as we had expected. The chunking approach we used is novel and effective and since it is not particular to the Arabic language, it can also be investigated for sentiment mining in other languages such as English and Chinese. For 4 chunks with the neutral class excluded, the accuracy is comparable to that obtained in document-level mining in English. Extending the approach using a larger number of documents will enable us to further validate the effectiveness of the chunking approach.
+VII. CONCLUDING REMARKS AND FUTURE WORK
+Research in sentiment text mining has been very limited for the Arabic language whether it is at the sentence-level or document-level. In this work, we have investigated a grammatical approach and a semantic approach for sentence-level sentiment mining in Arabic text, and a document-level approach that assumes the labels of individual sentences were known. We were able to demonstrate high accuracy in our grammatical approach, particularly by considering a general structure for the Arabic sentence. We have also developed a learning Arabic semantic dictionary that could be used in future work for Arabic sentiment mining. The semantic approach showed promising results as a first step for full automation of feature extraction for Arabic sentiment mining. For document-level sentiment mining, we have shown with superior accuracy that it is feasible to extract the sentiment of an Arabic document based on the classes of its sentences.
+
+Future work includes implementing an actual hierarchical classifier that uses the output of the sentence classifier instead of the correct known classes, and modifying the dictionary to support suffix, affix and prefix extraction instead of root extraction. There is also a need for efficient and accurate Arabic morphological analyzers and automatic POS taggers for different parts of speech in order to automate the steps that were done manually in our method, such as tagging parts of speech and sentiments of words in the grammatical approach.
+ACKNOWLEDGMENT
+This research is based on work supported in part by the Lebanese National Council for Scientific Research (LNCSR) and the Intel Middle East Energy Efficiency Research (MER) Project.
+REFERENCES
+[1] B.Pang and L.Lee, "A Sentimental Education: Sentiment Analysis Using Subjectivity Summarization Based on Minimum Cuts" in Proceedings of the ACL, 2004
+[2] A. Abbasi, H. Chen, and A. Salem, "Sentiment Analysis in Multiple Languages: Feature selection for opinion classification in Web forums," ACM Transactions on Information Systems (TOIS), v. 26, no. 3, pp. 12, 2008.
+[3] R. Al-Shalabi and R. Obeidat , "Improving KNN Arabic Text Classification with N-Grams Based Document Indexing", in Proceedings of the Sixth International Conference on Informatics and Systems, Cairo, Egypt, 2008.
+[4] A. Hajjar, M. Hajjar and K.Zreik, "Classification of Arabic Information Extraction Methods", in Proceedings of the Second International Conference on Arabic Language Resources and Tools , Cairo, Egypt, 2008, pp.21-23, 2009
+[5] A. Farghaly and K.Shaalan, "Arabic Natural Language Processing:
+Challenges and Solutions", in ACM Transactions on Asian Language Information Processing (TALIP), v.8, no.14, pp.1-22, December 2009
+[6] P.Turney, "Thumbs Up or Thumbs Down? Semantic Orientation Applied to Unsupervised Classification of Reviews", in Proceedings of the 40th Annual Meeting of the Association for Computational Linguistics(ACL) , pp. 417-424, July 2002
+[7] Q.Ye, W.Shi, and Y.Li, "Sentiment classification for movie reviews in Chinese by improved semantic oriented approach", in Proceedings of the 39th Hawaii International Conference on System Sciences, v.3, pp. 53, Jan. 04-07, 2006
+[8] W.Zheng and Q. Ye, "Sentiment classification of chinese traveler reviews by support vector machine algorithm", 2009 Third International Symposium on Intelligent Information Technology Application, pp.335-338, IEEE, 2009
+[9] [W.Zhang, L.Jia, C.Yu, and W.Meng, "Improve the effectiveness of the opinion retrieval and opinion polarity classification," Proceeding of the 17th ACM Conference on Information and Knowledge Management, pp. 1415-1416, 2008
+[10] P.Beineke, T.Hastie, C.Manning, and S. Vaithyanathan, "Exploring Sentiment Summarization", in AAAI Spring Symposium on Exploring Attitude and Affect in Text: Theories and Applications (AAAI tech report SS-04-07), 2004
+[11] Source for Arabic movie reviews. [Online]. Available: http://www.filfan.com/AllMovieReviews.asp. [Accessed: May 20, 2010]
+[12] Source for English movie review [Online]. Available: http://www.rottentomatoes.com [Accessed: May 20, 2010]
+
+1119
+
+

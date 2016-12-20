@@ -1,0 +1,207 @@
+2008 Workshop on Knowledge Discovery and Data Mining
+
+A New Private Multi-Channel UWB MAC Protocol Design for Distributed Network
+
+Zhi-hong Xiao, Yao-hui Wu, Zong-qi Guan Department of Electronic & Information Engineering, Zhejiang Wanli University, P.R.China.
+315100 flyinmysky@sohu.com
+
+Abstract
+Channel logical partitioning can better avoid the conflict and improve the agreement's efficiency. It has proved that double-channel access agreement efficient than the single-channel one by theory and simulation's test. And it will solve the exposed terminal problem. Proposed a design for new private multi-channel UWB MAC protocol applied distributed network in the background of UWB applied in wireless local network in this paper. This protocol nor only solve the hidden terminal and exposed terminal, but also distribute channels effectively and improve network performance.
+1. Introduction
+At present, there have conflict and withdraw when the network load is heavy in the single-channel MAC protocol. Which result in waste of bandwidth and made agreements efficiency is not high. Therefore, channel logical partitioning can better avoid the conflict and improve the agreement's efficiency. It has proved that double-channel access agreement efficient than the single-channel one by theory and simulation's test. And it will solve the exposed terminal problem. Meanwhile, along with various spread spectrum technology become mature, bandwidth can be divided into many logical accesses and each channel can be used a code word to identified. If there are sufficient channels compared to network size, each node of the need for communicating can be assigned a channel. So that can reduce the number of conflict and improve network throughput and protocol efficiency.
+But this multi-channel way is not the optimal distributive resource ways. It will waste enormous resources in certain extent. In the wireless local network, because each node's storage and computational capacity is very low and channel characteristics change very complicatedly, it is will increase the difficulty to design MAC layer protocol if
+
+want to achieve high quality service. So the UWB physical layer should make full use in MAC protocol designed to overcoming complexity as high-speed, low-power, etc. Proposed a design for new private multi-channel UWB MAC protocol applied distributed network in the background of UWB applied in wireless local network in this paper.
+2. Topological structure of network
+In initialization phase, each code cyclically broadcasts its code word information used after it entered the network. The generation of code word is not only related to the code polynomial, nut also to the device number of node and network ID number, so the code word selected by each user is unique. Broadcast Channel is entirely 0 code word channels or 1 code word channels, this it can be separated from other code word used after the establishment of network. Each node to join the network will search for on broadcast channel, access to the relevant information about network initialization. So all network nodes can receive the MAC ID information of other nodes which containing the information of code word used by other node, and save the information in each MAC buffer zone. If a new node to join after the network established, the search process will be repeated until the relevant information of each node in network be obtained. If all nodes are in idle mode, they will periodically search on broadcast channel and update their internal network relevant information.
+In accessing design process, assuming all nodes have obtained the MAC ID information of other nodes which in the same region at the end of the network initialization. The description of the accessing protocol process is all on the basis of this assumption.
+3. Analyzed the access strategy
+
+0-7695-3090-7/08 $25.00 © 2008 IEEE DOI 10.1109/WKDD.2008.98
+
+489
+
+The purpose of the whole protocol design is in the asynchronous distributed network architecture, when there are lower number of users in a slightly network, using code words to distinguish between users and channel, and then achieving the purpose of simultaneous communication for the multi-channel to multi-node. In this protocol, the distribution of channel is based on the receiving node, theory and simulation results show that the distribution based on the receiving node will be more effective. Moreover, such a channel allocation between the sending and receiving nodes resist only when there is communication request. The flowchart protocol is show as Fig.1.
+
+Fig.1 Flowchart protocol
+Adopting requesting information, replying information and confirmation information with private code word channel, further reduces the probability of collisions and conflicts. Considering that the coexisting of number of slight nets entirely solves the question of the exposed terminal. As the network ID used to distinguish different slightly network, so in this protocol only 10 users considered to reduce the design difficulty, but it increases the transmission of related information in the initialization phase and a certain extent increases the network costs.
+The program flowchart of protocol is shown in figure 2.
+
+Fig. 2 Program flowchart
+
+4. Performance analysis
+
+4.1 Data rate of system
+
+When the system having a strict control mechanism,
+
+the maximum data rate the system support can be
+
+simplified to:
+
+Rmax
+
+=
+
+Ew2 SNRout (Nu )(Nu
+
+- 1)T f  a 2
+
+490
+
+So for the multi-users system with a certain number of users, the maximum data rate is related to the output SNR.
+
+4.2 Error probability of system
+
+It can be drawn from the above formula:
+
+Pc
+
+(Nu
+
+)
+
+=
+
+Q
+
+Nc A12Ew
+
+
+
+2 n
+
+-1
+
++
+
+Nc Ew2 a2
+
+-1
+
+Nu
+×
+k=2
+
+
+
+Ak A1
+
+2
+
+  
+
+1 2
+
+    
+
+When the system has only one user, the error probability can be expressed as:
+
+[ ]Pc (Nu = 1) = Q
+
+Nc A12 Ew  n2
+
+4.3 Maximum capacity of system
+
+The maximum of theoretical capacity provided by
+
+Shannon formula is:
+
+Rsup_ theory
+
+=
+
+lim C(W )
+w
+
+=
+
+1 loge (2)
+
+Ew2
+Nu
+Tfa2 (
+k =2
+
+Ak A1
+
+)2
+
+When the system having a strict control mechanism,
+
+the maximum can be expressed as:
+
+Rsup_ theory
+
+=
+
+1 loge (2)
+
+Ew2 Tf  a2 (Nu
+
+-1)
+
+5. Simulation results
+
+5.1 Simulation results of ideal MAC layer
+
+In protocol simulation process, in order to facilitating comparisons, the related parameters other protocol used are the same value of the above parameters.
+In the process of simulation, assuming the operation obeys the Poisson distribution with P as the parameter, and. UserNum=10, PacketLength=1024x8bits, ControlLength=200bits.The data rate network provided has the flowing four choices, namely 50, 110, 200 and 480Mbps, data transmission can randomly selects rate, and this can simulate the function of fact network which selects transmission data rate after adding control mechanism for data rate in the MAC layer. If the channel is not ideal or other conflicts cause the incorrect receiving of data packets at sink, the repeated transmission mechanisms will be adopted, and other
+
+corresponding nodes of conflict retreat, the retreat algorithm is binary exponential retreat algorithm.
+Fig.3 Compare of portfolio and throughput simulation results
+Fig.4 Compare of portfolio and delay results As can be from the above figure, after using the provide multi-channel UWB MAC protocol proposed in this paper, in the network scene of ad hoc, the throughput has been maintained at a relatively ideal level, compared with the number of packets simulation sent, its number of packets of successfully sent can achieve more than 87%, and no increasing network delay. Considering the worst condition in the application of this protocol, only one code word in network can provide data communication, the network throughput still can achieve about 65% despite decline, delay also has not greatly increased, all these show that the protocol has a certain robustness. Through compare with several other classical wireless network MAC protocol, we can see that the private multi-channel UWB MAC protocol is superior in capability, especially in the condition that network load is heavy, massive data needs transmission, the capability of this protocol is still very good, the number of packets successfully transmitted are more than several other protocols'. This is mainly because that the channel resources are relatively abundant after
+
+491
+
+the design of private code words, the sides can communicate only if they are in idle state; but the several other protocols only allow one pair of nodes to communicate.
+The most difference between this protocol and other multi-channel protocols is the arranged control channel of private nodes. When number of nodes require for communication at the same time, if using other multi-channel protocol, nodes need to arrange on a control channel, at this time may have a conflict and the nodes can't obtain idle data channel resources to communicate, waste system resources. And the proposed use of private multi-channel UWB MAC protocol, ensure that each node communicating at the same time without interference each other through access to private control channel code words, reduces the probability to the maximum extent and improves the system performance.
+
+5.2 Joint simulation results of MAC/PHY
+
+Simulation conditions are shown in table 1.
+
+Table 1 Parameter setting of joint simulation conditions
+
+Data package length
+
+80 Bytes
+
+Control information length
+
+20 Bytes
+
+Velocity of operation
+
+100 Mbps
+
+Velocity of control information
+
+50 Mbps
+
+Extend frequency code
+
+Wash code of 16 bits
+
+Users
+
+8
+
+Wince arithmetic
+
+Wince of binary index
+
+As the amount of joint simulation data is considerable, it is generally difficult to deal with. So simplify the data packet length and simulation, the results can only be considered approximate solution. In addition, because the code words used are only 16 emic Walsh code, its performance is not the best, thus the whole simulation results only from the general trend reflect the protocol performance. If improving simulation conditions, the results will be more accurate.
+
+Figure 5 Joint simulation conditions of MAC/PHY
+The vertical coordinate is probability of successful transmission; abscissa is the number of node's procreant packages per unit time. It can be seen that this new UWB MAC protocol can receive good performance; the probability of successful transmission is very high. So the throughput of network wick is better and further verifying the above simulation results on MAC layer.
+6. Conclusion
+This paper presents a new type of private multi-channel UWB MAC protocol, which using code words divides several logical channels, and through code words associates with some customizing message, privatizes the control and operation channels, further reduces the probability of system collision, improves the performance of system throughput. Moreover, the division of multi-channel entirely solves the questions of hidden and exposed terminal in wireless network. All nodes in the asynchronous network structure using high-speed transmission, which can still achieve the purpose of multi-node communication at the same time in the flexible use of relatively independent channel resources.
+7. Acknowledgment
+This work supported by the National Natural Science Foundation of Ninbo City of China under Grant. No: 2006A610009
+References
+[1] KLEINROCK L, TOBAGI F A."Packet switching in radio channels: part I-carrier sense multiple-access modes and their throughput-delay characteristics", IEEE Transaction on Communication, 1975, Vol Com 23: P1400-1416 [2] ZYGMUNT J H, JING DENC} "Dual Busy Tone Multiple Access (DBTMA)-A Multiple Access Control Scheme for Ad Hoc Networks, IEEE Transaction 'on Communications, June 2002, Vol S0, No.6: P975}985. [3] ZHIFENG ZHAO, SHAOREN ZHENG, Personal Mobile Communications Conference, 2003 5th European (Conf. Publ. No. 492):22-25, April 2003:P32 36. [4] TANG Z, GARCIA-LUNA-ACEVES J J," Hop-reservation multiple access (HRMA) for ad hoc networks", IEEE INFOCOM'99, New York, March 1999: P 194-201.
+
+492
+
+

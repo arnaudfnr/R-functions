@@ -1,0 +1,97 @@
+2008 Workshop on Knowledge Discovery and Data Mining
+
+Personalized E-learning System by Using Intelligent Algorithm
+
+Mingmin Gong Information Engineering School, Wuhan University of Science and Technology Zhongnan
+Branch, Wuhan, 430223, Hubei, China gmm116@126.com
+
+Abstract
+Nowadays, Network and multimedia are the trend of the development of the modern education technology. With the rapid development of the network technique and the prevalence of the Internet, Elearning has become the major trend of the development of international education since 1980's, and the important access for the internationalization and the information of education. To meet the personalized needs of learners in E-learning, a new intelligent algorithm is proposed in the paper by using personality, association rules mining and collaborative filtering technologies. The Intelligent algorithm is composed of two phases: association rules algorithm and collaborative filtering.
+1. Introduction
+Nowadays, Network and multimedia are the trend of the development of the modern education technology. With the rapid development of the network technique and the prevalence of the Internet, E-learning has become the major trend of the development of international education since 1980's, and the important access for the internationalization and the information of education. Although the modern distance modernization arouses a big reform on the education mode and education conception. However, the learners are in different age level, sex, and social role, their culture and education background, attention, interest hobby also exist a great difference. Giving corresponding teaching resources according to learners' characteristics to implement personalized learning is very difficult [1] [2].
+According to the reasons mentioned above, the technologies of personality, association rules mining and collaborative filtering are applied in the paper. Based on it, a new intelligent algorithm is proposed. Furthermore, a new intelligent algorithm could apply in personalized E-learning system to support personalized E-learning better [3].
+
+2. Intelligent algorithm
+Association mining rules and collaborative filtering are applied in the paper. Intelligent algorithm is composed of two phases: Step1: Using association rules algorithm to mining several categories of interested teaching resources for users. Step2: Using collaborative filtering algorithm to recommend the specific teaching resource of interested categories.
+2.1. Association rules mining
+There are three steps for association rules mining algorithm [3]: Step1: generating frequent item-set l. if appearance frequency of item-set is less than min_sup, then the item-set is frequent item-set. Step2: regarding to each frequent item-set l, all nonspatial subsets are generated. Step3: regarding to each non- spatial subset of frequent item-set l, if
+
+sup sup
+
+port port
+
+_ count(l) _ count(s)
+
+
+
+min_
+
+conf
+
+(1)
+
+Then the rule s=> (l-s) is generated. min_conf represent the minimum confidence thresholds, support count(l) represents the number of transaction containing item-set l, support count(s) represents the number of transaction containing item-set s.
+Teaching resources are classified as several categories. Then Basing on it, using association mining algorithm generates association rules. Left side itemset of the rules is the teaching resources category. Furthermore, the rules are selected and classified. The useful rules should provide the category of recommending teaching resources. Supposed N categories are obtained though association rules
+recommendation, like S1, S2 , S3 , Sn
+
+0-7695-3090-7/08 $25.00 © 2008 IEEE DOI 10.1109/WKDD.2008.152
+
+400
+
+S = {S1, S2 , S3, Sn} is a set of all recommendation categories. N (Sn ) is all teaching reousours set of category Sn .
+N
+N (S) =  Sn is all commodities set of N =1 recommendation category by using association rules.
+2.2. Collaborative filtering algorithm
+
+The collaborative filtering algorithm is shown as follows: Step1: Representation. Supposed input data may
+represent m × n user - item evaluating matrix R. m is
+the number of users, n is the number of item. Ri, j Is the appraisal value of ith user to jth item; appraisal
+value is related to the content. If the item is teaching
+resources in E-learning, then appraisal value represents
+user choose or not. For example, 1 represents that user
+choose the resources, 0 represents that user does not
+choose the resources.
+Step2: Searching for the nearest neighbor set.
+Regarding to a user U, a neighbor set {N1, N2 , N3 , NS } is generated and arranged according to the size of
+similarity. Even U does not belong to
+{N1, N2 , N3 , NS } are arranged form big to small according to SIM (U , Ns ) . Step3: Generating recommendation. After generating the nearest neighbor set, the interest degree of item and Top-N are calculated. Supposed user a and the corresponding option set Ia , the interest degree of item j is calculated according to formula 2
+
+n
+ ( )wa,u ru, j - ru
+pa, j = ra + u=1 n
+ wa,u
+u =1
+
+(2)
+
+Among them, ra represents the average appraisal
+value that user a to item, U is the nearest neighbor set. wj Is similarity between user and user, ru, j is the
+appraisal value that user u to item j. ru represents the
+average appraisal value that user u to item. The interest degree of user i to different items is calculated separately. N items that have higher interest degree and don't belong to item are taken as recommendation set Top-N.
+
+After interested categories are obtained by association rules, we use the collaborative recommendation. Namely, regarding to each Sn  S ,
+we use the collaborative recommendation in N (Sn ) .
+Supposed, regarding to each Sn , Q teaching resources are recommended. Recommendation set is It = {It1, It2 , It3 , Itq} . Simultaneously the interest
+degree of each commodity is P(It1), P(It2 ), P(It3 ), P(Itq ) .
+We recommend resources according to below strategy. Because the user has different interest degree to each category, category weighting method is used to recommend commodities.
+Regarding to each P(It, j ) (t=1,2...t,
+j=1,2...q, w(Sn ) is the interest weight that the user to
+each category Sn . Interest weight is calculated though confidence degree. Confidence degree is obtained though association rules.
+
+Ft, j = w(Sn ) p(It, j )
+
+(3)
+
+The size of Ft, j t=1,2...t, j=1,2...qis taken as the recommendation.
+
+3. Conclusion
+
+In summary, a new intelligent algorithm based on association rules mining and collaborative filtering is proposed in the paper. The algorithm is also applied in personalized E-learning. The results manifest that the algorithm can support E-learning better.
+
+References
+
+[1] Divjak, B.; Begcevic, N., "Imaginative Acquisition of knowledge - strategic planning of E-learning". Proceedings of 28th International Conference on Information Technology Interfaces, 2006, pp.47-52. [2] Karunananda, Asoka S.. "A theoretical-based approach to E-Learning" .Proceedings of First International Conference on Industrial and Information Systems, 2006.pp.127-132. [3] Xindong Wu. "Data mining: artificial intelligence in data analysis". Proceedings of IEEE/WIC/ACM International Conference on Intelligent Agent Technology, 2004.pp.7. [4] Li Dun,Cao Yuanda. "A New Weighted Text Filtering Method", Proceedings of International Conference on Natural Language Processing and Knowledge Engineering, Wuhan,2005,pp.695-698.
+
+401
+
+

@@ -1,0 +1,802 @@
+The Optimal Temporal Common Subsequence
+
+Aihua Zheng, Xiaoyi Zhou, Jixin Ma, Miltos Petridis
+School of Computing and Mathematical Sciences The University of Greenwich, London, UK
+{a.zheng, x.zhou, j.ma, m.petridis }@gre.ac.uk
+
+Abstract-- Based on a formal characterization of time-series and state-sequences, this paper proposes a new algorithm named the Optimal Temporal Common Subsequence (OTCS) to measure the similarity between state-sequences. Distinguishing from the conventional Longest Common Subsequence based measurements, a new concept of common subsequence named `temporal common subsequence' is proposed to describe the similarity of the temporal order over state-sequences, as well as the similarity of the other two essential and vital temporal characters, i.e., the temporal duration of each state and the temporal gaps between each pair of adjacent states. The experimental results on news video retrieval demonstrate the effectiveness and validity of OTCS.
+Keywords- state-sequence matching; optimal temporal common subsequence; news video retrieval
+I. INTRODUCTION
+The notion of state is fundamental for many state-based applications, which represents the static snapshot of the world in discourse, while the dynamic historical scenarios of the world can be characterised in terms of temporally 1 ordered statesequences. Generally speaking, a state-sequence presents a sequence of data, measured and/or spaced typically at successive times, which can be either points or intervals. State-sequence matching has been noticed as a popular research topic in statebased systems has been well applied in various areas such as financial data analysis [1], audio recognition [2], visual information retrieval [3], etc. Normally, state-sequence matching can be divided into two categories: whole matching [4, 5] (i.e., all state-sequences have the same length  and subsequence matching [3, 6] (i.e., state-sequences have various lengths). Obviously, the whole matching problem is in fact a special case of the subsequence matching. In general, statesequence matching needs to accommodate three temporal features:
+i. Temporal Order: the temporal relation over the states in the two given state-sequences. This issue has been well dealt with in most existing state-sequence matching algorithms benefiting from the dynamic programming.
+ii. Temporal Duration:
+This research is supported in part by National Nature Science Foundation of China (No. 60772122) and the Scientific Research Fund of Hainan Provincial Education Department, Grant Number Hjkj2010-10
+
+A1 a
+Tdur1 1 A2 a
+Tdur2 1 A3 a a
+Tdur3 2
+
+b
+1 b
+2 bbb
+3
+
+c
+1 c
+3 cccc
+4
+
+d
+1 d
+4 ddd
+3
+
+Figure 1. Various temporal duration in state-sequences
+
+B1 a
+
+bc
+
+d
+
+Tgap1 B2 Tgap2 B3 a
+
+2 ab
+1 ab
+
+2 c
+2 bb
+
+2 d
+3 c
+
+Tgap3 1 1
+
+1
+
+2
+
+3
+
+d
+
+Figure 2. Various temporal gap in state-sequences
+ The duration of each state. For instance, as shown in Fig. 1, the two state-sequences A1 and A2, that is `abcd', have different temporal duration assignment function Tdur1 = [1, 1, 1, 1] and Tdur2 = [1, 2, 3, 4] , respectively.
+ The overall duration of continuous duplications of states. For instance, as shown in Fig. 1, for statesequences A1 = `abcd' and A3 = `aabbbccccddd', the common subsequence `abcd' have various overall duration, even if the duration value of each state is identical as 1.
+iii. Temporal Gap: the time element standing between two adjacent states as shown in Fig. 2, where B1 and B2 = `abcd', B3 = `aabbbcd' are with different temporal gap values.
+The Longest Common Subsequence (LCS) is a typical similarity measurement for subsequence matching.The basic idea of the original LCS algorithm [7] is to find the longest subsequence common to two state-sequences along the same temporal order. For instance, the longest common subsequence of A3 and B3 is `aabbbcd'. In this paper, distinguished from this concept of common subsequence in conventional LCS, we define the temporal common subsequence of two state-sequences
+
+316
+
+as the common subsequence where each state is different from its neighbor(s) (predecessor and successor), that is, there are no continuous duplications of states in temporal common subsequence. For instance, the temporal common subsequence of A3 and B3 is `abcd', rather than `aabbbcd'. Correspondingly, the optimal temporal common subsequence (OTCS) is the one with the highest overall similarity integrated by the length of temporal common subsequence, the temporal duration difference and temporal gap difference (see the actual algorithm in section III).
+Several algorithms based on the original LCS have been proposed. Some representative variants of these are: Timewarped LCS (T-WLCS) [8] which counts continuously duplicated common states in the spirit of Dynamic Time Warping (DTW) [9] algorithm; Compacted LCS (CLCS) [10] where only the common subsequence, the continuous length of which is longer than the specified threshold (th) is counted; All Common Subsequence (ACS) [11] which measures the similarity by means of counting the number of all common subsequences (including empty string in actual algorithm) and taking the strategy that the more common subsequences a pair of state-sequences have, the more similar they are.
+However, in most of these representative algorithms, many problems (see details analysed in section III) occur due to the neglect of richer temporal features such as temporal duration and temporal gap, etc. While time-series and state-sequences have been simply expressed as ordered lists t1, t2, ..., tn (or s1, s2, ..., sn), leaving some critical issues unaddressed. E.g.:
+x What a sort of objects do these t1, t2, ... and tn belong to? In other word, are they time points, time intervals, or simply some absolute values from the real numbers, integers, or the clock?
+x What are the temporal order relationships between these t1, t2, ... and tn, and/or between the sequence of collections? Are they simply well-ordered as the natural numbers, or they may be relatively ordered by means of relations such as "Before", "Meets", "During", and so on?
+x What are the associations between time-series/ sequences and non-temporal data that represent various states of the world in discourse?
+The objective of this paper is to propose an Optimal Temporal Common Subsequence (OTCS) algorithm based on a formal characterization of time-series and state-sequences. The rest of this paper is organised as below: the formal characterization of time-series and state-sequences is introduced in section II. Our OTCS is presented and analysed in section III. Experiments on news video retrieval system are conducted and the corresponding results are analysed in section IV to demonstrate the effectiveness and validity of the proposed OTCS. Section V provides a brief summary and concludes the paper with the prospects for future work.
+
+II. FORMAL CHARACTERIZATION OF TIME-SERIES AND STATE-SEQUENCES
+In this section, we introduce a formal characterization of time-series and state-sequences. For the sake of allowing expression of both absolute time values and relative temporal relations, in this paper, time-elements are defined as typed pointbased intervals, each of which must be in one of the following four forms [12]:
+(p, q) = {r _ rR  p  r  q` [p, q) ^r | rR  p d r  q` (p, q] ^r | rR  p  r d q` [p, q] ^r | rR  p d r d q`
+In the above, R stands the set of real numbers, and real numbers p and q are called the left-bound and right-bound of time-element t, respectively. The absolute values as for the left and/or right bounds of some time-elements might be unknown. In this case, real number variables are used for expressing relative relations to other time-elements (see later). If the leftbound and right-bound of time-element t are the same, t is called a time point; otherwise it is called a time interval. Without confusion, time-element [p, p] is taken as identical to point p. Also, if a time-element is not specified as open or closed at its left (right) bound (that is, the left (right) type of the time-element is unknown), we shall use "<" (or ">") instead of "(" and "[" (or ")" and "]") as for its left (or right) bracket. In addition, the temporal duration of a time-element t, Tdur(t), and the temporal gap between adjacent elements t1, t2, Tgap (t1, t2) can be defined as below:
+t = <p, q>  Tdur(t) = q ­ p
+t1 = <p1, q1> , t2 = <p2, q2> Tgap (t1, t2) = |p2 ­ q1|
+Following Allen's terminology [13], we shall use "Meets" to denote the immediate predecessor order relation over timeelements, which can be formally defined as:
+Meets(t1, t2)  p1,p,p2R(t1 = (p1, p)  t2 = [p, p2)  t1 = [p1, p)  t2 = [p, p2))  t1 = (p1, p)  t2 = [p, p2]  t1 = [p1, p)  t2 = [p, p2]  t1 = (p1, p]  t2 = (p, p2)  t1 = [p1, p]  t2 = (p, p2)  t1 = (p1, p]  t2 = (p, p2]
+ t1 = [p1, p]  t2 = (p, p2])
+It is easy to see that the intuitive meaning of Meets(t1, t2) is that, on the one hand, time-elements t1 and t2 don't overlap each other (i.e., they don't have any part in common, not even a point); on the other hand, there is not any other time-element standing between them.
+Analogous to the 13 relations introduced by Allen for intervals [13], all of which can be derived in terms of the single relation Meets. E.g.:
+Before(t1, t2)  tT(Meets(t1, t)  Meets(t, t2))
+Based on such a time theory, a time-series Tn can be defined as a vector of time-elements temporally ordered one after another [14]. Formally, a general time-series is defined in terms of the following schema:
+
+317
+
+GTS1) GTS2) GTS3) GTS4)
+
+Tn= [t1, ..., tn] = [<p1, q1>, ..., <pn, qn>] Meets(ti, ti+1)Before(ti, ti+1), for all i = 1, ..., n-1 Tdur(ti) = qi ­ pi, for some i where 1 i  n. Tgap(ti, ti+1) = pi+1 ­ qi for some i where 1 i  n-1.
+
+Generally speaking, a time-series may be incomplete in various ways. For example, if the relation between tj and tj+1 is "Before" rather than "Meets", it means that the knowledge about
+the time-element(s) between tj and tj+1 is not available. In addition, if Tdur(tk) is missing for some k, it means that duration knowledge as for time-element tk is unknown. Correspondingly, a complete time-series is defined in terms of the schema as below:
+
+CTS1) Tn = [t1, ..., tn] = [<p1, q1>, ..., <pn, qn>]
+CTS2) Meets(ti, ti+1), for all i = 1, ..., n-1.
+CTS3) Tdur(ti) = qi ­ pi, for all i = 1, ..., n.
+CTS4) Tgap(ti, ti+1) = 0 for all i = 1, ..., n-1.
+The validation of data is usually dependent on time. For instance, $1000 (account balance) can be valid before and on 1 January 2003 but become invalid afterwards. We shall use fluents to represent Boolean-valued, time-varying data, and denote proposition "fluent f holds true over time t" by formula Holds(f, t) (see details in [13]).
+
+Consequently, a state-sequence S is defined as a list of states
+together with its corresponding time-series Tn. A general statesequence is defined in terms of the schema as below:
+
+GSS1) Sn = [s1, ..., sn]
+GSS2) Holds(si, ti), for all i = 1, ..., n where [t1, ..., tn] is a time-series.
+Correspondingly, a state-sequence is defined as complete if and only if the corresponding time-series is complete [14].
+
+According to the basic set of axioms with respect to the point & interval based time-series theory [12], for any two adjacent time elements t1 and t2 such that Meets(t1, t2), we can denote the ordered union of t1 and t2 as t1  t2 If Holds(s, t1), Holds(s, t2) , we have:
+Holds(s, t1  t2)
+Tdur(t1  t2) = Tdur(t1) + Tdur(t2)
+That is, the "ordered union" operation over time elements is consistent with the conventional "addition" operation over the duration assignment function, i.e., `Tdur'.
+
+III. THE OPTIMAL TEMPORAL COMMON SUBSEUQENCE
+
+For two given state-sequences Sm [s1,..., sm ] and
+
+Sn'
+
+[s1' ,..., sn' ],
+
+Holds( si , ti
+
+)
+
+and
+
+Holds(
+
+s'j
+
+,
+
+t
+
+' j
+
+),
+
+ti
+
+ pi , qi ! and
+
+t
+
+' j
+
+
+
+p 'j
+
+,
+
+q
+
+' j
+
+! for
+
+i
+
+=
+
+1,
+
+...,
+
+m
+
+and
+
+j
+
+=
+
+1,
+
+...,
+
+n,
+
+the
+
+algorithm
+
+of
+
+the optimal temporal common subsequence can be illustrated as below: Firstly, the following algorithm calculates the longest temporal common subsequence.
+
+Input: two state-sequences
+
+Sm
+
+and
+
+S
+
+' n
+
+.
+
+Output: the length of the longest temporal common
+
+subsequences
+
+OTCSL(
+
+Sm
+
+,
+
+S' n
+
+).
+
+1) Initiation: s0 s0' null for i = 0 : m: OTCSL(i, 0) = 0 for j = 0 : n: OTCSL(0, j) = 0
+2) Recursion:
+
+for i = 1: m
+
+for j = 1 : n
+
+if si
+
+s' j
+
+# matched
+
+case 1: si 1
+
+s' j1
+
+si
+
+s' j
+
+OTCSL(i, j) = OTCSL(i - 1, j - 1)
+
+case 2: si 1
+
+s' j
+
+1
+
+z
+
+si
+
+s' j
+
+OTCSL(i, j) = OTCSL(i - 1, j - 1) + 1
+
+case
+
+3:
+
+(si
+
+1
+
+z
+
+s' j
+
+1) & (either si
+
+1
+
+or
+
+s' j
+
+1
+
+si
+
+s' j
+
+)
+
+OTCSL(i, j) = max(OTCSL(i-1, j), OTCSL(i, j-1))
+
+case
+
+4:
+
+(si
+
+1
+
+z
+
+s' j
+
+1) & (neither si
+
+1
+
+nor
+
+s
+
+' j
+
+1
+
+si
+
+s' j
+
+)
+
+OTCSL(i, j) = OTCSL(i - 1, j - 1) + 1
+
+else
+
+# si
+
+z
+
+s' j
+
+,
+
+unmatched
+
+OTCSL(i, j) = max(OTCSL(i-1, j), OTCSL(i, j-1)) end # end of if
+
+end # end of j
+
+end # end of i
+
+3) Accomplishment
+
+OTCSL(
+
+Sm
+
+,
+
+S' n
+
+)
+
+=
+
+OTCSL(m,
+
+n)
+
+In above algorithm, the continuously duplicated states are
+
+not re-counted as new common states in any state-sequence.
+
+Secondly, in the same manner, we simultaneously record
+
+Indk
+
+( fk ,lk ) and Indk'
+
+(
+
+f
+
+' k
+
+,
+
+l' k
+
+)
+
+as
+
+the
+
+first
+
+and
+
+the
+
+last
+
+index
+
+of
+
+the
+
+kth
+
+common
+
+state
+
+between
+
+Sm
+
+and
+
+S
+
+' n
+
+,
+
+where
+
+k
+
+=
+
+1,
+
+...,
+
+L
+
+=
+
+OTCSL(
+
+Sm
+
+,
+
+S' n
+
+),
+
+fk ,lk [1, m] and
+
+f
+
+' k
+
+,
+
+l' k
+
+[1,
+
+n].
+
+According
+
+to the typed point-based intervals, the temporal duration
+
+difference
+
+OTCSD
+
+(Sm
+
+,
+
+S' n
+
+)
+
+and
+
+temporal
+
+gap
+
+difference
+
+OTCSG
+
+(Sm
+
+,
+
+S' n
+
+)
+
+are calculated as below:
+
+L
+
+¦OTCSD (Sm , Sn' )
+
+(qlk
+
+k1
+
+p ) (q' fk lk'
+
+p )'
+
+f
+
+' k
+
+(1)
+
+OTCSG
+
+(Sm
+
+,
+
+S' n
+
+)
+
+0 °
+¦® L
+¯° k 2 ( p fk
+
+if k 1 q ) ( p q ) else' '
+lk 1 fk' lk' 1
+
+(2)
+
+Finally, the overall similarity with respect to the temporal order, temporal duration and temporal gap is defined as:
+
+OTCS
+
+(Sm
+
+,
+
+S' n
+
+)
+
+wL
+
+OTCSL
+
+(Sm
+
+,
+
+S' n
+
+)
+
+(3)
+
+wD
+
+OTCSD
+
+(Sm
+
+,
+
+S' n
+
+)
+
+wG
+
+OTCSG
+
+(Sm
+
+,
+
+S' n
+
+)
+
+318
+
+Comparing with the conventional LCS based measurements introduced in section I, the main advantage of OTCS is that it does deal with the difference caused by the temporal duration and the temporal gap during state-sequences. For example, given state-sequences C1 = [abcd], C2 = [aaaaabc], C3 = [aabbccdd], C4 = [aaebbfccgdd] and C5 = [aaaabbb]. For the reason of simple illustration, the temporal duration of each state is set as 1 and the temporal gap between each pair of adjacent states is set as 0 if they are identical or 1 if they are different. Table I reports the similarity between statesequences measured by different algorithms. For OTCS, the similarity is reported in terms of a triad [OTCSL, OTCSD, OTCSG] which will be integrated with wL = 1 and wD = wG = 0.1.
+The "non-uniqueness" problem (different state-sequences have the same similarity to the query state-sequence) is ubiquitous when applying those conventional algorithms due to the lacking of dealing with temporal duration difference and temporal gap difference. For instance, given three statesequence pairs (C1, C1), (C1, C3) and (C1, C4) with the same temporal common subsequence `abcd', we shall get Sim(C1, C1) = Sim(C1, C3) by using LCS and ACS, which states that the two state-sequences, C3 and C1, have the same similarity to C1, where in fact they have different temporal durations. Also we shall get Sim(C1, C3) = Sim(C1, C4) by using CLCS, LCS, ACS and T-WLCS, which states C3 and C4 have the same similarity to C1 where in fact they are with different temporal gaps. The proposed OTCS in this paper is the only one that can distinguish the different temporal duration or temporal gap, and in fact we have OTCS(C1, C1) > OTCS(C1, C3) > OTCS(C1, C4).
+In addition, some other abnormal or unreasonable results occur in those existing algorithms when continuously duplicated common states exist frequently in state-sequences. For example, following CLCS, LCS, ACS or T-WLCS, one will get Sim(C2, C5) > Sim(C2, C3). However, according to the definition of temporal common subsequence, the similarity degree between C3 and C2 should be in fact higher than that between C5 and C2. This is corrected in OTCS by reaching that OTCS(C2, C3) > OTCS(C2, C5).
+Furthermore, in particular, CLCS is very fluctuant since the continuity of matched common subsequences may be destroyed easily by the unmatched states (e.g., resulting as CLCS(C4, C1) = CLCS(C4, C2) = CLCS(C4, C3) = CLCS(C4, C5) = 0) or by the continuously duplicated common states (e.g., resulting as CLCS(C1, C3) = 0). In ACS, the similarity becomes extremely large (such as C3 and C4) when continuously duplicated common states exist frequently in state-sequences and will therefore underestimate the high similarity between C3 and C1. T-WLCS even cannot guarantee the query state-sequence has the highest similarity with itself: for instance, T-WLCS(C1, C1) < T-WLCS(C1, C2). Such a problem becomes absurd if, for instance, we have C2' = `aaaaaaaaaaaa', which will lead to TWLCS(C1,C2') = 12 due to the unreasonable treatment to continuously duplicated common states.
+
+TABLE I.
+
+SIMILARITY BETWEEN EXAMPLE STATE-SEQUENCES WITH DIFFERENT MEASUREMENTS
+
+Similarity C1 C2 C3 C4 C5
+
+C1 4 3 4 4 2
+
+C2 3 7 4 4 5
+
+LCS
+
+C3 4
+
+4
+
+8
+
+8
+
+4
+
+C4 4 4 8 11 4
+
+C5 2 5 4 4 7
+
+C1 4 3 0 0 2
+
+C2 3 7 3 0 5
+CLCS C3 0 3 8 0 4
+(th=2)
+C4 0 0 0 11 0
+
+C5 2 5 8 0 7
+
+C1 16 8 16 16 4
+
+C2 8 128 16 16 32
+
+ACS
+
+C3 16
+
+16 256 256 16
+
+C4 16
+
+16
+
+256 2048
+
+16
+
+C5 4
+
+32 16 16 128
+
+C1 4 7 8 8 7
+
+C2 7
+
+11 10 10 11
+
+T-WLCS C3
+
+8
+
+10 12 12
+
+9
+
+C4 8
+
+10 12 15
+
+9
+
+C5 7 11 9
+
+9 12
+
+C1 [4, 0, 0] [3, 4, 0] [4, 4, 0] [4, 4, 6] [2, 5, 0] C2 [3, 4, 0] [3, 0, 0] [3, 5, 0] [3, 5, 4] [2, 3, 0]
+
+OTCS
+
+C3 [4, 4, 0] [3, 5, 0] [4, 0, 0] [4, 0, 6] [2, 3, 0]
+
+C4 [4, 4, 6] [3, 5, 4] [4, 0, 6] [7, 0, 0] [2, 3, 2]
+
+C5 [2, 5, 0] [2, 3, 0] [2, 3, 0] [2, 3, 2] [2, 0, 0]
+
+IV. EXPERIMENTAL RESULTS
+To demonstrate the performance of OTCS, we test it on a news video retrieval system. We have collected over 300 news video clips (state-sequences) lasting up to 5 hours as our database. The number of key-frame (state) of each video clip varies from 10 to 65. For each key-frame, we extract the 64dimensional colour histogram as the feature vector which is then quantized by the pair quantizer proposed in [10] where the similar key-frames will be quantized as the identical state. Several query sets are reconstructed: Original Query Set (OQS): 60 state-sequences randomly selected from the database; Shortened Query Set (SQS): shortened by deleting % states from OQS randomly; Lengthened Query Set (LQS): lengthened by duplicating % predecessors with random position in OQS.
+Fig. 3 shows an example of key-frame sequence of video clip with various temporal duration and temporal gap.
+
+319
+
+key-frame1 key-frame2 key-frame3 key-frame4 key-frame5
+
+key-frame6 key-frame7 key-frame8 key-frame9 key-frame10
+
+key-frame11 key-frame12 key-frame13 key-frame14 key-frame15
+Figure 3. An example of key-frame sequence in video clip database
+We compare the performance with LCS, CLCS, T-WLCS and ACS. Again for OTCS, the temporal duration of each keyframe is set as 1 and the temporal gap between each pair of adjacent key-frames is set as 0 if they are identical or 1 if they are different. We set wL = 1 and test the experiment with wD and wG varying from {1, 1/2, 1/4, ..., 1/128} and choose the values leading to the optimal performance.Table II shows the retrieval precision on OQS against top number (the number of the most similar video clips compared with the query video clip). Obviously, all similarity measurements perform better with the increase of top number, but generally speaking, OTCS outperforms the others. In following experiments, the top number is fixed to 8 where the precision of these five measurements has the largest standard deviation (std).
+Fig.4 shows the retrieval precision on SQS and LQS. It's clear to see that OTCS is much more robust than the others since by means of adjusting the value of the weight, it can handle temporal duration difference and temporal gap difference caused by deletion and insertion. CLCS is most fluctuant with worst precision especially in LQS since insertion operation may weaken the continuity of common subsequence. LCS is robust (with smallest variance) but not as effective as OTCS. In addition, LCS has less influence on LQS since it can skip the duplicated key-frames. ACS and T-WLCS are sensitive to the insertion and deletion degree as CLCS.
+
+TABLE II.
+
+Top num method
+
+2
+
+4
+
+LCS .72 .73
+
+CLCS .70 .71
+
+ACS .78 .80
+
+T-WLCS .75 .81
+
+OTCS .84 .85
+
+std .055 .058
+
+RETRIEVAL PRECISION ON OQS 6 8 10 12 14 .76 .80 .86 .94 .98 .73 .73 .77 .80 .85 .84 .90 .93 .95 .99 .81 .86 .90 .92 .98 .92 .93 .96 .98 .99 .074 .080 .073 .069 .056
+
+mean .83 .76 .88 .86 .92
+
+Precisiono Precisiono
+
+0.95
+0.9
+0.85
+0.8
+0.75
+0.7 0.65 OTCS
+CLCS 0.6 LCS 0.55 ACS
+T-WLCS 0.5
+10 20 30 40 50 60 70 80 90
+mDo
+
+0.95
+0.9
+0.85
+0.8
+0.75
+0.7 0.65 OTCS
+CLCS 0.6 LCS 0.55 ACS
+T-WLCS 0.5
+10 20 30 40 50 60 70 80 90
+mEo
+
+Figure 4. Retrieval Precision on SQS against  and LQS against 
+
+Fig.5 shows the weight contribution of the temporal characters on different query sets. Generally speaking, the length of the longest temporal common subsequence contributes more significance than temporal duration and temporal gap on any query set. As for OQS, the temporal duration plays a slightly more significant role than temporal gap because of the existence of approximate adjacent keyframes which may be quantized as identical key-frames in video clips. For SQS, due to the deletion of some key-frames, the temporal gap plays a more important role than temporal duration while contrarily in LQS since the insertion operation generates more duplications of key-frames.
+
+V. CONCLUSON AND FUTURE WORK
+State-sequence matching is a very hot research topic in data mining [15]. In this paper, we have proposed a new concept of temporal common subsequence for state-sequence matching. An optimal temporal common subsequence algorithm has been developed, which takes into account of all the three essential temporal characters including temporal order, temporal duration and temporal gap for state-sequence matching. The comparison experiment with several representative LCS based algorithms conducted on news video retrieval demonstrates the effectiveness and robustness of the new algorithm.
+Parameter (the values of weights) selection is a vital and arduous task in OTCS. How to automatically select the optimal values of weight remains as one of the research tasks in the future. In addition, more intelligent computation of the temporal durance difference and temporal gap difference appears interesting as our future work.
+
+1/128
+
+OQS
+
+1/64
+
+OQS
+
+1/32
+
+1/16
+
+SQS 1/8 SQS 1/4
+
+1/2
+
+LQS
+
+1
+LQS
+
+1/128 1/64 1/32 1/16 1/8 1/4 1/2 1
+
+0 5 10 15 20 25 30 contribution
+
+0 5 10 15 20 25 30 contribution
+
+(a) temporal duration
+
+(b) temporal gap
+
+Figure 5. Weights contribution of temporal characters in OTCS
+
+320
+
+REFERENCES
+[1] H. Wu, B. Salzberg, and D. Zhang, "Online Event-Driven Subsequence Matching over Financial Data Streams", Proc. Int'l Conf. Management of Data (SIGMOD 04), ACM Press, Jun. 2004, pp. 23-34.
+[2] Y. Zhu and D. Shasha, "Warping indexes with envelope transforms for query by humming", In Proc. Int. Conf. on Management of Data (SIGMOD 03), ACM Press, Jun. 2003, pp.181­192.
+[3] H. T. Shen, J. Shao, Z. Huang and X. Zhou, "Effective and Efficient Query Processing for Video Subsequence Identification". IEEE Transactions on Knowledge and Data Engineering, 21(3), 2009, pp.321-334.
+[4] R. Agrawal, C. Faloutsos and A. Swami, "Efficient similarity search in sequence databases". In Proc. of the 4th Int'l Conf. on Foundations of Data Organization and Algorithms (FODO'93), Springer Press, Oct. 1993, pp.6984.
+[5] N. Beckmann, H. Kriegel, R. Schneider and B. Seeger. "The r*-tree: An efficient and robust access method for points and rectangles". In Proc. of the Int'l Conf. on Management of Data (SIGMOD 99), ACM Press,, May. 1990. pp.322-331.
+[6] Y. Moon, K. Whang and W. Loh, "Duality-based subsequence matching in time-series databases". In Proc. of the 17th Int'l Conf. on Data Engineering (ICDE'01, May. 2001, pp. 263-272.
+[7] L. Bergroth and H. Hakonen and T. Raita. "A Survey of Longest Common Subsequence Algorithms". Proc. Seventh International
+
+Symposium on String Processing and Information Retrieval (SPIRE'00), IEEE Press, pp.39­48.
+[8] A. Gao, H. Siegelmann, "Time-Warped Longest Common Subsequence Algorithm for Music Retrieval". 5th International Conference on Music Information Retrieval (ISMIR'04),Oct.2004.
+[9] E. Keogh, "Exact indexing of dynamic time warping", Proc. of the 28th Int'l Conf. on Very Large Data Bases (VLDB'02), VLDB Endowment, Aug. 2002, pp.406­417.
+[10] Y. Kim and T. Chua, "Retrieval of News Video Using Video Sequence Matching". Proc of the 11th Int. Multimedia Modelling Conference (MMM'05), IEEE Press, Jan. 2005, pp: 68 ­ 75.
+[11] H. Wang, "All Common Subsequences", Proc. 20th Int. Joint Conf. on Artificial Intelligence (IJCAI'07), Jan. 2007, pp.635-640.
+[12] J. Ma & P. Hayes, "Primitive Intervals Vs Point-Based Intervals: Rivals Or Allies?", the Computer Journal, 49(1), 2006, pp.32-41.
+[13] J. Allen. "Towards a General Theory of Action and Time", Artificial Intelligence, 23, 1984, pp.123-154.
+[14] J. Ma, R. Bie, G. Zhao, "An ontological Characterization of Time-series and State-sequences for Data Mining", Proc. of the 5th International Conference on Fuzzy Systems and Knowledge Discovery (FSKD'08), IEEE Press, Oct. 2008, pp.325-329.
+[15] Y. Peng, G. Kou, Y. Shi, and Z. Chen, "A Descriptive Framework for the Field of Data Mining and Knowledge Discovery", International Journal of Information Technology and Decision Making, 7 (4), 2008, pp639 ­ 682.
+
+321
+
+

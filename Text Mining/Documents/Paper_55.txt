@@ -1,0 +1,103 @@
+Second International Workshop on Knowledge Discovery and Data Mining
+Exploration of Virtual Avatar Technology Based on VRML and Java
+
+Duan Xinyu, Jiang Pin
+Media Research Institute Anyang Normal University, AYNU Anyang City, Henan Province, China
+E-mail: dxy@aynu.edu.cn
+
+Duan Xinyu
+Education Technique Center Anyang Normal University, AYNU Anyang City, Henan Province, China
+E-mail: dxy@aynu.edu.cn
+
+Abstract--VRML is mainly used to make 3D user interface and to control dynamic display in real-time state. Java is responsible for correspondence between Web browser and VRML scene, also for linkage with other information system section. Paper first introduced default VRML's invisible 3D viewer's avatar modeling. Then mainly discussed VRML and Java combination, including VRML's deficiency in creating real-time data input and output for peripheral equipment; adopting EAI to create Java Applet for the purpose of realtime data correspondence between external application program and VRML scene nodes. EAI technology strategies, EAI operation mechanism, EAI four kinds of possible accessing type and its event transmit mechanism etc. contents are detailed formulated. Finally paper described a typical VRML avatar PROTO definition specification and its concrete avatar citation application example.
+Keywords-eai; virtual avatar; java applet; vrml
+I. INTRODUCTION
+Virtual reality technology brings about an enterable and participation world on Internet. Based on VRML, the built three dimension environment makes user travel in vivid and lifelike network world. It greatly changed weak points of www monotonous, static state and interactivity inferiorness. One would have an immersed sense in such a simulated environment [1]. Person's action is the browsing main subject; all manifestation will change with altering of operator's action. VRML mainly is used to make 3D user interface, and to control dynamic display in real-time state and interaction probing for 3D data. On the other hand, if appending into Java developed functional module, Java is mainly responsible for correspondence between Web browser and VRML scene, also for linkage with other information system section.
+
+information and set system navigation mode. Its grammatical format is shown below.
+1 NavigationInfo { 2 visibilityLimit 0.0 #exposedField SFFloat 3 avatarSize [0.25 1.6 0.75] #exposedField MFFloat 4}
+The avatarSize field's value is used to set explorer avatar's physique parameter. These parameters determine the collision detection and user perspective scope with the undulating terrain. When running VRML program, an invisible explorer avatar can be assumed in threedimensional space. Usually this avatar also can be used to realize collision detection.
+Reference with above NavigationInfo's grammatical format, avatarSize has three field value parameters [4]. The first one designates the least 1/2 width, that is the width of avatar's half body, when happening collision between avatar and other models. The second one defines the height from avatar's viewpoint to his standing ground surface. We can understand it as avatar person's height. The third one sets up the highest barrier level that avatar can step over. We can think it as avatar's leg height. All these three parameters collaboratively define a spacial cylinder, see also Fig.1 for understanding. The system default value of avatarSize is 0.25 1.6 0.75.
+
+II. AVATAR MECHANISM [2] In virtual scene, VRML employs an invisible 3D modeling as viewer's avatar. Navigation is the progress of avatar's walk, observation and 3D interaction [3]. NavigationInfo node is used to provide explorer's avatar
+
+Figure 1. Field avatarSize defined spacial cylinder
+
+978-0-7695-3543-2/09 $25.00 © 2009 IEEE DOI 10.1109/WKDD.2009.48
+
+717
+
+III. VRML AND JAVA
+A. Combine VRML with Java
+VRML is a kind of virtual reality three dimension modeling language, primaryly for Web application. Java possesses unique advantages in the area of network program development. On WWW network, the developed Java Applet can be transmitted with web pages, downloaded into client machine and then handled interpreters. The client system is merely need installing Java virtual machine, which is we called JVM.
+Although having great distribution characteristics, VRML doesn't supply network correspondence standard by itself. To satisfy the requirement of real-time data input and output for peripheral equipment system, it is strongly demanded to real-time change VRML relevant node's data. The solution proposal is adopting external authoring interface, professionally shorten for EAI. Through the manner of establishing Java Applet, we can achieve real-time data correspondence between external application program and VRML scene nodes.
+B. EAI Technology Scheme [5]
+The EAI standard specification was concretely exploit by EAI working group of Web3d. As the second part of VRML97 specification (ISO/IEC CD 14772-2), it had been submitted to ISO organization in April 2004.
+a) About EAI: EAI is set up between VRML world and its external surrounding. It is a group of special defined program interface, mainly use for convenient correspondence. Intuitively understanding, EAI prominently extends VRML's environment interaction ability and program ability. EAI is a protocol, which function is to directive operate a certain scene when this scene is not the current scene rendering by VRML plug-ins, or an already existent scene. Through EAI, we can establish communication channel between VRML scene and its external surrounding, which makes user, truly become a virtual environment participator.
+b) Interface between VRML and Java: From the point of implementation, EAI practically is a Java API software development kit, which allows Java Applet access VRML scene embedded into a HTML web page, in Internet browser window. It is composed by following four functional parts. They are vrml.external.*, providing foundation classes for node and browser interfacer; vrml.external.field.*, providing necessary classes for accessing field of scene node; vrml.external.node.*,
+
+providing various kinds of node classes; vrml.external.exception.*, providing various kinds of exceptional classes. By using EAI created Java Applet, developer will be able to dynamically append, change or delete module elements of a VRML scene. Through the manner of combining Java with VRML, this kind of technique presents a powerful mechanism for conveniently creation interactive three dimension virtual environment on Internet.
+c) Operation Mechanism: From the point of mechanism, by adopting EAI technique to create Java Applet and then embedded it into Web page together with relevant VRML scene, so we can smoothly achieve the external program control of VRML scene in the manner of intercommunication between Java Applet and VRML plugins. In fact, EAI is linked and run between Java virtual machine (so called JVM) that is used to execute Java Applet, and VRML Plug-in that is responsible for virtual scene rendering on HTML browser. Its operation mechanism is shown in Fig.2.
+
+Java Applet
+
+HTML Browser
+EAI Interface
+
+VRML Plug-in
+
+Figure 2. EAI operation mechanism
+C. Accessing Manner of EAI [6]
+There are following four possible types for EAI to access VRML scene.
+a) Accessing browser script interface (BSI): By employing BSI function, EAI can inquire Web browser's current status, dynamically append or delete route scheme in a VRML file, further establish new space scene node.
+b) Transmitting input event to scene node: Once establishment of node's quotation in external surrounding, EAI will be able to send external event to relevant scene node's event input interface, in the manner of transmitting input event to relevant node's eventIn fields.
+c) Loading output event of scene node: For a quotation node in external surrounding, its any output can be real-time acquired by external surrounding, in the manner of loading scene node's output event through its eventOut fields. The acquired data is eventOut field's latest value. If no event output currently, its default value is acquired.
+
+718
+
+d) Acquire a notification: Generally, EAI will receive relevant announcement when an event is being sent out from a node's eventOut field. That is to say, when a setting event output generates change, the external surrounding is able to register and accept this output notification. The registeration request is issued to the node that contains this eventOut field. During the process of registration, the external surrounding will provide a returned pointer accompany with produced event value. Then this pointer can be used by external surrounding to uniquely identify relevant event among many simultaneously happened events.
+In this section, we should pay close attention to following technique method when employing EAI. First VRML nodes must use DEF structure to define. Then any DEF defined node can be access by Java Applet, and will be cited as a visit-able node. Once obtain a node's pointer, this node's eventIn and eventOut event can be accessed by its external surrounding [7].
+
+It is also worthwhile to mention that Browser class is a very important class when employing EAI to control VRML scene interaction. Browser class is derived from IBrowser interface, which VRML scene is encapsulat in it. IBrowser provides getNode ( ) method to directly acquire node object's citation, while no need of acquirement for keyword DEF defined Script node. Once get a node object, programmer can make use of getEventIn and getEventOut method to obtain event input and output example. To change event's input data is equal to transform VRML scene. See also Fig.3 for EAI's event drive principle .
+IV. AVATAR DEVELOPMENT
+A. Avatar PROTO Definition A typical VRML avatar's PROTO definition code
+specification is as follows. A helloAvatar PROTO and its instance are introduced in
+following VRML program segment. The MotionBehaviou and notMotionBehaviour are two special activities. They will be automatically triggered when avatar begin to walk or stand still. They are two optional fields when programming [8] [9].
+
+1 PROTO helloAvatar [ 2 eventIn SFBool behaviourX 3 eventIn SFBool behaviourY 4 ...... 5 exposedField SFString MotionBehaviour "walkBehaviour" 6 exposedField SFString notMotionBehaviour "standBehaviour" 7 exposedField MFString gestures ["behaviourX" "behaviourY" "walkBehaviour" "standBehaviour"] 8] 9 helloAvatar { } # avatar's geometrical shape and
+animation program
+
+Figure 3. EAI event transmit mechanism
+
+B. Avatar PROTO Citation In practical application, we append virtual tourists and
+tour conductor, who can get round according to designated routes, in Anyang Yinxu digital virtual museum [10].
+First, we should employ VRML PROTO node to define a human model. His moving route is installed by exposedFields. In this case, we can set up different route for different avatar. Then we install three TimeSensor time
+
+719
+
+trigger. The first two TimeSensors concretely realize swing compatibility of hand and foot, by means of two startTime field's value of 1.5s difference. The third TimeSensor achieves virtual tourist's location change and turning round effect. Avatar's animation effect is referred to Fig.4 (a) and Fig.4 (b).
+
+ACKNOWLEDGMENT The work described in this paper is supported by Educational Technology college-level key subject of Anyang Normal University (AYNU). It is also funded by Anyang science and technology plan project (ANKE 2006, No.131).
+
+REFERENCES
+
+(a) Tour conductor
+
+[1] Song Lihong, Hua Bin, Virtual University Three-dimension Query System Based on VRML and Java Technology [J], Computer Engineering, Vol.31 No.6, pp.173-175, 2005
+[2] J. Lee, J. Chai, Interactive Control of Avatars Animated with Human motion Data [C], Proceeding of the 29th annual Conference on Computer Graphics and Interactive Techniques, ACM Press, pp.491500, 2002
+[3] S. Park, S. Ji, A Realistic Chat Environment for Virtual Avatars in Cyber Space, Proceeding of International Conference on CyberWorlds, IEEE Computer Society, pp.383-388, 2008
+[4] Duan Xinyu, Virtual Reality Foundation and VRML Program [M], Beijing: Higher Education Press, 2004
+[5] Wang Xinqian, VRML and Java Programming Example Explanation [M], Beijing: China WaterPower Press, 2002
+[6] Zhang Yarong, Zhang Huiliang, Application of EAI Technique in MUVE-Introduction to User's Custom Avatar [J], Computer Engineering and Application, 2003(8), pp.139-141, 2003
+[7] Saibo Science and Technology Studio, VRML and Java Programming Technology [M], Beijing: Posts & Telecom Press, 2002
+
+(b) Virtual tourists Figure 4. Avatar technology development
+V. SUMMARY Due to the release of EAI standard, VRML and Java are tightly combined together. It makes virtual application system more plentiful and more creative. But in view of present network bandwidth bounding, if want to make virtual system become three application main stream on WWW, we need the further progress in super-speed graphic display and network transmit technique.
+
+[8] A. Egges, G. Papagiannakis, An Interactive Mixed Reality Framwork for Virtual Humans [C], Proceeding of International Conference on CyberWorlds, IEEE Computer Society, 2006
+[9] Christian K., Y. Jung, The Virtual Human Platform: Simplifying the Use of Virtual Characters [J], the international Journal of Virtual Reality, 5(2):25-30, 2006
+[10] http://www.web3d.org/x3d/specifications/vrml/
+
+720
+
+

@@ -1,0 +1,105 @@
+Second International Workshop on Knowledge Discovery and Data Mining
+Design of Teacher E-portfolio System for Teacher Professional Development
+
+Duan Xinyu
+Media Research Institute Anyang Normal University, AYNU Anyang City, Henan Province, China
+E-mail: dxy@aynu.edu.cn
+
+Duan Xinyu, Li Min
+Education Technique Center Anyang Normal University, AYNU Anyang City, Henan Province, China
+E-mail: dxy@aynu.edu.cn
+
+Abstract--The teacher e-portfolio based on network is a product of modern information technology, it can record the teacher's growth of instruction, strengthen their personal knowledge management, and more important, it can enhance their instruction reflection. Teacher professional development is an issue of general concern in education field, particularly with the implementation of the new curriculum reform. In this paper, we propose a new view for teacher professional development, which is teacher e-portfolio system; we design the module and function of the system based on the requirement analysis.
+Keywords-Teacher e-portfolio system; Teacher professional development; Design
+I. INTRODUCTION
+Over the last couple of decades, there has been a growing interest in teacher professional development with the curriculum reform and social development, and it is one of the key issues in today's education reform all over the world. Teacher e-Portfolio system is a good platform for teacher's development because of its characteristics, It is a more open, comprehensive, and professional platform, It can enhance the awareness of teacher's self-reflection and development by displaying the results of the professional development; it can enhance the skills of teacher professional development through the exchange with the experts; It can encourage the enthusiasm of teacher professional development by communicating with peer, so as to promote the professional development of teachers.
+Much recent research has focused on e-portfolio. ERADC (e-portfolio research and development community) described it as: e-portfolio is an information management system which using electronic media and equipment [1]. Students can create and maintain a digital library works in the e-portfolio; these works can be used to demonstrate their ability and reflect their study. "Electronic Student Portfolios" expounded that how to take the technology as a tool for student assessment and feedback [2], Winsor and Ellefson proposed that teacher Portfolio is a process as well as result of the integration, it is a reflection, choice, theory and
+
+evaluation process, it is also accompanied by the results of these processes [3]. Teacher e-Portfolio is the specification of the e-portfolio.
+In this paper, we propose the new definition of teacher ePortfolio, it is a highly personalized, Web-based information management system, it can be demonstrated teaching practices, teaching reflections, management practices, researches, and professional growth of teacher.
+II. THE REQUIREMENT ANALYSIS OF THE SYSTEM
+Requirements Analysis is the process of understanding the customer needs and expectations from a proposed system or application and is a well-defined stage in the software development life cycle model [4]. The author investigated and understood the needs of about 60 primary and secondary school teachers in the Northeast of China, the function of system summarize as follows.
+A. Achieve Different Functions The system should be designed to meet the requirement
+of users who would be categorized into three types): teacher, administrator, and business administrator. Teacher can create, update, and manage their professional growth records (including show, add, edit, delete, etc.). System administrator can set the basic items of teachers and entertainment features; business administrator can set permissions, delete or add teachers, publish information (including news, notice, etc.).
+B. Provide the Space for Exchange Internet is an open and free space, the system should be
+provided with a free exchange platform for teachers, they can exchange with colleagues, experts, and so on. Teachers can broaden their horizons; enhance the professional level by this. There are evaluation module and BBS module in the system, teachers and visitors can not only express their view about the professional knowledge freely, but also they can
+
+978-0-7695-3543-2/09 $25.00 © 2009 IEEE DOI 10.1109/WKDD.2009.49
+
+721
+
+make the evaluation about teacher's e-portfolio and their professional development. C. Provide a Formative Evaluation Platform for Teachers
+The leader of school can evaluate teachers through exploring the e-portfolio, including the instruction, research, study, professional development and the feelings of teacher for several times, and then make a comprehensive evaluation. The teacher e-portfolio system can implement it.
+
+III. MODULE DESIGN OF TEACHER E-PORTFOLIO SYSTEM There are three modules: teacher module, business
+administrator module and administrator module. Teacher module is the core module (see Figure 1), when teacher login the system, they will enter into the self e-portfolio, teacher can edit their article, record the course of professional development, teaching research, teaching reflection, meanwhile, they can have a rest through the entertainment items. Business administrator module and administrator module are as follows (see Figure 2 and Figure 3).
+
+Figure 1. Teacher module
+
+Figure 2. Business administrator module 722
+
+IV. FUNCTION DESIGN OF TEACHER E-PORTFOLIO SYSTEM
+Teacher professional development is a hidden, long-term process, teacher e-portfolio system should be provided a series of functions to build a professional development platform to promote teachers professional development. This system is mainly provided the evaluation function, management function, entertainment function and teacher professional development display functions.
+A. The Design of Evaluation Function
+A reasonable evaluation can not only stimulate the growth of teachers, and teachers can be real aware of their strengths and weaknesses, and then improve their own teaching, promote the professional development through their study and research. The system design of evaluation function is as follows.
+a) Self-evaluation: Teachers should evaluate themselves teaching, research, management and many other aspects of professional development for some time, and then find room for improvement.
+b) Evaluation of colleague: This system is mainly based on a school, that is, all the school teachers are users of the system, so, colleagues' evaluation is the most convenient and most direct evaluation, they directly or indirectly involved in the teacher's education and teaching activities, so they can reflect the teacher's performance and then make a scientific evaluation of teachers.
+c) Evaluation of school leaders: School leaders evaluation is that school leader as an administrator of the teacher e-Portfolio system, they can browse the teacher' ePortfolio, and know the teacher's professional development quite well, mainly about professional development planning, display of professional development, teaching reflection, and teaching research, etc. School leader can give the evaluation according to these and then publish it in the first page of the system. It will stimulate professional development enthusiasm, and promote their professional development.
+d) Evaluation of expert: Expert evaluation mainly refers to education experts' making the evaluation from teacher's view of academic point, teaching reflection, and curricular reform. Expert can teach teachers advanced teaching theories by evaluation, and give some advice about teaching skills.
+
+A scientific management is critical to promote teacher professional development, teacher will be aware of the necessary of professional development by it. There are two kinds of administrator: system administrator and business administrator.
+a) Business Administrator: Business administrator primarily responsible for addition and deletion teachers, assign the authority, also need to release information, the school news, deeds, notice, and the excellent content of teacher's e-portfolio. The school leader can manage teachers as a business administrator and view their e-portfolio, then release some recognition and criticism on the homepage in order to speed up the progress of the professional development of teacher.
+
+B. The Design of Management Function
+
+Figure 3. Administrator module
+
+723
+
+b) System administrator: System administrator primarily is responsible for setting the appearance of the system, adding and deleting the basic information of users.
+
+reasonable and scientific system design is very important. The future work is to develop the system using SQL and ASP.NET, in order to speed up the professional development of teachers.
+
+C. The Design of Entertainment Function
+The primary and secondary school teachers are very tired, and under more pressure, so they need have a rest to ease the working stress. Because of this, the system be added a certain amount of entertainment features, teacher can ease pressure, relaxes mood in the process of creating and maintaining the e-Portfolio.
+Entertainment function sets a certain entertainment projects mainly through the administrators, such as music, game, and beautiful prose and so on. These projects can be done by the technical staff, be linked to the network directly. In short, let the e-portfolio become a network home of teacher, you can work, publish academic articles, record the feelings of teaching life, and release. In a word, teacher can more like it through the entertainment function design.
+D. The Design of Promoting Teacher Professional Development Function
+The purpose of this system is to promote teacher professional development, so we must reflect this basic concept in the process of design, the above-mentioned evaluation function, management function and entertainment function are all for the professional development of teachers. However, the author also designed the presentation of professional development, in order to enable the professional development of teachers more specific, and also strengthen the sense of teacher's self-development.
+V. ATTENTION OF DESIGN
+In the process of design, the system should be focused on the maintainability and programming, should be in line with the thinking of software engineering. System is mainly used top-down modular design and structure of the procedures. At the same time, the reliability of the system is also very important, teachers and administrators mainly use the system, and the system is set up different privileges to ensure the system is safe.
+
+ACKNOWLEDGMENT The work described in this paper is supported by Educational Technology college-level key subject of Anyang Normal University (AYNU). It is also funded by Anyang science and technology plan project (ANKE 2006, No.131).
+
+REFERENCES
+
+[1] ERADC.
+
+What
+
+is
+
+http://www.eradc.org/description.php
+
+an
+
+e-portfolio,
+
+[2] [2] Anonymous, Electronic Student Portfolios, Gifted Child Today, Waco: 2001, (24)
+
+[3] [3] Portfolio growth of the Shanghai Municipal Development and teachers to promote the project team. Capture the wisdom of teachers ­ teacher's growth Portfolio [M]. Beijing: Education, Science press, 2006.7: p.1
+
+[4] [4] Barett  Helen. Create Your Own Electronic Portfolio [J]. Learning&Leading with Technology, Vol.27, No.7
+
+[5] [5] Marvin L, Dice and Barbara L, Goldenhersh, Dubuque, Iowa, A Guide for the Preserves and Beginning Teacher, Hunt Publishing Company, 2002
+
+[6] [6] Gredler, M.E, Implications of Portfolio assessment for program, Evaluation Studies in Educational [J], Evaluation, Vol.2
+
+[7] [7] Marilyn Heath, Electronic Portfolios for Reflective Selfassessment [J]. Teacher Librarian, Seattle, Oct. 2002. Vol.30
+
+[8] [8] Ceeste Diehm, From Worm-Out to Web-Based: Better Student Portfolios [J], Phi Delta Kappan, Bloomington: Jun 2004. Vol.85
+
+VI. CONCLUSION AND FUTURE WORK The teacher e-portfolio system plays an important role in accelerating the professional development of teacher; teacher can develop their profession by the system platform, and then use learning resources, human resources of the network environment to promote their continuous improvement. A
+
+724
+
+

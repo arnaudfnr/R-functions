@@ -1,0 +1,351 @@
+2008 Workshop on Knowledge Discovery and Data Mining
+
+Progressive Image Transmission over Memoryless Feedback Channels Using Joint Source-Channel Coding Strategy
+
+Xunfeng Yu1 , Dawei Ma 2 1Sichuan Judicial and Police Officers Professional College, DeYang, Sichuan, 618000, P. R. China
+2 Institute of Communication and Tracking Control, Chong Qing University, Chong Qing, 400044, P. R. China
+yu_xun_feng@ccee.cqu.edu.cn
+
+Abstract
+In this paper, we consider the problem of joint sourcechannel coding for image progressive transmitted over channels with feedback. Feedback routes are provided in many existing standard wireless channels, making rate allocation with feedback a problem of considerable practical importance. We address the question of rate allocation between the source and channel codes in the forward channel, in the presence of feedback information and under a distortion cost function. We show that the presence of feedback shifts the optimal rate allocation point, resulting higher rates for error-correcting codes and smaller overall distortion. Simulations on memoryless channels show that the presence of feedback allows up to about 1.5 dB improvement in PSNR compared to the similarly optimized feed forward scheme.
+Keywords: Bit allocation, feedback channels, image transmission, joint source-channel coding (JSCC)
+1. Introduction
+It is well known that Shannon's separation result does not hold under finite computation or finite delay constraints, thus joint source-channel coding is of great interest for practical reasons. In [1], Sherwood and Zeger proposed a very efficient system for progressive joint-source channel coding of images. Progressive codes with their successive approximation property are considered very attractive for image coding and communication [4]. The problem of bitallocation between source and channel codes for progressive coding was addressed in [2], and its application was demonstrated on the system proposed in [1].These results were all obtained for a feed forward channel, where no information about the decoder side is available at the encoder. But many practical systems provide a feedback path that can be utilized to improve system performance.
+In the feedback channel, similar to the feed forward channel, bit allocation is critically important. In particular, Hybrid Automatic Repeat reQuest (ARQ) feedback systems
+
+pose a challenging bit allocation problem, because one has to consider two issues simultaneously: the tradeoff allocation between the source and channel codes, and the tradeoff between channel error protection and retransmission. In [3], an incremental error protecting ARQ scheme was proposed for binary symmetric channels with feedback. In this paper, we present results for bit allocation for progressive joint source-channel coding in hybrid ARQ feedback systems. We apply these results to an encoder of the type proposed in [1], for memoryless feedback channels. We analyze the effects of retransmission delay, and discuss the effects of delay constraints on the performance of the system. Experimental results indicate that in most bit rates and channel conditions, about 1.5 dB improvement is possible by taking the feedback into account, compared to a pure feed forward scheme.
+2. System Description
+In our work we use the 512×512 monochrome Lena image with 8 bits/pixel as the source data. The output of a progressive source encoder as the input data stream into our algorithm is applied. At the transmitter, this stream is divided into equal size packets. These source packets are mapped to channel packets through a channel error detection/protection scheme. Our proposed bit allocation algorithm works with arbitrary error control codes, but we use in our simulations a rate compatible punctured convolutional (RCPC) code for illustration and comparison. Error detection is performed by CRC codes. If a selective-repeat feedback strategy is used, one needs to add a packet identification number to the source information before the application of error protection coding. If one uses convolutional codes, zeros must be added to the end of the string to flush system memory (see Fig. 1).
+We denote Ks as the source information length and K p
+as the source packet length in Fig.1. The number of the
+overhead bits in the source packet, denoted as Kh , includes
+bits for sequence numbers, CRC and memory flushing zeros.
+Thus K p = Ks + Kh and K p is fixed. Progressive
+compression coding is performed by the wavelet coder of
+
+0-7695-3090-7/08 $25.00 © 2008 IEEE DOI 10.1109/WKDD.2008.150
+
+493
+
+Said and Pearlman [4]. The RCPC code is punctured from a 1/4 parent code with 6 memory cells. The puncturing period is 8 and the puncturing matrices are from [5], allowing code rates between 8/32 and 8/9. List Viterbi decoding is used
+with a maximum of 100 candidate paths. Ks = 300 , to
+which we add 16 bits of CRC and 10 zeros, resulting
+in K p = 326 .
+KP
+
+Ks Kh
+
+Source Information
+
+Seq. # CRC Zeros
+
+RCPC
+
+Channel Data Packet
+KC
+Fig.1: Source and channel data packet structure Our system uses a stop-and-wait strategy, motivated by the characteristics of wireless channels (see discussion in Section 2.2). After transmitting each channel packet, the transmitter waits for a response from the receiver. Upon a decoding failure, the transmitter will retransmit the failed packet. This simple repetitive strategy makes the rate allocation problem much easier to solve, and its extension to fading channels is tractable. Furthermore, while its performance is expected to be slightly worse than the best incremental feedback schemes [3], the repeating strategy has two advantages: (a) the packet size is fixed, which is advantageous from the standpoint of interfacing with wireless and network standards, and (b) the problem formulation is more elegant, and the corresponding optimization problem is computationally less demanding. In Sections 2.1, we consider the problem of rate allocation between the source and channel codes for the feedback channel. We will see that feedback effectively reduces the bit rate assigned to channel codes. The goal is to minimize the end-to-end distortion subject to a given overall
+transmission rate rt . At this point we do not consider any
+constraints on the delay of the system. The issues of feedback scheme selection and retransmission delay will be discussed in Section 2.2 and 2.3, respectively.
+2.1. Rate Allocation in Memoryless Channels
+Consider a Binary Symmetric Channel (BSC). We denote
+by e the crossover probability (which shall be called Bit Error Rate, BER). Denote channel code rate as rc , then
+channel packet length Kc = K p rc (see Fig. 1). The
+
+channel block error rate Pb , defined as the probability of at
+
+least one bit error in a channel packet, is decided by rc and e . Given the crossover probability e , the relation of
+
+block error rate and inverse of code rate has log-affine
+
+characteristic [2], namely
+
+log Pb = A rc + B
+
+(1)
+
+Where A, B are constants for given e and can be acquired
+
+through simulations.
+
+Assume the total number of transmitted packets is M ,
+
+and the number of successfully received packets is N (M ) .
+
+Because of independent errors, the inter-arrival period of two successfully received packets is i.i.d. with finite variance, and the number of successfully received packets is a
+counting process [6]. Therefore, the distribution of N (M ) ,
+
+as M   , converges to a Gaussian with mean  and
+
+variance 2 . Denote the mean and variance of inter-arrival
+
+intervals as x and  x ; we have  = M x
+
+and =  x
+
+M
+
+ -3 2 x
+
+.
+
+It
+
+is
+
+then
+
+easy
+
+to
+
+show
+
+that
+
+M = srt Kc
+
+ = M (1- Pb )
+
+(2) (3)
+
+ = Pb (1- Pb )M
+
+(4)
+
+Where rt is the given transmission rate, s is the image
+
+size and Pb is the block error rate.
+
+The source rate
+
+rs
+
+=
+
+KsN s
+
+=
+
+(K p
+
+- Kh)N s
+
+(5)
+
+If  is not large compared to  , simulations show that
+
+the operational rate-distortion characteristics of the source
+
+coder can be locally approximated by an exponential
+
+function
+
+D(rs ) = D(N ) = 10CN +D
+
+(6)
+
+Where C, D are constants. Therefore D(N ) is a log-
+
+normal distribution with probability density function
+
+fD
+
+(d )
+
+=
+
+1 d
+
+( log C
+
+e)
+
+1 e-
+
+(
+
+log C
+
+d
+
+-
+
+D C
+
+2 2
+
+-
+
+
+
+)2
+
+2 
+
+(7)
+
+So the average distortion
+
+E(D)
+
+=
+
+log C
+
+e
+
+ 0
+
+1 e dx-
+
+(
+
+log C
+
+x
+
+-
+
+D C
+
+2 2
+
+-
+
+
+
+)2
+
+2 
+
+(8)
+
+Following the above discussion, under given transmission
+rate and channel BER e , the optimal code rate assignment
+problem for a BSC can be formulated as
+
+494
+
+min E(D) rc
+
+(9)
+
+Where rc is the channel code rate. Note that in equation
+
+(8),  and  are related to rc under given transmission rate
+
+rt through equation (1), (2), (3), and (4). Problem (9) can be
+
+solved numerically and the optimal rc is used as the RCPC
+
+code rate.
+
+2.2. Selection of Stop-and-wait Feedback Scheme
+
+The existence of feedback provides a boost in performance. But in order to take full advantage of feedback, some delay needs to be tolerated. Whether-and to what extent-such a delay is acceptable depends on the application. In the previous section, the effect of delay was ignored. We now address delay related issues. We first justify our choice of feedback mechanism in a wireless transmission application. Then we analyze the delay performance of the chosen model.
+The effects of delay depend largely on the feedback strategy. Two widely used schemes are stop-and-wait and selective repeat. The stop-and-wait scheme is easy to implement, but has longer average delay before a packet is successfully decoded. Selective repeat can be more efficient, especially when transmission/propagation delay of packets is dominant and there is no strict delay constraint. However, this is not true in our case and we need to take a closer look at the particular requirements of our progressive coding system. Suppose that the encoding/decoding of one packet takes much longer than the transmission and propagation of that packet. This is a practical assumption: In the wireless feedback channel, for example, the decoding time easily dominates the transmission time for each packet. Further assume that encoding is n times faster than decoding. This is another practical assumption which is true when advanced error protection decoding is in place, such as list decoding or turbo decoding.
+At each unsuccessful reception the decoder sends back a repeat-request signal (which we denote as NAK). When selective repeat is used, the i-th retransmission packet
+arrives N (i) packets after the corresponding NAK was sent,
+where N(i) = n and N(i+1) =[N(i)+1]n,n>1 .Therefore
+N (i) is on the order of ni in this case. But at the same time,
+due to the progressive nature of the source code, each packet needs to be decoded successfully before the decoder can start working on subsequent packets, therefore the number of retransmissions during each failure cannot be very large. Thus, because the characteristics of selective repeat strategy do not fit our purposes, we use the stop-and-wait scheme in our proposed system and evaluate the retransmission delay accordingly.
+
+2.3. Retransmission Delay
+In this section we notice that if a channel realization inflicts no unrecoverable packet error, the delay performance is identical to that of a feed forward system. In fact, since the existence of feedback allows higher channel code rates, the encoding/decoding is actually faster than in a pure feed forward system, even in the presence of occasional retransmission.
+To verify this insight, we simulated the system mentioned above on a BSC with BER=0.1. The optimal code rate for that system is 8/19, at which the block error rate
+is Pb =0.0996. Therefore, the probability of retransmission is
+approximately 0.1 and the average number of transmissions for successfully transmitting one channel packet is 1.3.
+In wireless communication systems, where a mobile station is usually within several miles of a base station, the encoding/decoding time is dominant, so the delay in transmission and propagation can be ignored. In the previous example, the optimal code rate for an ARQ system is 8/19. The average decoding time of one packet is 0.8 of the time of decoding a packet in a pure (and optimal) feed forward system, whose optimal code rate is 8/28.Considering the average number of transmissions for each packet is 1.1, theoretically the ARQ system will have smaller average delay than the pure feed forward system.
+In particular, assume we want to design a feedback system with average delays comparable to the feed forward system. Because the channel state estimation selects the correct channel code with high probability, and the selected trellis path is often the first one in the list, one can allow between 3-4 retransmissions per failure and still maintain the same average delay as the feed forward scheme (simulation result). Once again, this seemingly surprising result is due to
+two facts: (a) rc for the feedback system is higher than the
+feed forward scheme, thus fewer channel bits are sent per each source bit, and (b) the probability of retransmission is small.
+Thus, to maintain an average delay comparable to the feed forward scheme, one can allow a certain number of retransmissions, after which the connection is aborted. To see how restrictive such a termination policy will be, we compute the probability of repeated retransmissions. Simulations were performed on BSC channel (see Table 1). The typical number of retransmissions is zero, and each failure requires two retransmissions or less with probability better than 0.9. Therefore, if the number of retransmissions is limited to be less than 3, to ensure reasonable retransmission delay, its impact on the average end-to-end distortion will be minimal.
+Table 1: Probability of retransmission numbers on BSC with e=0.1and source packet length KP=326
+
+495
+
+Retransmission Number
+0 1 2 3
+
+Transmission Rate rt (bpp)
+
+0.1
+0.9077 0.0824 0.0080 0.0013
+
+0.5
+0.9102 0.0875 0.0080 0.0009
+
+1.0
+0.9059 0.0851 0.0080 0.0009
+
+3. Experimental Results
+
+In the following simulations, the system specified in
+
+Section 2 is used. The 512×512 monochrome standard test
+
+image "Lena" with 8 bits/pixel is used. Simulation was
+
+performed on a memoryless channel, i.e. a BSC channel
+
+with e = 0.1 . Optimal channel code rate as a result of (9) is
+
+rc=8/19. The results are compared with those of the pure feed forward scheme proposed in [2].Coding system
+
+performance in Table 2 indicates a 1.0~1.5dB average PSNR
+
+improvement.
+
+Table 2: Average PSNR comparison for different
+
+feedback scheme channels and transmission rates
+
+Transmission Rate rt
+
+0.1 0.5 1.0
+
+ARQ
+
+26.71
+
+32.83
+
+35.28
+
+FEC
+
+25.64
+
+31.33
+
+34.26
+
+These results are further illustrated in Fig. 2, which shows
+
+the reconstructed images with different feedback scheme
+
+ARQ and FEC using JSCC strategy. It is obvious that the
+
+quality of former better than that of the latter subjectively
+
+and objectively
+
+(a) (b) Fig.2: Reconstructed images with different feedback scheme.
+(a) rt = 0.5 bpp, BER=0.1, PSNR=33.63dB and ARQ; (b) rt = 0.5 bpp, BER=0.1, PSNR=30.25dB and FEC
+4. Conclusion
+
+In This paper, a hybrid ARQ error protection and feedback system are used for progressive image transmission with joint source-channel coding. We applied our method to a special case involving wavelet coding and RCPC channel codes. Our approach is general and applies to any progressive source code. This methodology targets the endto-end distortion, given constraints on the overall bit rate. Effects of retransmission delay on system performance were studied. We find that a suitable choice of decoding termination criteria will make retransmission delay insignificant, while having only minimal impact on average PSNR performance. Had codes corresponding to increased coder complexity been utilized, the resulting reconstructed quality would improve correspondingly.
+Acknowledgment
+This work was supported by the Chong Qing Science Foundation under Grant CSTC2005BB2206.
+References
+[1] P. G. Sherwood and K. Zeger, "Progressive image coding on noisy channels," in Proceeding of Data Compression Conference, 1997, pp. 72-81.
+[2] J. Lu, A. Nosratinia, and B. Aazhang, "Progressive sourcechannel coding of images over burst error channels," in Proceeding of IEEE ICIP, October 1998.
+[3] V. Chande, H. Jafarkhani, and N. Farvardin, "Joint sourcechannel coding of images for channels with feedback," in Information Theory Workshop, (San Diego, CA), February 1998.
+[4] A. Said and W. A. Pearlman, "A new, fast and efficient image codec based on set partitioning in hierarchical trees," IEEE Transactions on Circuits and Systems for Video Technology, vol. 6, pp. 243-250, June 1996.
+[5] T. Ottoson, Coding, modulation, and multi-user decoding for DS-CDMA systems. PhD thesis, Chalmers University of Technology, Goteborg, Sweden, 1997.
+[6] R. G. Gallager, Discrete Stochastic Process. Boston: Kluwer Academic Publishers, 1995.
+[7] H. Wang and N. Moayeri, "Finite-state Markov channel-a useful model for radio communication channels," IEEE Trans. Vehicular Technology, vol. 44, pp. 163-171, February 1995.
+
+496
+
+

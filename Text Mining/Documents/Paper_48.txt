@@ -1,0 +1,583 @@
+A Mixed Process Neural Network and its Application to Churn Prediction in Mobile Communications
+Guojie Song Dongqing Yang Ling Wu Tengjiao Wang Shiwei Tang Department of Computer Science, Peking University, Beijing, P.R. China
+National Laboratory on Machine Perception, Peking University, Beijing, P.R. China {gjsong, dqyang, wuling, tjwang, tsw}@pku.edu.cn
+
+Abstract
+Churn prediction is an increasingly pressing issue in today's ever-competitive commercial environments, especially in mobile communication arena. In this paper, a Mixed Process Neural Network (MPNN) based on fourier orthogonal base function has been proposed to support churn management, which can deal with both static value and time-varied continuous value simultaneously. To further improve its performance, an optimized network, cMPNN, has been presented, which adopts fourier expansion based preprocessing and hidden layer combination techniques to optimize MPNN's structure. Most important of all, our method has been used in real applications in China Mobile. Experiments based on the real datasets also show that our proposed churn prediction method has good maneuverability and performance.
+1. Introduction
+Customer churn refers to the loss of subscribers switching from one service provider to another, which can lead to profits reduction and decrease shareholders value greatly. In the mobile communications industry, the annual churn rate reaches 25% in Europe and 30% in the United States [1]. It costs about five times as much to sign on a new subscriber as to retain an existing one [2]. However, given that most customers will only signal their intention to churn when they call to cancel their account, it is difficult using standard techniques to target for anti-churn marketing. Thus, an ideal solution to combating churn is to build a churn prediction model by using data mining techniques to predict customer churning behaviors, which are becoming more than necessary for the success of the enterprise, especially in the
+This work is supported by the National Natural Science Foundation of China under Grant No. 60473051
+
+highly competitive mobile communications industry. In this paper, a mixed process neural network (MPNN)
+has been proposed, which can deal with both traditional static data and the time-varied continuous data simultaneously. Fourier orthogonal base function has been chosen as the base function of process neuron to expand each time varied continuous series efficiently. To avoid repeating computation of fourier base function expansion and time aggregation operation, an optimized MPNN, named c-MPNN, has been proposed, which use the preprocessing technique based on fourier transform to simplify the structure of MPNN. Some optimization techniques for improving maneuverability of the training process have also been proposed. The most important thing is that the proposed churn prediction model has been used in real applications in some provinces of China mobile communications. The effectiveness and efficiency of MPNN and c-MPNN have also been proved by our extensively experiments based on the real dataset.
+Related works: Mozer et al. built models to predict the probability of a subscriber churning within a period of time [4]. Yan et al. built models to improve prediction of customer churn in non-stationary environments [10]. Lu provide examples of reasons to identify customer initiated churn [7]. Yan et [3] proposed a detail framework for churn prediction. Rosset and Neumann calculated customer value and identified potential churn among valuable customers [9]. However, all these methods accept static value only.
+Since He and Liang proposed artificial process neuron model [5], it has been used in several applications, mainly in the area of automatic diagnoses [6] and petroleum geologic [8]. However, there is no research using PNN to churn prediction in mobile communications. This study is the first attempt as far as we known.
+The remaining of the paper is organized as follows. In Section 2, some related background knowledge has been prepared. Section 3 introduce the MPNN model. Some op-
+
+Sixth IEEE International Conference on Data Mining - Workshops (ICDMW'06) 0-7695-2702-7/06 $20.00 © 2006
+
+timization techniques are discussed in Section 4. A performance study of the proposed methods is demonstrated in Section 5, and we conclude our study in Section 5.
+
+2. MPNN: A MIXED PNN MODEL
+
+Assume that the input of process neural network X(t)
+
+is (x1(1), x2(t), ..., xn(t)), and the expected output is y(t), where xi(t), y(t)  C[0, T ]. b1(t), b2(t), ..., bL(t),...are base functions in C[0, T ]. According to weierstrass ap-
+
+proximation theorem [?], given any  > 0, there exists a
+
+polynomial P (t) on [0, T ] such that |xi(t) - P (t)| <  for all t  [0, T ] . In other words, any xi(t)  C[0, T ] can be uniformly approximated on [0, T ] by polynomials
+
+Pl(t)(l = 1, 2, ...) to any degree of accuracy. Suppose that the set of Pl(t) is independent. There is a relationship be-
+
+tween orthogonality and independence. It is possible to con-
+
+vert a set of independent functions Pl(t) into the set of orthogonal functions bl(t) that spans the same space. Thus y(t) can be expressed as formula 1.
+
+L
+
+y(t) = clbl(t)
+
+(1)
+
+l=1
+
+2.1. Topological structure of MPNN
+
+The MPNN proposed in this paper is composed of four
+
+layers: input layer, two hidden layers and one output layer.
+
+The first layer is input layer, which is composed of
+
+n+
+
+m i=1
+
+Ai
+
+units.
+
+In churn prediction model, the input
+
+includes both continuous time-varied data, such as billing
+
+data, and discrete data, such as customer gender etc. Thus,
+
+the input of MPNN include n input node dealing with con-
+
+tinuous time series data and
+
+m i=1
+
+Ai
+
+nodes
+
+for
+
+discrete
+
+static input data, where each input node di,Ai corresponds
+
+to one value of property Ai, with 1 if value(Ai) = di,Ai
+
+else with 0.
+
+The second layer is the first hidden layer, which is com-
+
+posed of n process neurons and m traditional neurons. Pro-
+
+cess neurons deal with n time continuous input data and
+
+traditional neuron only accept
+
+m i=1
+
+Ai
+
+discrete
+
+static
+
+data
+
+from the input layer.
+
+The third hidden layer is composed of p traditional neu-
+
+rons and the last layer is output layer. To reduce the com-
+
+plexity, we will only consider the case of one output unit.
+
+The topological structure of MPNN is depicted in Figure 1.
+
+2.2. Relationship between input and output
+
+Input: The inputs of the first layer can be expressed as two parts: X(t) for time varied continuous time series and D for discrete static input, denoted as
+X(t) = (x1(t), x2(t), ..., xn(t))
+
+x1(t) ...
+xn(t)
+d1,1 ... d1,A1 dm,1 ... dm,Am
+
+wcij(t) ,,fp ...
+,,fp
+wdhk , fd ...
+, fd
+
+vrl
+, fg
+...
+
+ul
+, fo
+
+, fg
+
+y(t)
+
+Topological structure of MPNN D = (d1,1, ..., d1,A1 , ..., dm,1, ..., dm,Am )
+
+The outputs of the first hidden layer: We first consider
+
+the computation of j-th process neuron connected with con-
+
+tinuous input X(t). yj(c,1) = fp(
+
+n i=1
+
+T 0
+
+wcij (t)xi (t)dt)
+
+where wcij(t) is the link weight function between j-th pro-
+
+cess neuron in the first hidden layer and the i-th unit of X(t)
+
+in the input layer (i, j  [1, n]).
+
+According to formula 1, if we take fourier base function
+
+si(t), i  [1, L], as process base function to expand process weight function and input xi(t), we have
+
+n q=L,z=L
+
+T
+
+yj(c,1) = fp
+
+ci(zz)wci(qq)
+
+sq (t)sz (t)dt
+
+i=1 q=1,z=1
+
+0
+
+Thus, the outputs of the process neurons in the
+
+first hidden layer can be expressed as yj(c,1) =
+
+n i=1
+
+q=L,z=L q=1,z=1
+
+ci(zz)wc(iqq)
+
+where
+
+fp
+
+is
+
+the
+
+activation
+
+func-
+
+tion of the process neurons in the first hidden layer.
+
+For traditional neurons in the first layer, its outputs can
+
+be expressed as yk(d,1) = fd(
+
+Ak h=1
+
+dkh wdhk )
+
+where
+
+wdhk
+
+is the link weight between k-th neuron in the first hidden
+
+layer and the h-th value of property dk in the discrete input layer (k  [1, m], h  [, Ak]).
+
+Thus, the outputs of the first hidden layer is
+
+out(r1) = yj(c,1) + yh(d,1) where r  [1, m + n].
+
+(2)
+
+The outputs of the second hidden layer: Based on the outputs of the first hidden layer, the outputs of the second hidden layer can be expressed as
+
+m+n
+
+yl(2) = fg(
+
+out(r1)vrl)
+
+r=1
+
+(3)
+
+where vrl is the link weight between the l-th neuron in the second hidden layer and the r-th neuron in the first hidden layer. fg is the activation function of the neuron in the second hidden layer.
+
+Output: The output function of the MPNN can be ex-
+
+pressed as
+
+p
+y(t) = fo( yl(2)ul)
+
+(4)
+
+l=1
+
+Sixth IEEE International Conference on Data Mining - Workshops (ICDMW'06) 0-7695-2702-7/06 $20.00 © 2006
+
+where ul is the link weight between the l-th neuron in the second hidden layer and the output node. fo is the activation function of the output node.
+
+2.3. Learning algorithm
+
+Assume that we have K learning sample functions:
+
+
+
+x11(t), x12(t), ..., x1n(t), y1(t)
+
+
+
+x21(t), ...
+
+x22(t), ...
+
+...,
+
+x2n(t),
+
+y2(t) 
+
+xK1(t), xK2(t), ..., xKn(t), yK (t)
+
+where the first suffix i in xij(t) denotes the serial number of learning sample, and the second suffix j denotes the serial number of component in input function vector. yk(t) is the expected output function for input xk1(t), xk2(t), ..., xkn(t),(k  [1, K]).
+Suppose that y(t) is the desired output function, and y(t) is the corresponding actual output function of the MPNN,
+then the mean square error of the MPNN output can be writ-
+ten as
+
+E
+
+=
+
+1 2
+
+K
+(yb(t) - yb(t))2
+
+b=1
+
+=
+
+1K 2
+
+fo
+
+p
+yl(b2)ul
+
+2
+- yb(t)
+
+b=1
+
+l=1
+
+=
+
+1K 2
+
+fo
+
+p
+
+m+n
+
+n q=L,z=L
+
+fg (fp(
+
+c(izzb) wci(qq) )
+
+b=1
+
+l=1
+
+r=1
+
+i=1 q=1,z=1
+
+Ak 2
++fd( dkhbwdhk))vrl ul - yb(t)
+
+(5)
+
+h=1
+
+For analysis convenience, Zb, Qb, Pb and Hb are defined respectively as
+
+Ak
+Hb = ( dkhbwdhk),
+h=1
+
+n q=L,z=L
+
+Pb =
+
+(c(izzb) wci(qq) )
+
+i=1 q=1,z=1
+
+m+n
+Qb = (fd(Hb) + fp(Pb))vrl,
+r=1
+
+p
+Zb = Zbul
+l=1
+
+According to the gradient descent method, the learning rules are defined as follows
+
+wci(qq) = wc(iqq) + wc(iqq) wdhk = wdhk + wdhk
+vrl = vrl + vrl ul = ul + ul
+
+(6)
+
+where , , ,  are the learning rate, and i  [1, n], k 
+[1, m], h  [1, Ak], l  [1, p] , q, r  [1, L]. wc(ikk), wdjh, vik, and uk can be calculated as
+follows
+
+wc(iqq)
+
+=
+
+-
+
+E wc(iqq)
+
+= -ulfg(Qb)vrlfp(Pb)ci(zzb)
+
+wdhk
+
+=
+
+- E wdhk
+
+=
+
+-ul fg (Qb )vrl fd (Hb )dk(zh)
+
+vrl
+
+=
+
+- E vrl
+
+=
+
+-ul fg (Qb )
+
+(7)
+
+ul
+
+=
+
+- E = - ul
+
+where  =
+
+K b=1
+
+(fo(Zb)
+
+-
+
+yb
+
+(t))fo(Zb).
+
+In this paper, all activation functions have been substi-
+
+tuted by Sigmoid function, i.e. fo(u) = fg(u) = fp(u) =
+
+fd(u)
+
+=
+
+1 1+eu
+
+,
+
+with
+
+f(u)
+
+=
+
+f(u)(1
+
+-
+
+f(u)).
+
+3. The OPTIMIZATION TECHNIQUES To CHURN PREDICTION
+
+In this section, we present two novel optimization techniques for improving the performance of churn prediction based on MPNN model, including topological structure optimization and training process optimization.
+
+3.1. Topological Structure Optimization
+
+The proposed optimization techniques of topological structure includes two aspects: preprocess optimization and network layer optimization.
+
+Preprocess optimization: Based on formula 2.2, if we
+
+take fourier base function as the base function of process
+
+neuron in MPNN, each input time varies function xi(t) can be expanded with a set of fourier coefficient ci and corresponding weight wi. If we take xi(t) as input of pro-
+
+cess neuron in MPNN during each time iteration of train-
+
+ing process, it should be expanded one time by using DFT
+
+accompanied with one time time aggregation operation by
+
+using formula
+
+T 0
+
+sq (t)sz (t)dt.
+
+In fact, such costs of the
+
+fourier expansion can be avoided if each input time series
+
+xi(t),i  [1, n], has been preprocessed before it is input into MPNN. Because ci is a constant and has no relationship with the training process, so taking fourier coefficient
+
+ci as input will not influence the final results. By using such
+
+preprocessing strategy, the process neurons in MPNN have
+
+become a traditional neurons by losing its time aggregation
+
+ability.
+
+Network layer optimization: It is well known that the ef-
+
+ficiency of neural network is inverse proportion to the num-
+
+Sixth IEEE International Conference on Data Mining - Workshops (ICDMW'06) 0-7695-2702-7/06 $20.00 © 2006
+
+x1(t)
+
+DFT
+...
+
+c1(1) ... cL(1) ...
+
+xn(t) DFT c1(n) ...
+
+cL(n)
+
+d1,1 ... d1,A1 ... dm,1 ... d1,Am
+
+, fp
+...
+, fp
+, fd
+... , fo y(t)
+,fd
+, fg
+...
+, fg
+
+Topological structure of c-MPNN
+
+ber of neurons. To reduce the number of neurons, the meaning of each neurons in MPNN should be analyzed. MPNN includes four kinds of neuron, denoted as fp, fd, fg and fo respectively. fp is connected with the properties of customer's consuming history, expressed as time varied function; fd accept the inputs of customer's basic information, expressed as enumerated values; The outputs of fp and fd will be input into fg, and fo can predict whether customer will churn or not. fp and fd provide the partial customer's information, but fg can provide the complete information for fo. If we input the outputs of fp and fd into fo directly, and move the neurons of fg into the first hidden layer but with less numbers of neurons q (q<p), neurons fo not only can accept partial information and complete information together, but also can reduce the number of neurons in MPNN. The efficiency can be improved greatly with the reduction of neurons in MPNN can can keep the accuracy of prediction results simultaneously, which has been proved by our experiments.
+By using above two optimization techniques, MPNN model has been condensed into another new model, named c-MPNN, which includes three layers: input layer, hidden layer and output layer. The topological structure is illustrated as Figure 2.
+4. DATA And EXPERIMENTAL RESULTS
+4.1. Characteristics of Input Data
+Ultimately, churn occurs because subscribers are dissatisfied with the price or quality of service, usually as compared to the offerings of competing carriers, which can be embodied by the information of their usage. For the purpose of this study, we prepare the real data from the China Mobile Communication Company. We sampled the data from Jan. 2004 to April 2004. The data set covers demographic variables and the variables about telephone usage. After filtering the data with missing values, we select 220 thousands samples. 2000 samples have been selected randomly for training data set and 10000 samples for testing data set. The description of the variables for this research is presented as
+
+Accuracy(%)
+
+follows. Time varied continuous data: It includes three kinds
+of usage series data: call time, the number of messages and the number of different telephones communicated with him(her). Each data element in series is accumulated in term of day, and 91 element spanning three months have been generated in each series.
+Traditional static discrete data: Two discrete variables have been selected, which are customer's gender(male:0, female:1) and age (being discreted into five segments, (020), (20-30), (30, 40), (40, 60) and (60-100) in advance).
+Mark of churn: According to the definition of churn management strategies, different in each province, the mark of churn for each customer can be defined with whether he is churn in (churn:1, nonchurn:0), that is in June 2004.
+4.2. Experimental Results
+All experiments were performed on Pentium IV 1.4G with 512MB main memory, running Windows XP. The MPNN code was written in C++.
+We tested the performance of MPNN and its optimized version c-MPNN about predicting accuracy, training and testing time. The model predicts correctly with churn if the predicted user's churn probability is bigger than (or equal to) 0.5 or the user doesn't churn with the probability less than 0.5. Otherwise the Model predicts wrong. We demonstrate the accuracy by the percentage of correctly predicting users.
+4.3. Accuracy evaluation
+We increase the level of fourier expansion for continuous serial attributes from 1 to 20, and evaluate the accuracy of MPNN and c-MPNN at different expansion level. The results are the average value of 10 independent experiments. Figure 3 shows the accuracy of the two models.
+88
+86
+84
+82 MPNN c-MPNN
+80 5 10 15 20
+Expansion level
+Accuracy evaluation
+As Figure 3 shows, the accuracy of c-MPNN is almost equals to that of MPNN or even sometimes better than it. Also c-MPNN is more stable in that the curve is smoother. So c-MPNN is less influenced by random error than MPNN.
+
+Sixth IEEE International Conference on Data Mining - Workshops (ICDMW'06) 0-7695-2702-7/06 $20.00 © 2006
+
+Testing time(sec)
+
+Training time(sec)
+
+4.4. Efficiency evaluation
+4.4.1 Training time evaluation
+In practice of mobile churn prediction, the characteristic of user activity changes frequently, thus the predicting model should be updated correspondingly. Therefore the time consumed in training process is an important factor of time efficiency. Here we fix the iteration times with 1000. Notice that the training time is expressed using logarithm.
+100 MPNN c-MPNN
+10
+1 5 10 15 20
+Expansion level
+Training time evaluation
+As shown in Figure 4, the training time of MPNN increases rapidly according to the number of neurons and up to one magnitude bigger than c-MPNN soon. For example, as fourier expansion level is 5, the training time of MPNN is 20.63 second, while c-MPNN is only its 1/4 , 4.97 second.
+4.4.2 Testing time evaluation
+The amount of data used by churn prediction model in mobile communication is very huge, can up to 5,000,000 records (about 12Gbytes) in each province. So the testing time of Churn model is also an important factor. The evaluation result has been shown as follows. Also the testing time is expressed using logarithm, too. The test time of
+100 MPNN c-MPNN
+10
+1 5 10 15 20
+Expansion level
+Testing time evaluation
+MPNN is much longer than c-MPNN. With the increase of Fourier expansion level, the difference grows to a magnitude. For example, as the Fourier expansion level up to 5, the test time of MPNN is 9.29 seconds, while c-MPNN is only about 1.78 seconds.
+4.4.3 Conclusions
+MPNN is a mixed process neural network, which accepts the inputs consisted of traditional static discrete data and
+
+time varied continuous series together. To simplify the learning algorithm, fourier orthogonal basis function has been selected to expand the input functions. The preprocessing process has been adopted to optimized the network structure with a new process neural network c-MPNN. Most important thing is that our system has been applied to serve for mobile communication, and its performance has been proved in real scenario.
+References
+[1] Anderson Consulting, Battling Churn to Increase Shareholder Value: Wireless Challenge for the Future, Anderson Consulting Research Report, 2000.
+[2] Ding-An Chiang, Yi-Fan Wang, Shao-Lun Lee, Cheng-Jung Lin, Goal-oriented sequential pattern for network banking churn, Expert Systems with Applications 25 (2003) 293-302.
+[3] Yan, L., Wolniewicz, R.H., Dodier, R. Predicting Customer Behavior in Telecommunications. IEEE Intelligent Systems, Vol. 19, 2 (2004) 50-58.
+[4] Mozer, M.C., Wolniewicz, R., Grimes, D.B.: Predicting Subscriber's Dissatisfaction and Improving Retention in the Wireless Telecommunications Industry. IEEE Transactions on Neural Networks, Vol. 11, 3 (2000) 690-696.
+[5] He X.G., Liang J.Z. Some Theoretical Issues on Process Neural Networks. Engineering Science, 2 (2000) 40-44.
+[6] HE X.G. , XU S.H. A feedback process neuron network model and its learning algorithm[J ] . Acta Auotomatica Sinica , 2004 , 30 (6) :801 - 806.
+[7] Lu, J., 2002. Predicting customer churn in the telecommunications industry­An application of survival analysis modeling using SAS@ SAS Group International 27th Annual Conference, paper 114.e
+[8] XU S.H , HE X.G. Research and applications of self organization process neural networks[J ] . Journal of Computer and Development , 2003 , 40 ( 11 ) : 1612 - 1615.
+[9] Rosset, S. and Neumann, E., 2003. Integrating Customer Value Considerations into Predictive Modeling. Third IEEE International Conference on Data Mining.
+[10] Yan, L. Miller, D.J. Mozer, M.C. and Wolniewicz, R. Improving prediction of customer behavior in nonstationary environments. Proc. of the International Joint Conference on Neural Networks. 3(2001), 2258-2263.
+
+Sixth IEEE International Conference on Data Mining - Workshops (ICDMW'06) 0-7695-2702-7/06 $20.00 © 2006
+
+

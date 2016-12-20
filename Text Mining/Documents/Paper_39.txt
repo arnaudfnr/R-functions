@@ -1,0 +1,142 @@
+Passive Millimeter Wave Imaging and Analysis for Concealed Object Detection
+
+Hyoung Lee, Dong-Su Lee, Seokwon Yeom*, Jung-Young Son, Vladmir P. Guschin, Shin-Hwan Kim
+Dept. of Computer and Communication Engineering, Daegu University Gyeongsan, Gyeongbuk, 712-714 South Korea *yeom@daegu.ac.kr
+
+Abstract- Passive millimeter wave imaging has the capability of detecting concealed objects under clothing. However, the image quality is often degraded due to low spatial resolution and low signal level. This paper addresses passive millimeter wave imaging and registration and fusion of a passive millimeter and a visual image in order to visualize human subject's identity and concealed objects together. The image registration process is composed of body boundary detection and affine transform maximizing cross-correlation coefficients of two edge images. The image fusion process comprises three stages: discrete wavelet transform for image decomposition, a fusion rule for merging the coefficients, and the inverse transform for image synthesis. In the experiments, metallic and non-metallic objects are detected and fused with the image of a human subject.
+
+The passive MMW imaging system operates at the regime of 3 mm and 8 mm wavelengths with linear polarization. In the experiments we verify that our passive MMW imaging system is able to detect a metallic and a non-metallic object concealed under clothing. It will be shown that the registration and fusion techniques can present the person's identity such as face and clothing combined with the concealed object. The paper is organized as follows. In the Section 2, the passive MMW imaging system is briefly illustrated. Section 3 describes the image registration and fusion process. The experimental and simulation results are presented in Section 4. The conclusions follow in Section 5.
+
+I. INTRODUCTION
+Passive millimeter wave (MMW) imaging has been applied to various security and defense fields. The attenuation of millimeter waves is very low even in the poor weather conditions especially in the regimes of 3 mm and 8 mm wavelengths. Indeed, the passive MMW imaging can detect concealed objects under clothing [1-3].
+Image registration aligns the images obtained from different sensors. It is required in many image analysis tasks including image fusion and segmentation [4]. Image fusion combines meaningful information from multiple images of the same scene. The image fusion has been applied to thermal, medical, or satellite imaging in order to achieve better visualization and further analysis [5-8].
+In this paper, the registration and fusion of visual and passive MMW images are addressed [9,10]. The registration comprises body-boundary detection and affine transform maximizing cross-correlation coefficients between two bodyboundary images. The discrete wave transform (DWT) analyzes image signals both in time and frequency domains simultaneously processing multi-resolution analysis (MRA). The symmetrical wavelet (Symlets) is employed for MRA due to its de-noising and feature-extracting properties [11]. Our fusion rule has two different schemes for the approximation and the detail coefficients: the maximum scheme for the approximation and the weighted average scheme for the detail coefficients.
+
+. PASSIVE MILLIMETER WAVE IMAGING SYSTEM
+G
+The passive MMW imaging system is equipped with a Cassegrain dish antenna and its diameter is 0.5 m, as illustrated in Figure 1 [2]. Four feed horn antennas are located at the focal plane of the antenna receiving 3 mm and 8 mm wavelengths with horizontal and vertical direction polarization. Each receiver channel connected to each feed horn is composed of a wave guide, the Dicke receiver, three monolithic microwave integrated circuit (MMIC) amplifiers, and the Schottky diode detector. The scanning mechanism rotates both the antenna and the receiver in horizontal and vertical directions with a constant angular step. The angular resolution is around 1.1° according to the Rayleigh criterion since O is 8 mm and D is 0.5 m. The angular step size and the integrating time can be modified from 0.1° to 1°and from 20 ms to 200 ms, respectively.
+G G G G G
+
+- 98 -
+
+process with DWT and the fusion rule [4]. Eq. (1) shows the process of the fusion and Eqs. (2) and (3) are the fusion rules for approximation and detail coefficients, respectively.
+
+Figure 1. Passive millimeter wave imaging system.
+
+G
+
+. RESGISTRATION AND FUSION PROCESSES
+
+IV 
+
+W
+
+CV CF
+I W 1
+
+I M tt~
+
+W
+
++PRWVKOCIGU
+
+CM
+YCXGNGV EQGHHKEKGPVU
+
+HWUGFYCXGNGV EQGHHKEKGPVU
+
+Figure 3. Block diagram of the fusion process.
+
+I
+HWUGF KOCIG
+
+I F ( x, y) W 1(I (W (IV (x, y))),W (I M ( x, y))), (1)
+
+C F ,a ( x, y ) max( CY ,a ( x, y ) , CY ,d ( x, y ) ),
+
+(2)
+
+CF,d (x, y)
+
+¨§ ©
+
+y N
+
+1 1
+
+¸· ¹
+
+CY
+
+,d
+
+(x,
+
+y)
+
+
+
+¨§ ©
+
+y N
+
+1 1
+
+¸· ¹
+
+CM
+
+,a
+
+(
+
+x,
+
+y).
+
+(3)
+
+IV. EXPERIMENTAL RESULTS
+
+Figure 2. Overall process of the registration and fusion between two images.
+A. Image Registration
+The visual image is preprocessed by the Canny edge detection algorithm to obtain the body boundary. The MMW image is preprocessed by Gaussian filtering for noise reduction and the body boundary is obtained by the Canny edge detection. Two boundary images are cross-correlated to obtain the scale, translation, and rotation parameters for the affine transform, which maximizes the normalized cross correlation coefficient. The overall image registration and fusion process is shown in Figure 2.
+
+Figures 4 and 5 show a metallic and a non-metallic object images captured by a camera and the passive MMW imaging system. The images in the top row demonstrate the objects attached to the body with or without concealment. The size of passive MMW image is 75 u 76 pixels. The distance between the person and the imaging system is about 1.4 m. The passive MMW imaging system is composed of 4 channels: 8 and 3 mm wavelength with vertical and horizontal direction polarizations for each wavelength. The integration time of
+each pixel is set to 80 ms and the scanning step angle is 0.4.
+Figure 6(a) and 6(b) show the registration and fusion results between a knife and a beauty aid image with a visual image, respectively.
+
+B. Image Fusion
+The image fusion process using the wavelet transform is composed of three stages: decomposing images with the DWT, merging the coefficients with the fusion rule, and the image synthesis with the inverse DWT. Figure 3 shows the fusion
+
+- 99 -
+
+Figure 4. Images of detecting metallic objects.
+
+G
+
+Figure 5. Images of detecting non-metallic objects. G
+V. CONCLUSIONS
+In this paper, we discuss the image registration and fusion for the concealed object detection. Experiments confirm that the MMW imaging can detect concealed objects under clothing. Two different types of images are registered by means of body-boundary detection and affine transform. The visual and passive MMW images are fused with DWT and the fusion rule. In the experiments, we show that various types of concealed object are well detected with the passive MMW imaging system. The presented technique can visualize both of visual and MMW images to identify human subject and concealed object.
+
+G G G G G G G G (aG) G
+
+ACKNOWLEDGEMENT
+
+This work was supported by Mid-career Researcher Program through NRF grant funded by the MEST (No. 20100027695).
+
+G (b)
+Figure 6. Registration and fusion results, (a) knife, (b) beauty-aid (cream type).
+
+- 100 -
+
+REFERENCES
+[1] L. Yujiri, M. Shoucri, and P. Moffa, "Passive millimeter-wave imaging," IEEE microwave magazine, Vol.4, pp.39-50, September, 2003. [2] J. Son, V. P. Guschin, S. Yeom, S. Kim, and H. Lee, "Stereo images in millimeter-wave regime, " Proc. SPIE 7329, 73290L, April, 2009. [3] K. B. Cooper, R. J. Dengler, N. Llombart, T. Bryllert, G. Chattopadhyay, I. Mehdi, and P. H. Siegel, "An approach for sub-second imaging of concealed objects using terahertz (THZ) radar," Int. J. Infrared Millim. Waves, Vol.30, pp.1297-1307, 2009. [4] R. C. Gonzalez, Digital Image Processing 2/E (Prentice-Hall Inc., 2003). [5] G. Pajares and J. M. de la Cruz, "A wavelet-based image fusion tutorial," Pattern Recognition, Vol.37, No.9, pp.185-1872, 2004. [6] P. Hill, N. Canagarajah, and D. Bull, "Image fusion using complex wavelets," Proc. the 13th British Machine Vision Conference, Isaac Councill, San Francisco, pp. 287-296, 2002.
+
+[7] Z. Xue, R. S. Blum, and Y. Li, "Fusion of visual and IR images for concealed weapon detection," Proc. IEEE information fusion, Vol.2, pp.11981205, 2002. [8] X. Qing, X. Shuai, T. Bing, L. Jiansheng, and G. Zexun, "Complex
+wavelet and application to image fusion," ISPRS, Commission , WG /6. [9] H. Lee, S. Yeom, J. Son, and V. P. Gushin, "Image registration and fusion of MMW and visual images for concealed object detection," Proc. SPIE defense, security, and sensing, Orlando, Vol.7670, 76700H, April 2010. [10] H. Lee, D. Lee, S. Yeom, J. Son, V. P. Gushin, and S. Kim, "Image registration and fusion between passive millimeter wave images and visual images," KICS, Under revision, 2011. [11] E. G. Swee and S. Elangovan, "Applications of symlets for denoising and load forecasting," Proc. IEEE signal processing workshop, Madison, Wisconsin, pp.165-169, 1999.
+G G
+
+- 101 -
+
+

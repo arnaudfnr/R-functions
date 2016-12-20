@@ -1,0 +1,213 @@
+2010 IEEE International Conference on Data Mining Workshops
+Medically Driven Data Mining Application: Recognition of Health Problems from Gait Patterns of Elderly
+
+Bogdan Pogorelc
+Department of Intelligent Systems Jozef Stefan Institute &
+Spica International d.o.o. Ljubljana, Slovenia
+bogdan.pogorelc@ijs.si
+
+Matjaz Gams
+Department of Intelligent Systems Jozef Stefan Institute &
+Spica International d.o.o. Ljubljana, Slovenia matjaz.gams@ijs.si
+
+Abstract-- We propose a medically driven data mining application: system for diagnosing of gait patterns related to health problems of elderly to support their independent living. Gait of elderly is captured with motion capture system, which consists of tags attached to the body and sensors situated in the apartment. Position of the tags is acquired by the sensors and the resulting time series of position coordinates are analyzed with machine learning algorithms in order to recognize the specific health problem. We propose novel features for training a machine learning classifier that classifies the user's gait into: i) normal, ii) with hemiplegia, iii) with Parkinson's disease, iv) with pain in the back and v) with pain in the leg. Experimental results showed that decision tree classifier was able to reach only 95 % of classification accuracy, using 7 tags and 5 mm standard deviation of noise. On the other hand, k-nearest neighbor was much more accurate since it reached classification accuracy of over 99 %, using only 8 tags with 020 mm noise.
+Keywords-health problems; recognition; data mining; elderly; motion capture
+I. INTRODUCTION
+Fast aging of population is becoming increasingly difficult issue in the developed countries, since the society's capacity is becoming overwhelmed with taking care of its elderly members [1].
+Elderly want to live at their homes for as long as possible. However, in older age they become more prone to specific health problems. When living alone, nobody could detect changes in behavior potentially being health problem and call for medical help. To prevent such dangerous situations, we propose system for automatic ubiquitous elderly health care, for which we developed techniques for recognition of common health problems manifesting in gait of elderly. In case the system would recognize the health problem, it would automatically notify the physician and show him/her the explanation of the automatic diagnosis in form of visualization of the kinematic model. Therefore, elderly would get constant health care at their homes and physicians would be less occupied with work, however they
+
+would still have the possibility to confirm/reject automatic diagnose. In this case elderly would gain constant (ubiquitous) monitoring, providing them more safety and confidence in living at their homes.
+The target health problems for automatic recognition are: hemiplegia (usually the result of stroke), Parkinson's disease, pain in the leg and pain in the back. The gait of the user is captured with the motion capture system, which consists of the tags attached to the body and the sensors situated in the apartment. The position of the tags is acquired by the sensors and the resulting time series of position coordinates are analyzed with machine learning algorithms in order to recognize the specific health problem.
+We wanted to investigate the classification accuracy achievable using various numbers/placements of tags on the user's body and various amounts of noise in tag coordinates. Tag placement must achieve a trade-off between usability and technical requirements ­ the users prefer as few tags as possible, but too few tags cannot ensure sufficient accuracy. Both the finding regarding noise and tag placement can affect motion-capture system selection and further development and applications of care systems for elderly.
+For the automatic recognition of the movement (gait) pattern, the movement must first be captured. For this purpose many types of motion capture devices exist. Widely used are inertial sensors (accelerometers or gyro sensors) [2][4]. The second widely used approach uses machine vision for the reconstruction of the human body movement [19], [21]. The third approach uses cameras in combination with tags attached to the body. Usually infra-red (IR) cameras are used and the body posture is reconstructed from the position of the retroreflective tags [13], as in our approach. There also exist some specific measurement devices for the recognition of tremor ­ a symptom in Parkinson's disease. Tremor can be acquired with variety of measuring approaches, including sensors for a measurement of the angle of the joint deflection in tremor-type joint movements [5] and with electromyography [6].
+We did not address the recognition of the activities of daily living, such as walking, sitting, lying, etc., and the detection of falling, which has already been solved [9], [16].
+
+978-0-7695-4257-7/10 $26.00 © 2010 IEEE DOI 10.1109/ICDMW.2010.205
+
+976
+
+We were focused on solving a more challenging task, which is the recognition of gait-related health problems.
+In works related to health problems recognition [10], [11], [12], physicians usually diagnose health problems which manifest in gait just by manually observing the user's gait. However, this approach cannot provide constant realtime observation of the elderly at home, for fast recognition of changes in movement (gait), indicating some health problem. This is also the case in [22], where a system for long-term monitoring of the gait in Parkinson's disease is presented. Just like the system described in [5], it has major drawback in comparison to our approach, because it cannot automatically recognize Parkinson's disease or any other health problem.
+Using similar motion-capture system as that in our approach, the automatic distinguishing between health problems such as hemiplegia and diplegia is presented in [15] using Self-Organizing Maps, whose features were wavelet-transformed gait characteristics such as walking speed and stride length.
+An important part of the research presented in this paper is the study of the impact of the placement of tags on the user's body and the amount of noise in tag coordinates on the classification accuracy. The closest work in this respect that we are aware of investigated the placement of accelerometers for fall detection [8], [14]. Their finding was that the head provides optimal accuracy, but is impractical, the wrist is not appropriate, and the waist is a good option.
+II. A SYSTEM FOR DIAGNOSING HEALTH PROBLEMS
+The specific health problems for the development of our system were suggested by the medical expert based on the incidence in the elderly aged 65+, the medical significance and the feasibility of their recognition from the observed subjects' movements. The following four health problems were chosen as the most appropriate: Parkinson's disease, hemiplegia, pain in the leg and pain in the back. The fifth chosen health state was normal (healthy) and was used as a reference.
+A physician usually diagnoses target health problems while observing a patient's gait (i.e. posture and the walking pattern). Since the gaits of patients with the observed five health states look similar to each other, a physician needs to pay attention to many details to recognize the health state [10], [11], [12]. For the task of the automatic health-state recognition we proposed and tested 13 features that are based on the tag locations, for 12 tags, placed on the shoulders, elbows, wrists, hips, knees and ankles of the elderly. The proposed features, which are used for modeling using the machine learning methods, are listed as follows:
+· Absolute difference between i) average distance between right elbow and right hip and ii) average distance between right wrist and left hip.
+· Average angle of the right elbow. · Quotient between maximal angle of the left knee and maximal angle of the right knee. · Difference between maximal and minimal angle of the right knee.
+
+· Difference between maximal and minimal height of the left shoulder.
+· Difference between maximal and minimal height of the right shoulder.
+· Quotient between i) difference between maximal and minimal height of left ankle and ii) maximal and minimal height of right ankle.
+· Absolute difference between i) difference between maximal and minimal speed (magnitude of velocity) of the left ankle and ii) difference between maximal and minimal speed of the right ankle.
+· Absolute difference between i) average distance between right shoulder and right elbow and ii) average distance between left shoulder and right wrist.
+· Average speed (magnitude of velocity) of the right wrist.
+· Frequency of angle of the right elbow passing average angle of the right elbow.
+· Average angle between i) vector between right shoulder and right hip and ii) vector between right shoulder and right wrist.
+· Difference between average height of the right shoulder and average height of the left shoulder.
+For developing predictive model for automatic recognition of health problems in the subjects yet to be observed, we employed supervised learning methods from the field of machine learning. In supervised learning, a training data set of already labeled subjects (i.e. classified into one of the target five classes) is used to construct a model, which is later used to predict the class of the subjects for which we wish to detect the health problem. Our task was therefore to classify the recordings of walking into five classes: four with selected health problems (classes hemiplegia, parkinson, pain-leg, pain-back) and one without it (normal).
+Data for the evaluation of the proposed approach was collected by recording the walking patterns of 9 test subjects, of which 4 had hemiplegia (3 subjects had right and 1 had left hemiplegia) and 5 subjects who were healthy (each subject was recorded 4-5 times). Due to the unavailability of test subjects with the actual target health problems, some of the data was acquired artificially under the supervision of an expert physician: These data were captured by recording healthy test subjects who were imitating particular health problems by following the physician's instruction. The final data set of 141 recordings consisted of: i) 25 recordings of normal walking, ii) 45 recordings of walking with hemiplegia, iii) 25 recordings of walking with Parkinson's disease, iv) 25 recordings of walking with a limp due to a pain in the leg, v) 21 recordings of walking with a limp due to a pain in the back.
+The recordings consisted of the position coordinates for the 12 tags worn on the body, sampled with 60 Hz. The tag coordinates were acquired with Smart IR motion capture system with 0.5 mm standard deviation of noise. For each subject, the locations of the sensor tags were recorded in a session which lasted 5-8 seconds from which a vector of 13 proposed features was computed. These learning examples were labeled with the type of the representing health
+
+977
+
+problem, yielding the final data on which the classifier was trained.
+
+III. EXPERIMENTS AND RESULTS In our experimental work we focused on analyzing the classification accuracies of model, built using the machine learning methods. The experimental classification accuracies were obtained using stratified 10-fold cross validation. We used the decision tree and k-nearest neighbor machine learning algorithms implemented in Weka [20].
+
+true class
+
+TABLE I.
+
+CONFUSION MATRIX OF THE DECISION TREE
+
+Ha H 40 L2 N2 P5 B0
+
+classified as LNP 014 23 0 0 0 23 0 0 0 20 000
+
+B 0 0 0 0 21
+
+a. H=hemiplegia, L=pain in the leg, N=normal (healthy) walking, P=Parkinson's disease and B=Pain in the back. Numbers denote numbers of the classified examples.
+
+true class
+
+TABLE II.
+
+CONFUSION MATRIX OF THE K-NEAREST NEIGHBOR
+
+Ha
+H 45 L0 N0 P0 B0
+
+classified as LNP 000 25 0 0 0 25 0 0 0 25 000
+
+B 0 0 0 0 21
+
+a. H=hemiplegia, L=pain in the leg, N=normal (healthy) walking, P=Parkinson's disease and B=Pain in the back. Numbers denote numbers of the classified examples.
+
+Table I and Table II show the confusion matrices, i.e. how many examples of a certain true class (in rows) are classified in one of possible five classes (in columns). We can use confusion matrices for three purposes:
+· We can see how many false positives (false alarms) can be expected using these classifiers. When in real world use the system would report false alarm, e.g., normal walking is classified as some health problem, ambulance could erroneously drive to pick up the elderly which would cause unnecessary costs. The only false positives occurred in the case of decision tree, where 2 of 25 examples of normal walking were classified as hemiplegia.
+· We can see how many false negatives can be expected using these classifiers. False negatives could mean potentially risky situation for the elderly, as his/her health problem would not be recognized automatically. The only false negatives occurred in the case of decision tree, where 1 of 45 examples of hemiplegia was classified as normal walking.
+The results of k-nearest neighbor were overall better than the results of decision tree. They show that in the proposed approach false positives/negatives are very rare, i.e., the system would provide great safety and confidence for elderly and at the same time it would not cause much unnecessary ambulance costs.
+
+A. Dependence of the Classification Accuracy on the Tag Placement and Noise Level
+To test the robustness of the approach, we added Gaussian noise with varying standard deviation (and zero mean) to the raw coordinates. The standard deviation of noise was varied from 0 mm to 50 mm in steps of 5 mm. As a preprocessing step, a Kalman filter was used to smooth the potentially unrealistic difference between the positions of two consecutive time samples, caused by the addition of Gaussian noise to the captured positions [17].
+Since wearing the full complement of 12 tags may be annoying to the user, we investigated ways to reduce the number of tags. We started with all 12 tags and removed them in the order that retained the largest number of the features when decreasing the number of tags by one. Consequently, the "best" tag placement for each number of the 12 tags was obtained.
+Fig. 1 shows the dependence of the classification accuracy (CA) on the tag placement and the noise level. We can observe a variation of the noise in the standard deviation from 0 to 50 mm on horizontal axis and the best tag placement for each number of tags from 12 to 1 tag on the vertical axis. Each curve of different color and shape (e.g. doted, dashed) connects points of the particular classification accuracy.
+
+Tags
+
+Tags
+
+12 12
+
+11 11
+
+10 10
+
+9 8
+7 6
+5 4 3
+
+9 8 7 6 5 4 3 2
+
+21
+
+1 Noise 0 5 10 15 20 25 30 35 40 45 50
+
+Noise 0 5 10 15 20 25 30 35 40 45 50 [mm] CA[%]: 99 95 80
+
+[mm] CA[%]: 95
+
+90
+
+80
+
+98 90
+
+Fig. 1. Classification accuracy with respect to the number of tags and the
+
+noise level for the recognition of the target health problems using the
+
+decision tree (left) and k-nearest neighbor classifier (right).
+
+Fig. 1 (left) illustrates the classification accuracies for the decision-tree classifier, the highest classification accuracy over 95 % is reached only for 7 tags and 5 mm noise. To surpass the classification accuracy of 90 % we need at least 4 tags in the noise range 0-20 mm and at least 6 tags in the noise range 25-35 mm, except for very small "islands", where the classification accuracy is insignificantly lower (we tested this using two-tailed paired t-test).
+The k-nearest neighbor classifier in Fig. 1 (right) needed only 8 tags with noise up to 20 mm to reach a classification accuracy of over 99%. Five tags and noise up to 30 mm or 8 tags and noise up to 35 mm still made it possible to achieve an accuracy of over 95%. Accuracies of over 90% and over 80% were achievable with 4 tags for 0-30 mm and with 3 tags for 0-35 mm noise, respectively.
+To conclude, k-nearest neighbor overall achieved higher classification accuracies than decision tree. Decision tree exceeded only 95 %, while k-nearest neighbor exceeded 99 % classification accuracy. Although decision tree achieved lower accuracies than k-nearest neighbor, it has important advantage. Results of its classification are easily interpretable, i.e., if in practice the system would recognize
+
+978
+
+some health state, the physician could check, why the system thinks it is certain health state.
+Because it is very important for the physician to obtain an explanation for the interpreted health state, we also paid a lot of attention to it and developed a control-panel prototype, which is intended to be used by physicians (Fig. 2).
+
+For future work, we can modify the proposed system to be used also for automatic evaluation of rehabilitation process (e.g. after stroke) at home.
+ACKNOWLEDGMENT This work is partially financed by the European Union, the European Social Fund. The authors thank Martin Tomsic, Bojan Nemec and Leon Zlajpah for their help with data acquisition, Anton Gradisek for his medical expertise and Mitja Lustrek and Rok Piltaver for helpful discussions.
+REFERENCES
+
+Fig. 2. panel prototype for the explanation of the interpreted health state
+In the middle of the prototype screen, there is visualization of the kinematic model of the elderly moving through the room. In the upper-right-hand corner there are controls for saving and loading the captured movement. Underneath there are the time series of the calculated angles. In the lower-left-hand corner the time series of the x, y and z positions are shown for all 13 tags (the 13th tag is calculated from the positions of the nearest tags). When the health problem is recognized, the red alarm button appears in the left upper-left-hand corner with the necessary description of the recognized case for the relatives and for the medical center that has the control panel.
+IV. CONCLUSION A system for diagnosing of gait patterns related to health problems of elderly to support their independent living is proposed in this paper. The results show that in the initial setting (no noise, all tags) decision tree and k-nearest neighbor algorithm achieved an average classification accuracies of 90.1 % and 100 %, respectively. False positives/negatives occurred very rarely, i.e., the system would provide great safety and confidence for elderly and at the same time it would not cause much unnecessary ambulance costs. The results of investigation of the dependence of the classification accuracy on the tag placement and noise level show that k-nearest neighbor was much more accurate since it reached classification accuracy of over 99 % with only 8 tags with 020 mm noise, but decision tree was able to reach only 95%. However, decision tree has important advantage over knearest neighbor, since the results of its classification are easily interpretable, i.e., if in practice the system would recognize some health state, the physician could check, why the system thinks it is certain health state.
+
+[1] S. Toyne, Ageing: Europe's growing problem. BBC News. http://news.bbc.co.uk/2/hi/business/2248531.stm, 2009-01-19.
+
+[2] D. Strle, V. Kempe, "MEMS-based inertial systems", Informacije MIDEM 37(2007)4, pp. 199-209.
+
+[3] D. Jurman, M. Jankovec, R. Kamnik, M. Topic, "Inertial and
+magnetic sensors: The calibration aspect", Informacije MIDEM 37(2007)2, pp. 67-72.
+
+[4] F. Dimic, B. Music, R. Osredkar, "An example of an integrated GPS
+and DR positioning system designed for archeological prospecting", Informacije MIDEM 38(2008)2, pp. 144-148.
+
+[5] S. Ribaric, J. Rozman, "Sensors for measurement of tremor type joint movements", Informacije MIDEM 37(2007)2, pp. 98-104.
+
+[6] J. Trontelj, J. Trontelj and L. Trontelj, "Safety Margin at mammalian neuromuscular junction ­ an example of the significance of fine time measurements in neurobiology", Informacije MIDEM 38(2008)3, pp. 155-160.
+
+[7] Bourke, A.K., and Lyons, G.M. A threshold-based fall-detection
+algorithm using a bi-axial gyroscope sensor. Medical Engineering & Physics 30, 1 (2006), 84­90.
+
+[8] Bourke, A.K., Scanaill, C.N., Culhane, K.M., O'Brien, J.V., and Lyons, G.M. An optimum accelerometer configuration and simple algorithm for accurately detecting falls. In Proc. BioMed 2006 (2006), 156­160.
+
+[9] Confidence: Ubiquitous Care System to Support Independent Living. http://www.confidence-eu.org.
+
+[10] Craik R., and Oatis C. Gait Analysis: Theory and Application. Mosby-Year Book (1995).
+
+[11] Harrison RD. Harrison's principles of internal medicine. New York: McGraw-Hill, 14th edition, 1998.
+
+[12] Perry J. Gait Analysis: Normal and Pathological Function. McGrawHill, Inc., 1992.
+
+[13] eMotion.
+
+Smart
+
+motion
+
+capture
+
+http://www.emotion3d.com/smart/smart.html.
+
+system.
+
+[14] Kangas, M., Konttila, A., Lindgren, P., Winblad, P., and Jamsa, T.
+Comparison of low-complexity fall detection algorithms for body attached accelerometers. Gait & Posture 28, 2 (2008), 285­291.
+
+[15] Lakany, H. Extracting a diagnostic gait signature. Pattern recognition 41 (2008), 1627­1637.
+
+[16] Lustrek M., Kaluza B., Fall Detection and Activity Recognition with Machine Learning. Informatica (Slovenia) 33(2): 197-204 (2009).
+
+[17] Maybeck, P.S. Stochastic models, estimation, and control. Mathematics in Science and Engineering 141 (1979).
+
+[18] Tapia, E.M., Intille, S.S., Haskell, W., Larson, K., Wright, J., King, A., and Friedman, R. Real-time recognition of physical activities and their intensities using wireless accelerometers and a heart rate monitor. In Proc. ISWC 2007 (2007), 37­40.
+
+[19] Vishwakarma, V., Mandal, C., and Sura, S. Automatic detection of
+human fall in video. Lecture Notes in Computer Science 4815 (2007), 616­623.
+
+979
+
+[20] Witten, I.H., and Frank, E. Data Mining: Practical Machine Learning Tools and Techniques (2nd edition). Morgan Kaufmann (2005).
+[21] Zouba, N., Boulay, B., Bremond, F., and Thonnat, M. Monitoring activities of daily living (ADLs) of elderly based on 3D key human postures. In Proc. ICVW 2008 (2008), 37­50.
+
+[22] Moore ST, et al., Long-term monitoring of gait in Parkinson's disease, Gait Posture (2006), doi:10.1016/j.gaitpost.2006.09.011
+.
+
+980
+
+

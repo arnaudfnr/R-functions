@@ -1,0 +1,342 @@
+Is electronic prescription essential for hospitals?
+- A game theory model
+
+Nan-Nan Du, Hui-Yang Chen
+School of Management and Engineering Nanjing University Nanjing, China
+dnnnju@gmail.com, chenhuiyang@gmail.com
+
+Qian-Jin Zong, Qin-Jian Yuan
+School of Information Management Nanjing University Nanjing, China
+zongqianjin@gmail.com, yuanqj@nju.edu.cn
+
+Abstract--Electronic prescription system brings an information review, allocate and confirm the medical information of each technology progress for the traditional hospitals and this paper account, thus the prescription can be used as the electronic aims to solve the following four questions related to electronic document for certificate of medical drugs. The outpatient prescription (EP): 1) why hospitals choose to adopt EP system? doctor workstation is consisted by five functional modules: 2) Is electronic prescription necessary for hospitals in this paper? Electronic medical record, Accessory check, Electronic 3) Does the EP system have more advantages than disadvantages? prescription, Treatment information and Diagnosis inquires 4) When is the right time that hospitals using the electronic (see figure 1): prescription to maximize the revenues? We proposed a game
+theory model to explore these questions and carried out an
+equilibrium analysis, which generated the results about the
+profits gained from electronic prescription in some distinctive
+certain situations. Our findings provide a reference for hospitals
+to maximize profits from electronic prescription. The results
+also indicate the feasible suggestions for few technical issues
+existed in the EP system.
+
+INTRODUCTION
+Along with the rapid development of information technology and the prevalence of hospital informatization, the Hospital Information System (HIS) is becoming increasingly popular. HIS is a system that utilizes electronic computers and communication equipment for data collection, storage, processing, retrieving and exchange, especially for the data such as patients' diagnosis information and administration information in every department of the hospital, and also satisfies all the functional requirements from the authorized users [1]. One of the most obvious features of HIS is the achievement of paperless office, which improves work efficiency, reduces costs and facilitates internal management. In addition, electronic prescription (EP) as the one of the most important components in hospital information system attracts more and more attention of the medical practitioners by its' great superiority.
+
+Fig. 1. Outpatient doctor workstation subsystem function module
+In this article, EP is defined as clinical computerized ordering of specific medication method for individual patients, which potentially reduces medication errors and improves health care efficiency [2]. A qualified electronic prescription system should be people oriented, highly integrated, secure and confidentialand the data should be shared among health care institutions [3]. The fulfillment of EP system improves the work efficiency of outpatient service. It also achieves the goals of patient-centered and high-quality standard service. Figure 2 shows the structure and workflow of EP system.
+
+Electronic prescription is the subsystem of outpatient service, and the core part of the outpatient doctor workstation. The doctor starts to prescribe in EP system prescription for his patient during diagnosis, and then the prescription-pricing program on the computer will record the medical information in corresponding account and send it to the pharmacy through internet automatically. After that, pharmacy professionals will
+
+Fig. 2. Electronic prescription system workflow chart
+
+- 518 -
+
+EP system includes several function modules based on different users' requirements, such as Personal information management, Drugs inquiry, Prescription management, etc.; it allows the users access the database server on internet to search, add/delete or modify the corresponding data, and also provides the record management system for local information administration.
+
+Login Main screen
+
+Personal information management
+
+Drug inquires
+
+Prescription management
+
+Local data administration
+
+Search add/delete or
+modify functions
+
+Internet
+
+Background database
+
+Fig.3. Structure of EP System Function Modules
+The previous studies in the field of EP can be roughly divided into the two following categories. On the one hand, these researches are concentrated on advantages of EP, which cover: (1) the usage of EP dramatically decreases prescribing errors and improves the quality of prescribing in hospitals. EP shortens the waiting time of patients and increase patients' satisfactions. The patient treatment record can be retrieved by EP inquiry function in the EP system without the limitations of space and time, etc. [4-5]. (2) EP enhances medical safety, and enables the method to use HIS systems successfully [6-7]. On the other hand, although EP brings large benefits to both hospitals and patients, it still has some challenging issues. Firstly, there are some obstacles existed during the regular implementation of EP system, such as the identification function cannot distinguish doctors from pharmacists clearly, lack of financial incentives and standardized software, the integration of electronic prescription system and HIS is not fully compatible, etc. [8-9]. Secondly, most pharmacists were generally satisfied with the current EP, but they also recognized the key weaknesses in the implementation in physicians' practices and their own organizations [10]. Furthermore, the cost of EP system is relatively higher and the manipulation of EP is inconvenient for high-qualified elder doctors, etc.
+The previous literature researches mentioned in the paper have a common premise that the hospital was in the use of the EP system, however, no study can be found on the analysis of whether hospitals should use EP system or not. Therefore, we want to discuss the following problems in the paper: why hospitals adopt EP system? Is the EP necessary for hospitals in this paper? Does the EP system have more advantages than disadvantages? What kind of strategy should apply for the hospital to implement EP in certain situation? Thus, we designed the game theory method to analyze those above questions, and carried out pure and mixed strategies Nash equilibrium models under a few certain conditions. Our findings show the feasibility of EP implementation for
+
+hospitals in order to get optimal revenue in fierce market competition, and facilitate hospitals making decisions effectively from a new perspective.
+The rest of the paper is organized as follows: In the following section, our research problems are explained which includes simple description of the problem, hypothesizes made based on the problems, and design of the model. Then, we explain the results of model in section 2 of the paper and get two propositions. Finally, we summarize the research's contributions and states for future research directions.
+THE MODEL
+Our goal is to set up the analytic model to explore the necessity of using EP, the article develops the abstract game model based on real-life situations of HIS and analysis whether the EP system should be imported or not. We propose five hypotheses as below. (1) There are two hospitals in the
+market with similar types and scales, named them hospital X and Y respectively. Two strategies provided for each hospital,
+it could choose to install the EP system, or continue using the
+traditional prescription. (2) The two participants hospital X and Y are perfectly rational. (3) If both hospital X and Y use EP system, the same amount of payoff a will be gained
+respectively; If none of the two hospitals uses EP system, they
+still receive the equal amount of payoff d ; If one of the two
+hospitals adopts EP system with the condition of the other one does not use EP system, the hospital with EP system earns the
+payoff b and the other one's payoff is c . (4) Whether
+hospitals use the EP system or not, all the payoffs are non-
+negative, that is a,b, c, d t 0 . In addition, the payoffs
+a,b, c, d are considered to be not equal to each other. (5) The
+payoffs information is public, which can be obtained by both participants.
+Based on the above assumptions, we generate the payoff matrix as Table 1.
+
+TABLE I.
+
+THE EP SYSTEM GAME MODEL PAYOFF MATRIX
+
+X
+EP System
+
+Y EP System
+a, a
+
+Traditional Prescriptions
+b, c
+
+Traditional Prescriptions
+
+c,b
+
+d,d
+
+Due to the parameters a,b, c, d are unknown, the values
+of them can be clarified in certain different situations.
+
+1) For a ! c, d  b , there is only one pure strategy Nash
+equilibrium exists in the payoff matrix in Table 1. The
+solution can be represented as ( a, a ), which means both
+hospitals X and Y are utilize EP system. Under the
+circumstance, implementation of EP may bring more incomes for hospitals.
+
+2) For a ! c, d ! b , we generate two pure strategies
+Nash equilibriums in the payoff matrix: the first one is that both of the two hospitals fulfill the EP system, the other is that none of the two hospitals employs the EP system. According
+
+- 519 -
+
+to Wilson in 1971, he has proofed that all the limited games have a limited odd numbers of Nash equilibriums [11]. Therefore, it is certain to conclude that a mixed strategy Nash equilibrium exists in the payoff matrix.
+
+We assume the player hospital X make the choice to adopt EP system with a probability of x , and the probability
+
+of using traditional prescriptions is 1  x , then we get the
+
+vector p1 (x,1  x) ; in the same way, the player hospital
+
+Y has a vector p2 ( y,1  y) . Therefore, the payoff
+matrices of the two players are as follows:
+
+H
+
+R
+
+§¨©¨
+
+a c
+
+b d
+
+¸·¹¸
+
+Expected Profit Function of X is
+
+E1( p1, p2 )
+
+p1Hp2T
+
+(
+
+x,1
+
+
+
+x)¨©§¨
+
+a c
+
+b d
+
+¸¸¹·¨§©¨1
+
+y 
+
+y
+
+·¸¸¹
+
+ANALYSIS
+As the model in section 2 of the paper, we learn from
+situation 1), for a ! c, d  b , whatever strategy is decided by
+the other player Y (or X ), the optimized strategy for the current player X (or Y ) is the installation of EP system. It is
+attribute to using EP could bring more benefit for hospital under the situation, such as attract more patients to the hospital to look over their illness by reducing waiting time and improving efficiency of work. In the situation 3 where
+a  c, d ! b , it shows that whatever strategys formulated by
+the other player Y (or X ), the best strategy for the current player X (or Y ) is the selection of traditional paper
+prescriptions. The reason is that the high capital and other extra costs of EP system eliminate the net profits earned for the hospital, however, the traditional paper prescriptions only have a quite low cost and bring more interests for hospital in the situation. Moreover, the situation 2) and 4) are relatively more complicated than the others, thus two propositions are made for them which listed below:
+
+(a  c  d  b)xy  (b  d )x  (c  d ) y  d
+
+(1) Proposition 1 For a ! c, d ! b , if a t b, a t d , the
+
+Take the first derivative of the equation (1) with respect to best strategy of the HIS system game is both of the two players
+
+x and set the result equal to zero, we obtain the first-order adopt EP system, which has the solution of ( a, a ); if c d d ,
+
+condition,
+
+a d d , the optimized decision is none of the two players uses
+
+wE wx (a  c  d  b) y  b  d 0 .
+
+(2) EP system, and the optimal solution is ( d , d ); if a  b ,
+
+Solve the equation (2),
+y* (d  b) (a  c  d  b) .
+
+c ! d , the best strategy is that one of the players uses EP
+system and the other keeps on using traditional prescriptions,
+(3) the solutions ( b, c ) and ( c,b ) are given by the Nash
+
+Expected profit function of Y is
+
+equilibriums from the payoff matrix. (See appendix 1 for proof details)
+
+E2 ( p1, p2 ) p2Rp1T
+
+Proposition 2 For a  c, d  b , if a d b, a d d , the best
+
+strategy of the HIS system game is both of two players install
+(a  c  d  b)xy  (c  d )x  (b  d ) y  d . (4) EP system, and the optimal solution is ( a, a ); if c t d ,
+
+Similarly, take the first derivative of the equation (4) with
+respect to y and set the result equal to zero, which yields
+
+a t d , the optimal decision is that both of two players
+continuously use traditional prescriptions, and the optimal
+
+x* (d  b) (a  c  d  b) .
+
+(5) solution is ( d , d ); if a ! b , c  d , the best strategy is that
+one of the players uses EP system and the other do not accept
+
+In conclusion, the probability of both of the players X and the EP system, and the two solutions ( b, c ) and ( c,b ) are
+
+Y implement EP system is (d  b) (a  c  d  b) , and given by the Nash equilibriums from the payoff matrix. (See
+
+the a probability of both of the players X and Y choose to appendix 2 for proof details)
+
+continue using traditional prescription is
+
+(a  c) (a  c  d  b) .
+
+CONCLUSIONS
+
+This paper is focus on the investigation of the strategies
+
+3) For a  c, d ! b  only one pure strategy Nash for hospitals to make the decision of whether adopt the EP
+
+equilibrium exists in the payoff matrix which is none of the two players takes the strategy of installing EP system.
+4) For a  c, d  b , the result in the situation is quite
+
+system or not in several distinctive situations. We apply a game theory model and carry out equilibrium analysis for the research problems. Our findings indicate the optimized strategies for hospitals to choose within certain situations so
+
+similar to situation 2), which has two pure strategy Nash that maximize their profits.
+
+equilibriums and a mixed strategy Nash equilibrium.
+
+The objective of both traditional prescription and EP is
+
+making the patient more convenient. The paper analyzes the
+
+EP usage status in current hospital information systems. The
+
+optimized strategy is using EP when it can bring more
+
+benefits than the traditional prescription and vice versa. In
+
+- 520 -
+
+reality, the EP as a new creation is facing with some technical problems, which cause the uncertainty for the profits from EP adoption. The main technical issues of EP system are identifying the people who input the electronic prescription information, and ensuring the confidentiality of EP during the storage and transfer processes. Recently, the electronic signature based on Public Key Infrastructure (PKI) and USBKEY could be used to solve the above issues. At the same moment, the legitimacy of EP application and data security also have few shortages, which should be well improved.
+However, our study still has a few limitations. Especially,
+we assumed the two players hospital X and Y are perfectly
+rational, so that the choices made by them are absolutely depended on the maximization of their own profits. However, a decision-making is not only relying on the beneficial factor but also related to feasibility in real-life. For instance, when a hospital becomes dissatisfied with its existing EP system, the improvement or optimization of the system should be a more efficient and convenient method rather than the abandon of the current EP system.
+Our study conducts a theoretic research on the EP system of hospitals from a new prospective, which concentrates on investigating the necessity of EP in hospitals' views. As being the one of the earliest researches in the area, we hope to make some more contributions to the related literatures. The future direction of our study may investigate and explore the usage status of EP system in some more complex situations, such as the hospital with non-public payoff information, the hospitals with the differences on their scales and types, etc.
+ACKNOWLEDGEMENTS
+This research is included in the programme "Research on the Marketing Model of Digital Publication" supported by National Funds of Social Science. And the number of the programme is 07BTQ003.
+REFERENCES
+[1] M. F. Collen, "A brief historical overview of hospital information system (HIS) evolution in the United States," International Journal of Bio-Medical Computing, vol. 29, no. 3-4, pp. 169­189, 1991.
+[2] D. S. Bell, S. Cretin, R. S. Marken, and A. B. Landman, "A conceptual framework for evaluating outpatient electronic prescribing systems based on their functional capabilities," Journal of the American Medical Informatics Association, vol. 11, no. 1, pp. 60-70, Jan-Feb 2004.
+[3] N. Jaakko, F. Jari, "Approaches for certification of electronic prescription software," International Journal of Medical Informatics, vol. 47, no. 3, pp. 175-182, Dec 1997.
+[4] Donyai, K. O'Grady, A. Jacklin, N. Barber, and B. D. Franklin, "The effects of electronic prescribing on the quality of prescribing," British Journal of Clinical Pharmacology, vol. 65, no. 2, pp. 230-237, Feb 2008.
+[5] R. Shawahna, N. U. Rahman, M. Ahmad, M. Debray, M. Yliperttula, and X. Decleves, "Electronic prescribing reduces prescribing error in public hospitals," Journal of Clinical Nursing, vol. 20, no. 21-22, pp. 3233-3245, Nov 2011.
+[6] R. Kaushal, L. M. Kern, Y. Barron, J. Quaresimo, and E. L. Abramson, "Electronic prescribing improves medication safety in communitybased office practices," Journal of General Internal Medicine, vol. 25, no. 6, pp. 530-536, Jun 2010.
+[7] J. C. Crosson, R. S. Etz, S. Y. Wu, S. G. Straus, D. Eisenman, and D. S. Bell, "Meaningful use of electronic prescribing in 5 exemplar primary
+
+care practices," Annals of Family Medicine, vol. 9, no. 5, pp. 392-397, Sep-Oct 2011.
+[8] S. D. Chen, "The shortcomings of the electronic prescription in the hospital information system (in Chinese)," Public Medical Forum Magazine, vol. 7, no. 5, pp. 472 - 473, 2003.
+[9] K. L. Lapane, R. K. Rosen, and C. Dube, "Perceptions of e-prescribing efficiencies and inefficiencies in ambulatory care," International Journal of Medical Informatics, vol. 80, no. 1, pp. 39-46, Jan 2011.
+[10] M. T. Rupp, and T. L. Warholak, "Evaluation of e-prescribing in chain community pharmacy: Best-practice recommendations," Journal of the American Pharmacists Association, vol. 48, no. 3, pp. 364-U39, MayJun 2008.
+[11] T. J. Xiao, Game theory and its applications (in Chinsese), Shanghai: SDX Joint Publishing Company of Shanghai, 2005.
+
+APPENDIX
+Proof of Proposition 1 In order to show the superiority of the solution, we shall compare the payoffs within different
+strategies. For a ! c, d ! b , we get the outcome in the main body of the paper, players hospital X ,Y have a probability of (d  b) (a  c  d  b) to implement EP system, and
+then the probability for refusing the EP system is
+(a  c) (a  c  d  b) .
+The expected revenue of players X and Y shows below:
+E (d  b)2  a (a  c  d  b)2  (d  b)(a  c)(b  c) (a  c  d  b)2
++ (a  c)2  d (a  c  d  b)2 .
+And then
+E  a (a  c)[(d  b)(b  c  2a  (a  c)(d  a))] (a  c  d  b)2 E  d (d  b)[(d  b)(a  d )  (a  c)(b  c  2d )] (a  c  d  b)2
+
+It is easy to prove that E  a ! 0
+
+E - a d 0 ®¯d  a d 0
+
+for a t b, a t d
+E  d d 0
+
+;
+
+®¯E  d ! 0 for a  b, c ! d ; and ®¯a  d d 0 for
+
+c d d,a d d .
+
+To sum up, for a ! c, d ! b and a t b , a t d , the
+optimized decision is that both of the two players choose to
+use EP system, and the optimization premium is ( a, a ); for
+a ! c, d ! b and a  b , c ! d , the optimal strategy is one
+of the two players uses EP and the other does not, and the
+solutions ( b, c ) and ( c,b ) are given by the Nash
+equilibriums from payoffs matrices; and for a ! c, d ! b
+and c d d , a d d , the optimal strategy is that none of the
+two players accepts EP system, and the optimal solution is
+( d , d ).
+
+Proof of Proposition 2 For a  c, d  b , the mixed strategy
+Nash equilibrium is similar to the equilibrium in situation 2).
+With the same principle of proposition 1, we gain
+
+E (d  b)2  a (a  c  d  b)2  (d  b)(a  c)(b  c) (a  c  d  b)2
+
+- 521 -
+
+ (a  c)2  d (a  c  d  b)2 E  a (a  c)[(d  b)(b  c  2a)  (a  c)(d  a)] (a  c  d  b)2
+
+E  d (d  b)[(d  b)(a  d )  (a  c)(b  c  2d )] (a  c  d  b)2 .
+
+It is easy to prove that
+
+E - a d 0 ¯®d  a d 0
+
+for a d b, a d d ;
+
+E  a ! 0 ®¯E  d ! 0
+
+for a ! b,c  d ;and
+
+E  d d 0 ®¯a  d d 0 for
+
+c t d,a t d .
+
+To sum up, for a  c, d  b and a d b , a d d , the
+optimized decision is that both of the two players choose to
+use EP system, and the optimization premium is ( a, a ); for
+a  c, d  b and a ! b , c  d , the optimal strategy is one
+of the two players uses EP and the other does not, and the
+solutions ( b, c ) and ( c,b ) are given by the Nash
+equilibriums from payoffs matrices; and for a  c, d  b
+and c t d , a t d , the optimal strategy is that none of the
+two players accepts EP system, and the optimal solution is
+( d , d ).
+
+- 522 -
+
+

@@ -1,0 +1,251 @@
+2008 Workshop on Knowledge Discovery and Data Mining
+
+Design and Implementation of the Network Server Based on SIP Communication Protocol
+
+GAO Yanping, YU Hong, JIANG Fengjiao School of Information Engineering, Dalian Fisheries University, Dalian 116023, China
+windy960112@yahoo.com.cn
+
+Abstract
+SIP is a kind of application-layer control signaling protocol for creating, modifying and finishing the conversation with one or more participants. It has several advantages such as simple, good expansibility and scalability, and so on. Based on the SIP, in this paper a design and implementation scheme of SIP server system is proposed, and the scheme can realize the functions of IP phone such as calling, billing and so on, and finally based on the standards and interfaces of JainSip API which was provided by SUN company the design scheme is realized.
+1. Introduction
+With the development of the technology and market, in China many operators have carried out the next generation network experiment which is based on IP and fully equivalent to the IP telephone business of PSTN. When a new generation of IP telephone business truly becomes the competitors to traditional telephone, quickly providing personalized business will be its important means of competition, and SIP has the unique advantage in this aspect. One can imagine that the application of SIP will be growing maturity and rapid development with the widespread launch of the next-generation network. Therefore according to the advantages of current SIP, a design scheme of SIP server in IP phone is presented, and the scheme has many advantages such as high reliability, maintainability, portability and testability and so on.
+2. SIP protocol
+Session Initiation Protocol SIP is a control protocol (TCP/IP layer) based on application-layer, and it is used to establish, maintain and terminate the multimedia sessions or calls. SIP protocol is a protocol standards was launched by IETF to establish the senior conversation server which across the Internet services.
+
+SIP protocol provides advanced signaling and control functions for large-scale applicative multimedia communications, which include: resource locators, joining the serving conversation, conversing parameters consultations. SIP protocol transfers information between two entities through a small text-based news packages, and also provides in network proxy and redirect server to relay and transfer information which can support for a series of services such as multimedia conferencing, distance learning, Internet conversation and multimedia issuance. And SIP protocol has the advantages of simple, expansibility and modularization.
+The application of SIP protocol includes two parts: client and network server. SIP system structure is shown in figure 1.
+Fig.1 SIP system structure
+Client can create SIP information packets and send it to other client through one or multi network servers, and between clients it can also has direct communication. The clients include two parts: (1) user agent client (UAC) used to launch calling; (2) user agent server (UAS) used to respond to calling.
+
+0-7695-3090-7/08 $25.00 © 2008 IEEE DOI 10.1109/WKDD.2008.127
+
+485
+
+UAC and UAS compose the required client application program, and the two application programs complete the launching and receiving of the calling. Network servers are divided into the following categories:
+(1) Proxy server: the proxy similarly to HTTP and the MTA (Message Transfer Agent) similarly to STMP, something like repeaters, can simulate other client. Itself does not response to requests of user, only transmit repeaters of users, and then accede with the address of itself to the first part of the path of the information to ensure that the responding will be returned along the original road and to prevent the occurrence of loop. Therefore proxy server has the function of independent transmitting and providing router function for SIP information.
+(2) Redirect server: after received the request of user, it will judge whether itself is aim address, if not, it response to the user an address of the server he should visit, rather than transmuting request packet. Redirect server itself does not handle any request information.
+(3) Registrar: the server can be integrated with proxy server. Client needs to register at registration server after startup and the corresponding information is placed in the direct server.
+3. Network server system design
+3.1 Network server system function
+SIP server module is mainly responsible for the handling and transmitting of phone SIP information to complete the establishing, maintaining and releasing of the basic calling; in this system, SIP server at the Internet, mainly transmits SIP information to register, authenticate and bill the phone through RADIUS server.
+With RADIUS server communication, connecting to the database, SIP server writes to the phone registration and billing information; when phone launching calling request, inquires about database according to phone information and authenticates the phone; regularly sends statistical information to the gateway. SIP server is the core module of the whole system, which not only completes the continuation of the SIP call, but also gathers the necessary information from received SIP information and, stores the information into databases through RADIUS server communication or fills the information removed from the databases into SIP information to feedback it to the phone and then completes the treatment of various anomalies. SIP server uses SIP protocol to communicate with other SIP server and terminal phone,
+
+transferring API to communicate with RADIUS client and TCP protocol to communicate with the gateway agent.
+
+3.2 Design idea of network server system
+
+The system, receive and transmit SIP information
+
+through the UDP interface at bottom, process SIP
+
+information at the application layer in protocol stack
+
+and, in addition to processing and transmitting the
+
+normal SIP information, it also send the phone
+
+information to RADIUS server when received
+
+registration and calling requesting information, and
+
+after inquired the database transmit SIP information or
+
+return responding to the phone according to
+
+corresponding feedback information; when the calling
+
+ended send billing information to the RADIUS server
+
+to generate ticket; regularly send statistical information
+
+to gateway for overall control; complete the treatment
+
+of various abnormal process.
+
+Between RADIUS client and servers the standard
+
+authentication interface of RADIUS protocol and the
+
+authentication billing information which support
+
+ACCESS-REQUEST,
+
+ACCOUNT-REQUEST
+
+standards are used to complete the registration of users,
+
+authentication, billing and DNS process. Hereinto, the
+
+client is connected with SIP server and collects phone
+
+information and, the server is connected with database
+
+system and fills the phone information into database or
+
+return the inquired information from the database. The
+
+gateway agent is responsible for collecting statistical
+
+information of the entire network, and then transmits
+
+them to the gateway server for control; SIP server must
+
+regularly send the local calling statistical information
+
+to it. SIP server mainly transmits SIP information, and
+
+triggers the received SIP information with the fashion
+
+of state machine according to call process at the
+
+application layer, thereby transfers different handling
+
+functions to correspondingly treat it. In the whole
+
+system, the communications between terminal phone
+
+and SIP server, RADIUS client and server use both
+
+UDP protocol, so in order to reduce packet loss and
+
+delay, the interface between SIP server and RADIUS
+
+client uses the form of API transferring and make the
+
+corresponding handling module at RADIUS client as
+
+storehouse function to be transferred directly by SIP
+
+server when needed. Because a large quantity of
+
+statistical information needed to be sent regularly
+
+between SIP server and gateway agent, then TCP
+
+protocol is used to establish a fixed connection.
+
+3.3 Network server system structure
+
+486
+
+The design and implementation of SIP server are completed on the basis of Trillium SIP protocol stack which do the development of application layer, process correspondingly to the information according to the needs of this system and increase the interface with other parts of the system, so it has good linear scalability. The system framework is shown in figure 2.
+
+avoid the user billing errors because the network failure after calling and terminal breakdowns.
+4. Network server system implementation
+4.1 Handling process of network server system
+
+Fig.2 SIP server system framework
+Control module: it is responsible for controlling the change of calling state and, establishing, maintaining and releasing the basic calling. Further, it also will complete the treatment of various abnormal processes. It has the functions of collecting the calling statistical information of gateway according to the calling information, supporting for the process of registration certification, supporting for collecting billing information and supporting for the initiative stitches removed.
+Client module: the form of the communication between it and RADIUS server is standard RADIUS protocol, and as the intermediary of SIP server and database system, it is transferred by SIP server in the form of embedded storehouse function. Users register through the unique logo of the device and then obtain the device E.164 number, when calling launched do calling certification through numbers and device logo and then obtain the information of object device, and when calling ended collect phone information and calling time to generate billing list. With the communication module of the gateway agent: gateway agent use SNMP protocol and gateway server to exchange gateway information. The calling control module of SIP server collect calling statistical information, such as calling the number of successful calling, the number of failures, the statistics of various failure reasons, the alarm of system resources, etc, regularly send them to the gateway agent.
+Detection module: it is primarily responsible for detecting the calling terminal, determine whether the calling terminal is normal linking state, in order to
+
+Fig 3 network server system handling process
+(1) Registration: after the phone electrified, the ID of the device of phone will be sent to server, the server will return phone number according to the device ID and write the phone ID and corresponding address information into the database. The phone needs to regularly register and update the information in the database. Especially for software phone the registration
+
+487
+
+process is different, in order to ensure the phone safety, the device ID to users is not known, it must be pre-registered before registration, the phone sends the phone numbers and user passwords and the server return them to the phone, then the software phone process natural registration.
+(2) Call: calling phone call out, calling SIP server inquire the IP address of called numbers and attributive SIP server, connect the call to the called attributive SIP server and maintain call state. After the call, calling SIP server request for calling account and called SIP server request for called account, then the calling and called call bill will be generated on the authentication server.
+(3) Numbers analysis: when phone registering, it registers IP address to the server and when a call is dialed, the SIP server inquires the IP and port of the phone from registration data, connects them with the phone and then completes numbers analytic process.
+(4) Billing: when the call ended, the SIP server will send the ticket to authentication server; the server will record the detailed information of the ticket and generate a ticket document at intervals. The entire process is shown in figure 3.
+
+4.2 Examples of code
+
+// receive SipInstance example
+
+chen = SipInstance.getlnstance ();
+
+chen.setPathName(network.fuling");
+
+// from SipInstance create SipStack
+
+try{
+
+SS=chen.createSipStack();
+
+}
+
+Catch
+
+(SipPeerUnavailableException
+
+x)
+
+{ System.exit(0); }
+
+Catch (SipException x) {System.exit(0) }
+
+// from SipStack create ListeningPoint
+
+If (IisteningPointDefinitionFile!= nul1) {
+
+try{
+
+ssi.1oadConfigurationFile(1isteningPointDefnitio
+
+nFile);
+
+}
+
+Catch (SipException X){}
+
+}
+
+// take out ListeningPoint
+
+lterator i=SS.getListeningPoints();
+
+if (i==nul1){
+
+System.exit(0);
+
+}
+
+// SipStack create SipProvider, make SipProvider and
+
+ListeningPoint associated
+
+lp=(ListeningPoint)i.next();
+
+try {
+
+sp = SS.createSipProvider(1p);
+
+}
+
+Catch (ListeningPointUnavailableException x)
+
+{ System.exit(0);}
+
+//SipProvider and SipListener associated
+
+Try {
+
+sp.addSipListener(this);
+
+}
+
+Catch
+
+(TooManyListenersException
+
+x)
+
+{ System.exit(0); }
+
+Catch (SipListenerAlreadyRegisteredException x){
+
+System.exit(0);
+
+}
+
+5. Conclusion
+
+The design and implementation scheme of SIP-based agent server has somewhat unique. In the implementation process SIP standards were in-depth analyzed. And according to the actual needs the design method of object-oriented was adopted to realize the functions of establishing, maintaining and releasing the SIP server call and the functions of billing and authentication. Simultaneity, the scheme also has many advantages such as high reliability, maintainability, portability, Testability, etc.
+
+References
+[1] SIP:Understanding the Session Initiation Protocol .Second Edition,2004. [2] RFC 3261, SIP: Session Initiation Protocol[S]. [3] RFC 2543, SIP: Session Initiation Protocol[S]. [4] J Bosenberg.SIP: Session Initiation Protocol. RFC 3261, 2002. [5] Handley M, V Jacobson. SDP: Session Description Protocol. RFC 2327, 1998. [6] J.Rosenberg, H.Schulzrinne, G.Camarillo, et a1.SIP: Session Initiation Protocol[S]. RFC3261, IETF, June 2002.. [7] Alan B.Johnston, SIP:Understanding the Session Initiation Protocol, Second Edition, 685 Canton Street Norwood,MA 02062,Artech House,2004. [8] J.Rosenberg, H.Schulzrinne. IEF-RFC-3262 (Reliability of Provisional Responses in the Session Initiation Protocol), http://www.ietf.org/rfc/rfc3262.txt?number=3262.
+
+488
+
+

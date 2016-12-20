@@ -1,0 +1,393 @@
+2008 Workshop on Knowledge Discovery and Data Mining
+
+Research on WEB Cache Prediction Recommend Mechanism Based on Usage Pattern
+
+LIN Jianhui1,2, HUANG Tianshu1, and YANG Chao2 1 School of Electronic Information, Wuhan University 2 Department of Information Technology, Hubei University of Police
+linjh_eis@hotmail.com
+
+Abstract
+Cache prefetching technique can improve the hit ratio and expedite users visiting speed. After analyzed the recommend system in E-Business, this paper studied the characteristics how user visit web page and proposed a web prefetching recommender system based on usage pattern. This system cluster user behavior through an improved ant colony algorithm, then usage pattern can be abstracted from these classes through sequence mining. These sequence patterns are applied to forecast the coming behavior of users thus improve the hit ratio of system. Experiment result proves the validity of the system.
+1. Introduction
+Cache technique is a common technology which can store the nearest collected information in order to use it in future, these information are thought to be used more frequently than others. But as is known from [9], there is exponential relation between the increasing of cache size and the hit ratio of cache. Even though with an infinite cache, the hit of ratio can reach only at the range from 40% to about 50%.
+Consequently, we can learn that the hit ratio is the important index to estimate the performance of cache, it is affected by cache size, updating tragedy, user visit habit and many other factors [1]. In order to improve the hit ratio of cache, cache prefetching technique is proposed. If only prediction is correct, both the hit ratio of cache and the visiting speed can be improved.
+Present prefetching system, however, cast much emphasis on statistical information of the rules. It depends on the probability of the appearance of a rule, and then decides whether this rule is adopted. It does not take different users' preference into account and neglects the habit of different individual; as a result, the precision of the prediction may be affected. In this
+
+paper, we proposed a recommender system which abstracted the web usage pattern as a prediction rule from WEB log. These rules were used to forecast the user's coming usage page so system can in advance prefetch the object this user may visit into cache.
+2. System Model
+2.1 Recommendation Process
+Recommender systems were first used in EBusiness to estimate the interest of customer and recommend the goods customers may interest in to them. Referring to recommender system, if considering prediction rules as goods, we can take the same measure to forecast the page user may visit and prefetch them into cache. Fig.1 shows the rough process of prefetching system.
+Fig. 1 An ordinary model of the prefetching system
+As is shown in fig. 1, the whole prediction process is as follows:
+Clean the web usage log. Retain only those recorders which may be useful in abstracting rules and find the user information (IP address or Cookies), divide web usage recorders to obtain the user session.
+a. Clustering. Cluster the user session sequence and obtain certain classes according the similarity of sequence.
+
+0-7695-3090-7/08 $25.00 © 2008 IEEE DOI 10.1109/WKDD.2008.9
+
+473
+
+b. Mining usage rules. Mining web usage patterns as rules to forecast from different classes.
+c. Classification. Decide user's membership information in each class according to membership information of sessions.
+d. Prediction and Updating. While a new session comes, determine which user it belongs to, select prediction rules according to certain usage pattern. Lastly, update the membership information of the user.
+
+2.2 Analyze the Log
+
+The information user visited agent cache was saved in usage log, its format comply with W3C standard, shown in table 1.
+Table 1. Log segment
+
+204.186.186.83[08/Apr/2000:05:18:44-0400]"GET
+
+aukce/rings/
+
+prstynky3.jpg
+
+HTTP/1.1"200
+
+12551"http://cgi.ca.ebay.com/aw-
+
+cgi/eBayISAPI.dll?ViewItem&item
+
+=298708327"
+
+"Mozilla/4.0 (compatible; MSIE 5.0; Windows 98;
+
+DigExt)"
+
+202.168.131.33[08/Apr/2000:08:39:44 -0400] "GET
+
+/warez/upload/AutoCad/ HTTP/1.0" 404 18897 "-"
+
+"Mozilla/4.0 (compatible; MSIE 5.0; Windows 98;
+
+DigExt)"
+
+Each recorder includes many fields, including visit data, time, user IP address, method, URL resources, server responding status, user proxy, browsing time, etc. to simple the processing procedure, we deleted automatic link downloaded item such as .jpeg, .gif file, RSS file, etc., request visit failure recorders and those recorders whose method field is not GET are also deleted.
+
+2.3 Identify User Visit Transaction
+
+a. Identify users. Identify each user according to IP address and cookies fields, then divide log file into some independent usage recorder sets.
+b. Identify sessions. If the interval between request time of two pages exceed a certain threshold, we claim this user began a new session. In practice, we set this time threshold at 30 minutes.
+Up to now, we can express the web usage event of users within a certain time as a n  Z dimension sequence:
+Si = (url1,url2 ,...,urln )
+Since a URL is a string, which is not convenient to handle, we transferred URLs to some long integral with MD5 hash function. Some transferred user sessions were shown in table 2.
+
+Table 2. Some transferred user sessions
+243112555019648838664883973488414348 842184884374488437448843741976553632 642020614857252 43984398909149155918144807071 48070864821878 485308748531551008618996929 452301061026100792548686434869908487 0250487108845237354871355487503 478514329231719155645418514464284887 393 2344074889429203696420374913239292 752107256335725630603820374857060960 454 80209915823528553012855315
+3. Clustering Session Sequence
+3.1 Similarity of Directed Graph
+In this paper, we not only compared the similarity of URL content, but also lay emphasis on the different position information between URLs. In order to highlight the affect that sequence order imposed on its similarity, we suggested a definition of similarity through comparing directed graph.
+Suppose there were 2 user visiting sequence Seq1, Seq2, represented with directed graph as G1, G2.Select public element from two sequences then express directed graphs as matrix M1, M2. Take corresponding element of two matrix and make "AND" operation, then a new matrix G is obtained.
+A B C D E F G G1
+A B C D E G2
+
+Fig.2 Usage sequence represented by directed graph
+
+Definition 1:Define the similarity between seq1 and
+
+seq2 as:
+
+|seq1  seq2 |
+
+rAB =
+
+(aij ANDbij ) / max(| seq1 |,| seq2 |)
+
+i=1, j=1
+
+(1)
+
+| seq1 | and| seq2 | is the length of sequence, | seq1  seq2 |
+
+is the number of public element. aij and bij respectively
+
+denote the element of M1 and M2. 0 < rAB < 1 ,the
+
+bigger rAB is, the more similar two sequences are.
+
+3.2 Ant colonies cluster algorithm
+
+474
+
+3.2.1 Algorithm description
+
+a. Individual initialization
+
+Assigned user session sequence to artificial ants, it
+
+was considered as ant's gene sequence. In standard ant
+
+colony algorithm, it randomly selects two ants and
+
+computed the similarity. But in practical computing
+
+process, because of the pseudo-random number, the
+
+opportunity each two ants meet is unequal, some ants
+
+rarely are selected. We improved on the process of the
+
+ant selection.
+
+Suppose the total number of the ant colony in the set
+
+is M, and it has been iterated for ITcurrent times. If the
+
+ant i has been selected nicurrent times, then at the next
+
+moment the probability it is selected can be express as
+
+formula:
+
+P = (1 - nicurrent / ITcurrent ) / M
+
+(2)
+
+b. Update template
+
+When ants met, if their odor is compatible, they
+
+would exchange the odor information with each other
+
+to update the template. The longer two ants had met,
+
+the smaller the affect between two templates was.
+
+Consequently, we introduce the Attenuation effect into
+
+the process of the template updating.
+
+Definition 2: Supposed that ant i in turn met ant j
+
+( j {1,2,3,4,....k, k + 1,...n} ), their similarity is Sim(i, j) , then
+
+after ant i has met k+1 ants,
+
+Sim(i,·) k +1
+
+=
+
+Sim(i,·) k
+
++ Sim(i, k 2
+
++ 1)
+
+(3)
+
+The effect imposed by the information of met ants attenuate at the ratio of 2-n.
+
+c. Algorithm description
+
+Algorithm: Generate different classes through ant
+
+colony cluster
+
+Input: Clustering sample set W; the sum of sample N,
+
+iteration number IT, evaluator M i , Mi+ ,class label of ant
+
+lablei ,the information template of ant i Templatei
+Output: Clustered classes
+Method:
+
+Generate N artificial ants, and initialize them.
+
+Mi
+
+
+
+0,
+
+M
+
++ i
+
+ 0, Ai
+
+
+
+0 , lablei =0;
+
+for(ITcurrent<IT)AND(not match iteration condition) {
+
+Select randomly two ants anti and antj from ant colony
+with probability P, let them meet and calculate Sim(i, j) ;
+
+if( Sim(i, j) >Templatei )AND( Sim(i, j) >Templatej ) { Accep tan ce(i, j) = TRUE
+
+Update( Templatei );Update( Templatej );} //update
+
+each template; else
+{ Accep tan ce(i, j) = FALSE}
+end if (Labeli = Label j = 0)
+Acceptan ce(i, j) = TRUE
+
+AND
+
+{ generate new class label LabelNEW ; Labeli  LabelNEW ; Label j  LabelNEW ; } if (Labeli = 0^ Label j  0)
+Accep tan ce(i, j) = TRUE
+
+AND
+
+{ Labeli  Label j } if (Labeli  0^ Label j = 0)
+Accep tan ce(i, j) = TRUE
+
+AND
+
+{ Label j  Labeli }
+if (Labeli = Label j )^ (Labeli  0)^ (Label j  0) AND Accep tan ce(i, j) = TRUE
+
+{Increase(
+
+M
+
+i
+
+,
+
+M
+
+j
+
+,
+
+M
+
++ i
+
+,
+
+M
+
++ j
+
+)}
+
+if (Labeli = Label j )^ (Labeli  0)^ (Label j  0)
+
+Accep tan ce(i, j) = FALSE
+
+AND
+
+{Increase(
+
+M
+
+i
+
+,
+
+M
+
+j
+
+);
+
+Decrease(
+
+M
+
++ i
+
+,
+
+M
+
++ j
+
+);
+
+if(the smaller ant in M i , M j
+
+satisfies
+
+(x |
+
+M
+
++ x
+
+=
+
+Mink[i, j] M k ) )
+
+{ Labelx
+
+ 0, M x
+
+
+
+0,
+
+M
+
++ x
+
+
+
+0) }
+
+}
+
+if (Labeli  Label j ) AND Acceptan ce(i, j) = TRUE
+
+{Decrease( M i , M j );
+
+Merge the smaller ant in M i , M j into the bigger class}
+
+}
+
+3.2.2 Clustering result Select DEC96-9-6 log file as experiment data source. The log file recorded the usage recorders from 7 A.M., 6th, Sep., 1996 to 7 A.M., 6th, Sep., 1997, 1271582 usage request recorders, 1083 users in total. After cleaning the data, 9382 usage request remained. Clustered them according our algorithm, the experiment result was shown in fig. 3, 72 classes were obtained. Fig. 3 shows that the number of member belongs to different class are unequal. We set the threshold at 1%, then many class contain less members are regarded as noise and deleted; only 19 classes remain. Please use a 9-point Times Roman font, or other Roman font with
+
+475
+
+Percentage (%)
+
+serifs, as close as possible in appearance to Times Roman in which these guidelines have been set. The goal is to have a 9-point text, as you see here. Please use sans-serif or non-proportional fonts only for special purposes, such as distinguishing source code text. If Times Roman is not available, try the font named Computer Modern Roman. On a Macintosh, use the font named Times. Right margins should be justified, not ragged.
+11 10 9 8 7 6 5 4 3 2 1 0
+1 5 9 13 17 21 25 29 33 37 41 45 49 53 57 61 65 69
+Class ID
+Fig.3 Clustering result
+4. Ming Usage Sequence Pattern
+Sequence pattern mining was first suggested by Agrawal and Srikant[4], it tried to find frequent subsequence from the data set consisted of sequences. Algorithm Apriori [5] is designed to mine frequent sequence from WEB usage sequence. Unlike [8], the sequence rule in this paper is used to predict the next step of a user, then page object in frequent sequence should be continuous, thus the primary algorithm has to be modified.
+In prediction process, the criteria we selected rules are as follows:
+a. Prior select the rules with higher probability to forecast;
+b. If there are not matched rules in rules set with a higher Similaryi , then try to find in those rules set with little Similaryi, until find it successfully or no rules matched.
+c. If there are different prediction rules generated from one rules set, then select rules according their length and similarity.
+d. Because usage pattern varies with time span, once a new session comes, it should used to update the sequence set.
+Experiment and Conclusion
+
+Take DEC agent cache log as data resource we made our simulation. Divided the log into two parts; abstracted prediction rules from DEC96-9-6 and then these rules is tested with DEC96-9-7 log. In experiment, time span T=24h was divided into 6 segment, each time is 4 hours.
+
+1 0.8 0.6 0.4 0.2
+0
+
+longest
+
+maximum full pre- method in
+
+rule match confidence
+
+save
+
+this paper
+
+precision applicablity
+
+Fig.4 Accuracy and adoptability of different method
+Comprehensively considered prediction accuracy and adoptability, we select 0.15 as the minimal support. Comparing our method with conventional method, the result is shown in Fig. 4. We can learn that the adaptability of prediction rules is improved because of filtering noise and enhancing data. On anther hand, since the full pre-save method expense higher network bandwidth to cache all possible prediction result , the accuracy of our method is little lower but higher then its.
+
+Acknowledgments
+
+This research work is partially supported by China Hubei Province NSF under Grand No. 2007ABA151.
+
+References
+
+[1] M.Abrams, C.R.Standridge, G.Abdulla,S.Williams, and E.A.Fox, Caching proxies: Limitations and potentials, Proceedings of the 4th International WWW Conference, Boston,MA,Dec.1995.
+[2] Colomi A, Dorigo M, Maniezzo V. Distributed optimization by ant colonies. In: Proc of 1st European Conf on Artifical Life . Pans France:Elsevier ,1991.
+[3] Nicolas Labroche,Nicolas Monmarché,Gilles Venturini,A new clustering algorithm based on the chemical recognition system of ants, ECAI 2002: 345349
+[4] AGRAWAL R, SRIKANT R. Mining sequential patterns A Proc International Conference on Data Engineering [C]. Taipei: Taipei Press, 1995.
+[5] Jiawei Han, Micheline Kamber. The conception and technology of data mining [M].Machine industry press.2001.8.
+
+476
+
+
